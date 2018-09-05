@@ -24,6 +24,6 @@ This command will stop both the front-end app and the Model's API service.
 If you receive an error about duplicate containers, or you just want to get rid of all saved containers:
 `docker rm $(docker ps -aq)`
 
-![Image Segments](./screenshots/segments.png)
+![App UI](./screenshots/app-ui.png)
 
-![Cropping](./screenshots/crop.png)
+![Sample Output](./screenshots/app-output.png)
