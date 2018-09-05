@@ -15,7 +15,8 @@ export default class App extends Component {
       'modelType' : 'mobile',
       'dbType' : DBMode,
       'localFilesExpanded' : false,
-      'savedDocs' : []
+      'savedDocs' : [],
+      'imageLoaded' : false
     }
   }
 
@@ -34,7 +35,6 @@ export default class App extends Component {
 
   generatePouchDocList = () => {
     return this.state.pouchDocs
-    //.map(pouchDoc => <div key={ pouchDoc.id }>{ `${ pouchDoc.id } - ${ Object.keys(pouchDoc.doc._attachments).length - 2 } segments` }</div>)
   }
 
   render() {
@@ -46,6 +46,7 @@ export default class App extends Component {
         />
         <UploadForm 
           modelType={ this.state.modelType }
+          toggleLoadedImage={ imageLoadState => this.setState({ imageLoaded : imageLoadState }) }
         />
         <FileDownload 
           toggleExpand={ () => this.setState({ localFilesExpanded: !this.state.localFilesExpanded }) }

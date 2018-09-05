@@ -1,6 +1,6 @@
 import './CanvasDisplay.css'
 import React, { Component } from 'react'
-import { OBJ_MAP, COLOR_LIST, COLOR_MAP, bulkSaveAttachments, URLto64 } from '../../utils'
+import { OBJ_MAP, COLOR_LIST, COLOR_MAP, bulkSaveAttachments } from '../../utils'
 
 export default class CanvasDisplay extends Component {
   constructor(props) {
@@ -116,7 +116,6 @@ export default class CanvasDisplay extends Component {
   }
 
   getObjLabel = (objType) => {
-    const size = this.props.segData.size
     const pixelMap = this.props.segData.objectPixels
     const objects = Object.keys(pixelMap)
     let labelTail

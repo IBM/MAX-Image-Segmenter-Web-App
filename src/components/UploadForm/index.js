@@ -1,6 +1,6 @@
 import {} from 'dotenv/config'
 import React, { Component } from 'react'
-import { getPrediction, URLto64, parseMAXData } from '../../utils'
+import { getPrediction, parseMAXData } from '../../utils'
 import CanvasDisplay from '../CanvasDisplay'
 
 
@@ -20,6 +20,11 @@ export default class UploadForm extends Component {
 
   receiveUpload = async e => {
     e.preventDefault()
+    
+    // this will (eventually) trigger a state 'reset' to 
+    // prepare for subsequent image uploads
+    this.props.setImageLoadState('false')
+    
     let scaledImage = new Image()
     const fileObj = this.uploadRef.current.files[0]
     const imageURL = window.URL.createObjectURL(fileObj)
@@ -28,7 +33,10 @@ export default class UploadForm extends Component {
     let canvas = this.previewRef.current
     console.log('before load')
       scaledImage.onload = async () => {
-        
+        // similar to above, this lets app know
+        // there is an image 'loaded' in the main display
+        this.props.setImageLoadState('true')
+
         // this can eventually be brought out as an ENV var..
         // but it must match the size of the output from MAX model
         const MAX_SIZE = 513
