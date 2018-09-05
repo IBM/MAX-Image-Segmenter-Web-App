@@ -1,6 +1,6 @@
 import './CanvasDisplay.css'
 import React, { Component } from 'react'
-import { OBJ_MAP, COLOR_LIST, COLOR_MAP, cloudantUpdate, FAKEcloudantUpdate, FAKEcloudantSegments, URLto64, getALLPOUCHDOCS } from '../utils'
+import { OBJ_MAP, COLOR_LIST, COLOR_MAP, bulkSaveAttachments, URLto64 } from '../../utils'
 
 export default class CanvasDisplay extends Component {
   constructor(props) {
@@ -45,14 +45,12 @@ export default class CanvasDisplay extends Component {
           data[i+3] = 0    // alpha
         }
       }
-      // insert colorized pixels into image
       ctx.putImageData(imageData, 0, 0)      
       dataURL = canvas.toDataURL()
       this.props.addNewURL(segmentName, dataURL)
       console.log(`invisible ${segmentName} saved`)
     }
     img.src = this.props.image.url.source
-    //return dataURL
   }
 
   drawSegments = () => {
@@ -91,61 +89,27 @@ export default class CanvasDisplay extends Component {
             data[i+3] = 0    // alpha
           }
         }
-        // after cropped image shown, save it
-
-
       }
-
       // insert colorized pixels into image
       ctx.putImageData(imageData, 0, 0)
-
+      
       // this keeps the canvas from saving infinite 'colorSegment' images
       if (this.state.selectedObject === '' && this.props.image.savedSegments.indexOf('color') === -1) {
-        console.log(`saved segments: ${this.props.image.savedSegments}`)
+        //console.log(`saved segments: ${this.props.image.savedSegments}`)
         try {
           const dataURL = canvas.toDataURL()
           console.log('saving "color" here...')
-          //this.props.addSavedSegment('color')
-          /*
-          const cloudantJSON = await FAKEcloudantUpdate({ 'name' : this.props.image.name, 
-            'base64' : URLto64(dataURL),
-            'segment' : 'color', 'id' : this.props.image.id, 'rev': this.props.image.rev
-          })
-          */
-          //console.log(cloudantJSON)
-          //console.log(`new rev - ${cloudantJSON.rev}`)
           this.props.addSavedSegment('color')
           this.props.addNewURL('color', dataURL)
-          //this.props.setNewRev(cloudantJSON.rev)
-          
-
           const neededSegments = this.props.image.foundSegments.filter( seg => this.props.image.savedSegments.indexOf(seg) < 0)
-          console.log(`needed segs: ${neededSegments}`)
-          
           // new segment function
           for (let seg in neededSegments) {
             this.invisibleSegment(neededSegments[seg])
             console.log(`${neededSegments[seg]}: added?`)
           }
- 
         } catch (e) {
           console.error('error saving color segments in Cloudant.')
         }
-      } else if (this.state.selectedObject && this.props.image.savedSegments.indexOf(this.state.selectedObject) === -1) {
-        /*
-        const dataURL = canvas.toDataURL()
-        console.log(`save ${this.state.selectedObject} here...`)
-        
-        const cloudantJSON = await FAKEcloudantUpdate({ 'name' : this.props.image.name, 
-          'base64' : URLto64(dataURL), 'segment' : this.state.selectedObject, 
-          'id' : this.props.image.id, 'rev': this.props.image.rev
-        })
-        
-        console.log(`new rev - ${cloudantJSON.rev}`)
-        this.props.addSavedSegment(this.state.selectedObject)
-        this.props.addNewURL(this.state.selectedObject, dataURL)
-        this.props.setNewRev(cloudantJSON.rev)
-        */
       }
     }
     img.src = this.props.image.url.source
@@ -179,7 +143,6 @@ export default class CanvasDisplay extends Component {
               'inherit' : Object.keys(COLOR_MAP)[objects.indexOf(objType) - 1] 
         } }
       >
-        {/* `${((pixelMap[objType]/ size.pixels) * 100).toPrecision(2) }% ${objType}${labelTail}` */}
         { `${objType}${labelTail}` }
       </span>
       
@@ -193,14 +156,13 @@ export default class CanvasDisplay extends Component {
   }
 
   bulkUpload = async () => {  
-    const bulkUploadJSON = await FAKEcloudantSegments({ 
+    const bulkUploadJSON = await bulkSaveAttachments({ 
       urls : this.props.image.url, 
       name : this.props.image.name, 
       width: this.props.image.width,
       height : this.props.image.height })
     console.log(`bulk upload fired. id: ${bulkUploadJSON.id}`)
     this.props.bulkComplete()
-    console.log(await getALLPOUCHDOCS())
   }
   
   render() {
@@ -208,6 +170,7 @@ export default class CanvasDisplay extends Component {
     const name = this.props.image.name
     const width = this.props.image.width
     const height = this.props.image.height
+    
     // initiate bulk segment upload - NOW THAT ALL DATA URLS SHOULD BE IN STATE 
     if (Object.keys(this.props.image.url).length === this.props.image.foundSegments.length + 2 && !this.props.bulkStatus) {
       this.bulkUpload()

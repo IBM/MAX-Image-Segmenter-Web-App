@@ -1,7 +1,7 @@
 import {} from 'dotenv/config'
 import React, { Component } from 'react'
-import { FAKEcloudantUpload, cloudantUpload, getPrediction, getCleanData, URLto64 } from '../utils'
-import CanvasDisplay from './CanvasDisplay'
+import { getPrediction, URLto64, parseMAXData } from '../../utils'
+import CanvasDisplay from '../CanvasDisplay'
 
 
 export default class UploadForm extends Component {
@@ -17,21 +17,6 @@ export default class UploadForm extends Component {
       'isLoading' : false
     }
   }
-
-  /* deprecated method of image file reading
-  blobToDataURL(blob) {
-    return new Promise((resolve, reject) => {
-      var a = new FileReader();
-      
-      a.onload = (e) =>{
-        resolve(e.target.result.split(',')[1]);
-      }
-      a.readAsDataURL(blob);
-      if (!blob)
-        reject('error converting to dataURL')
-    })
-  }
-  */
 
   receiveUpload = async e => {
     e.preventDefault()
@@ -77,29 +62,15 @@ export default class UploadForm extends Component {
             }
           }
         })
-        // add an if statement so this gets skipped if no DB is specified
-        try {
-          console.log('saving source here...')
-          //const cloudantJSON = await cloudantUpload(fileObj.name, fileObj.type, URLto64(canvas.toDataURL()))
-          //const cloudantJSON = await FAKEcloudantUpload({ 'name' : fileObj.name, 
-          //'base64' : URLto64(canvas.toDataURL())
-          //})
-          this.setState({
-            'image' : {
-              ...this.state.image,
-              'id' : '',//cloudantJSON.id,
-              'rev' : '',//cloudantJSON.rev,
-              'savedSegments' : ['source']  
-            }
-          })
-          //console.log(cloudantJSON)
-        } catch (e) {
-          console.error('error saving resized source image to Cloudant.')
-          console.error(e)
-        }
+        this.setState({
+          'image' : {
+            ...this.state.image,
+            'savedSegments' : ['source']  
+          }
+        })
         try {
           console.log('sending to MAX...')
-          const cleanJSON = getCleanData(this.state.image.name, await getPrediction(this.props.modelType, fileObj))
+          const cleanJSON = parseMAXData(this.state.image.name, await getPrediction(this.props.modelType, fileObj))
           this.setState({
             'image': {
               ...this.state.image,
@@ -108,7 +79,6 @@ export default class UploadForm extends Component {
             'response' : cleanJSON,
             'isLoading' : false
           })
-          //console.log(`cleanJSON recvd: ${Object.keys(cleanJSON)}`)
         } catch (e) {
           console.error('error getting prediction from MAX Model.')
         }        
@@ -125,19 +95,13 @@ export default class UploadForm extends Component {
       canvasStyle = { 'display' : 'none' }
     }
 
-
     return (
        <div>
         <form method="post" encType="multipart/form-data" onSubmit={ this.receiveUpload }>
           <input ref={ this.uploadRef } type="file" accept="image/*" />
           <input type="submit" value="Upload" />
         </form>
-      
-        
         <canvas style={ previewStyle } ref={ this.previewRef }></canvas>
-        
-        
-
          { this.state.response ? 
           <CanvasDisplay 
             style={ canvasStyle || { 'marginTop': '20px' } }
@@ -147,10 +111,9 @@ export default class UploadForm extends Component {
             addNewURL={ (name, newURL) => this.setState({ image : { ...this.state.image, url : { ...this.state.image.url, [name] : newURL } } }) }
             addSavedSegment={ segment => this.setState({ image : { ...this.state.image, savedSegments : [...this.state.image.savedSegments, segment] } }) } 
             setNewRev={ rev => this.setState({ image : { ...this.state.image, rev: rev } }) }
-            segData={ this.state.response } />
-          : <p />
-         }
-
+            segData={ this.state.response } 
+          /> : <p /> 
+        }
         { this.state.isLoading ? 
           <p>LOADING...</p> : <p /> }
       </div>

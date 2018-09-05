@@ -1,0 +1,25 @@
+footer {
+  margin: 0 .5% .5% .5%;
+}
+.left {
+  float: left;
+  display: inline-block;
+}
+
+.right {
+  float: right;
+  display: inline-block;
+}
+
+.footerContainer {
+  margin-top: 5%;
+  color: lightslategray;
+}
+
+.footerContainer a {
+  color: blue;
+}
+
+.footerContainer a:hover {
+  color: #0bc6c0;
+}
