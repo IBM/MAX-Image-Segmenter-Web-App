@@ -1,0 +1,15 @@
+footer {
+  margin: 0 .5% .5% .5%;
+}
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.main {
+  margin-top: 5%;
+  color: lightslategray;
+}

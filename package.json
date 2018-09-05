@@ -1,0 +1,20 @@
+{
+  "name": "upload-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ibm/plex": "^1.1.6",
+    "axios": "^0.18.0",
+    "dotenv": "^6.0.0",
+    "pouchdb": "^7.0.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

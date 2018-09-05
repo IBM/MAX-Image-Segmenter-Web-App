@@ -1,0 +1,49 @@
+# IBM Cloud Function (OpenWhisk) actions, triggers, and rules
+
+# Deployment using this manifest file creates following OpenWhisk components:
+#   Package:    max-img-segmenter-cf
+#   Action:     update-document-with-max
+#   Trigger:    update-trigger
+#   Rule:       update-trigger-rule
+
+# This manifest file expects following env. variables:
+#   CLOUDANT_IMAGE_DB
+#   CLOUDANT_DATA_DB
+#   CLOUDANT_USER
+#   CLOUDANT_PW
+---
+packages:
+  max-img-segmenter-cf:
+    dependencies:
+      # binding cloudant package named openwhisk-cloudant
+      serverless-pattern-cloudant-package:
+        location: /whisk.system/cloudant
+        inputs:
+          username: $CLOUDANT_USER
+          password: $CLOUDANT_PW
+          host: ${CLOUDANT_USER}.cloudant.com
+    actions:
+      # Action named "update-document-with-max"
+      # Creating action as a regular Node.js action
+      update-document-with-max:
+        function: actions/action.zip
+        runtime: nodejs:8
+        inputs:
+          USERNAME: $CLOUDANT_USER
+          PASSWORD: $CLOUDANT_PW
+          DBNAME: $CLOUDANT_IMAGE_DB
+          DBNAME_PROCESSED: $CLOUDANT_DATA_DB
+          KUBE_IP: $KUBE_NODE_IP
+          KUBE_PORT: $KUBE_NODEPORT
+    triggers:
+      # Creating the update-trigger trigger"
+      update-trigger:
+        feed: serverless-pattern-cloudant-package/changes
+        inputs:
+          dbname: $CLOUDANT_IMAGE_DB
+    rules:
+      # Rule named "update-trigger-rule"
+      # Creating the rule that links the trigger to the sequence
+      update-trigger-rule:
+        trigger: update-trigger
+        action: update-document-with-max

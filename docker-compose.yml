@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+  img-upload-app:
+    container_name: img-upload-app
+    image: kastentx/img-upload-app
+    ports:
+      - '4444:4444'
+    environment:
+      - REACT_APP_CLOUDANT_USER=8a40c7d9-fd98-4c48-a16e-f0a118c13f8b-bluemix
+      - REACT_APP_CLOUDANT_PW=3cc12b7137a16048bea9c4a035e9b5125a8503f87150db0dcba7094367e91b1c
+
+  max-model:
+    container_name: cors-dualmode-imgseg
+    image: kastentx/cors-dualmode-imgseg
+    ports:
+      - '5000:5000'
+    environment:
+      - CORS_ENABLE=true
