@@ -10,12 +10,12 @@ const DBUser = process.env.REACT_APP_CLOUDANT_USER
 const DBPass = process.env.REACT_APP_CLOUDANT_PW
 const cloudantURL = `https://${DBUser}:${DBPass}@${DBUser}.cloudant.com/images`
 let pouchDB
+
 if (!DBUser || !DBPass) {
   pouchDB = new PouchDB('offLine')
  } else {
   pouchDB = new PouchDB(cloudantURL)
 }
-//const CLOUDANT_TEST_DB = 'image-data'
 
 export const OBJ_LIST = ['background', 'airplane', 'bicycle', 'bird', 'boat', 
 'bottle', 'bus', 'car', 'cat', 'chair', 'cow', 'dining_table', 
@@ -38,48 +38,11 @@ export const COLOR_MAP = {
 }
 export const COLOR_LIST = Object.values(COLOR_MAP)
 
-export const FAKEcloudantUpload = uploadData => {  
-  const { name, base64 } = uploadData
-  const id = `${String(Date.now()).substring(6)}-${name.split('.')[0]}`
-  return pouchDB.putAttachment(id, 'source', base64, 'image/png')
+export const getAllDocs = async () => {
+  return await pouchDB.allDocs({ include_docs : 'true' })
 }
 
-export const cloudantUpload = (imageName, imageType, imageData) => {  
-  const cloudDoc = {
-    "_id" : `${Date.now()}-${imageName.split('.')[0]}`,
-    "name" : imageName,
-    "_attachments" : {
-      "image" : {
-        "data" : imageData,
-        "content_type" : imageType
-      }
-    }
-  }
-  return axios.post(
-  `https://${DBUser}:${DBPass}@${DBUser}.cloudant.com/images`,
-  JSON.stringify(cloudDoc),
-  {
-      headers: {
-        'Content-Type' : 'application/json'
-    },
-      auth: {
-        username: DBUser,
-        password: DBPass
-    }
-  })
-}
-
-export const getALLPOUCHDOCS = () => {
-  return pouchDB.allDocs({ include_docs : 'true' })
-}
-
-export const FAKEcloudantUpdate = uploadData => {
-  console.log(`update attachment: ${Object.keys(uploadData)} rev: ${uploadData.rev}`)
-  const { id, segment, rev, base64 } = uploadData
-  return pouchDB.putAttachment(id, segment, rev, base64, 'image/png')
-} 
-
-export const FAKEcloudantSegments = uploadData => {
+export const bulkSaveAttachments = uploadData => {
   console.log(`update attachment: ${Object.keys(uploadData)} rev: ${uploadData.rev}`)
   const { urls, name, width, height } = uploadData
   const id = `${String(Date.now()).substring(6)}-${name.split('.')[0]}`
@@ -101,35 +64,6 @@ export const FAKEcloudantSegments = uploadData => {
     segmentsFound: segmentList,
     _attachments : attachments
   })
-} 
-
-export const cloudantUpdate = uploadData => {
-  const cloudDoc = {
-    "_id" : uploadData.id,
-    "rev" : uploadData.rev,
-    "_attachments" : {
-      [uploadData.segment] : {
-        "data" : uploadData.base64,
-        "content_type" : 'image/png'
-      }
-    }
-  }
-  
-
-  //const cloudData = uploadData.base64
-  console.log(uploadData)
-  return axios.put(
-    `https://${DBUser}:${DBPass}@${DBUser}.cloudant.com/images`,
-    JSON.stringify(cloudDoc),
-    { 
-      headers: {
-        'Content-Type' : 'application/json'
-      },
-      auth: {
-        username: DBUser,
-        password: DBPass
-      }
-    })
 } 
 
 export const getPrediction = (modelType, img) => {
@@ -154,7 +88,7 @@ export const getPrediction = (modelType, img) => {
   })
 }
 
-export const getCleanData = (imgName, response) => {
+export const parseMAXData = (imgName, response) => {
   const size = response.data.image_size
   const flatSegMap = response.data.seg_map.reduce((a, b) => a.concat(b), [])
   const objIDs = [...new Set(flatSegMap)] // eslint-disable-next-line

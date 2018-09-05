@@ -3,7 +3,7 @@ import './Footer.css'
 
 const Footer = () => {
   return (
-    <div className="main">
+    <div className="footerContainer">
       <div>
         <p>
           Start building your own Machine Learning enabled apps with this and other open-souce models at the <a href="https://developer.ibm.com/code/exchanges/models/">Model Asset eXchange.</a>
