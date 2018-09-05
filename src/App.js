@@ -25,13 +25,6 @@ export default class App extends Component {
     })
   }
 
-  getPouch = async () => {
-    if (await getAllDocs() !== this.state.pouchDocs)
-      this.setState({
-        pouchDocs: await getAllDocs()
-    })
-}
-
   handleToggle = () => {
     const modelSelection = this.state.modelType === 'mobile' ? 'full' : 'mobile'
     this.setState({
