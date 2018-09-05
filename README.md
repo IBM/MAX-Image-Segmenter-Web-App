@@ -3,10 +3,10 @@
 ## To Install
 
 First, clone this repo.
-`git clone https://github.com/kastentx/MAX-Image-Segmenter-GUI.git`
+`git clone https://github.com/kastentx/MAX-ImgSeg-Magic-Cropping-Tool.git`
 
 Then, enter the newly created directory for the app.
-`cd MAX-Image-Segmenter-GUI`
+`cd MAX-ImgSeg-Magic-Cropping-Tool`
 
 Finally, build and run the containers with [docker-compose](https://docs.docker.com/compose/).
 `docker-compose up -d --build`
