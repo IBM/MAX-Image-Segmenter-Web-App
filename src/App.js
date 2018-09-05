@@ -46,7 +46,7 @@ export default class App extends Component {
         />
         <UploadForm 
           modelType={ this.state.modelType }
-          toggleLoadedImage={ imageLoadState => this.setState({ imageLoaded : imageLoadState }) }
+          setImageLoadState={ imageLoadState => this.setState({ imageLoaded : imageLoadState }) }
         />
         <FileDownload 
           toggleExpand={ () => this.setState({ localFilesExpanded: !this.state.localFilesExpanded }) }
