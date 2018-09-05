@@ -11,7 +11,7 @@ Then, enter the newly created directory for the app.
 Finally, build and run the containers with [docker-compose](https://docs.docker.com/compose/).
 `docker-compose up -d --build`
 
-Open your browser and navigate to `http://localhost:3000` to see the app, 
+Open your browser and navigate to `http://localhost:4444` to see the app, 
 or `http://localhost:5000` to view the MAX model's API documentation.
 
 ### To Stop
