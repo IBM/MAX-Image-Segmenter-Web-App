@@ -94,13 +94,13 @@ export default class CanvasDisplay extends Component {
       ctx.putImageData(imageData, 0, 0)
       
       // this keeps the canvas from saving infinite 'colorSegment' images
-      if (this.state.selectedObject === '' && this.props.image.savedSegments.indexOf('color') === -1) {
+      if (this.state.selectedObject === '' && this.props.image.savedSegments.indexOf('colormap') === -1) {
         //console.log(`saved segments: ${this.props.image.savedSegments}`)
         try {
           const dataURL = canvas.toDataURL()
-          console.log('saving "color" here...')
-          this.props.addSavedSegment('color')
-          this.props.addNewURL('color', dataURL)
+          console.log('saving "colormap" here...')
+          this.props.addSavedSegment('colormap')
+          this.props.addNewURL('colormap', dataURL)
           const neededSegments = this.props.image.foundSegments.filter( seg => this.props.image.savedSegments.indexOf(seg) < 0)
           // new segment function
           for (let seg in neededSegments) {

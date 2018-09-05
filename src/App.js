@@ -52,7 +52,7 @@ export default class App extends Component {
           toggleExpand={ () => this.setState({ localFilesExpanded: !this.state.localFilesExpanded }) }
           expanded={ this.state.localFilesExpanded }
           dbType={ this.state.dbType }
-          savedDocs={ this.state.savedDocs }
+          savedDocs={ this.state.savedDocs.rows }
         />
         <Footer />
       </div>

@@ -1,4 +1,27 @@
 .fileDownloadContainer {
-  background-color: blue;
-  color: red;
+  color: lightslategray;
+}
+
+.savedDocLabel {
+  color: black;
+  border: 1px solid black;
+  max-width: 25%;
+  margin: auto;
+  background-color: slategray;
+}
+
+.savedDocLabel p {
+  margin: 1%;
+}
+
+.savedDocLabel .fileName {
+  font-size: 1.1em;
+}
+
+.savedDocLabel p:nth-child(2) {
+  text-decoration: underline;
+}
+
+.savedDocLabel p:nth-child(3) {
+  font-size: .8em;
 }

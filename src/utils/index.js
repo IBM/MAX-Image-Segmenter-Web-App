@@ -9,8 +9,8 @@ const DEPLOY_TYPE = process.env.REACT_APP_DEPLOY_TYPE || ''
 const DBUser = process.env.REACT_APP_CLOUDANT_USER
 const DBPass = process.env.REACT_APP_CLOUDANT_PW
 const cloudantURL = `https://${DBUser}:${DBPass}@${DBUser}.cloudant.com/images`
-let pouchDB
 
+let pouchDB
 if (!DBUser || !DBPass) {
   pouchDB = new PouchDB('offLine')
  } else {
@@ -40,6 +40,11 @@ export const COLOR_LIST = Object.values(COLOR_MAP)
 
 export const getAllDocs = async () => {
   return await pouchDB.allDocs({ include_docs : 'true' })
+}
+
+export const getAttachment = (doc, attName) => {
+  console.log(doc.id)
+  return pouchDB.getAttachment(doc.id, attName)
 }
 
 export const bulkSaveAttachments = uploadData => {
@@ -108,5 +113,9 @@ export const parseMAXData = (imgName, response) => {
     'imageName' : imgName
   }
 }
+
+
+// this should be placed in some kind of init function
+// or component lifecycle method
 
 export const URLto64 = dataURL => dataURL.split(',')[1]

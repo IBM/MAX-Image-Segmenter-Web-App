@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { getPrediction, parseMAXData } from '../../utils'
 import CanvasDisplay from '../CanvasDisplay'
 
-
 export default class UploadForm extends Component {
   constructor(props) {
     super(props)
