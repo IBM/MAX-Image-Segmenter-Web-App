@@ -12,6 +12,16 @@
   min-height: 100px;
   width: 198px;
   height: 148px;
+  vertical-align: bottom;
+}
+
+.savedDocLabel + .savedDocLabel {
+  margin-left: 2%;
+  margin-top: 1%; 
+}
+
+.savedDocLabel img {
+  margin: 0;
 }
 
 .savedDocLabel p {

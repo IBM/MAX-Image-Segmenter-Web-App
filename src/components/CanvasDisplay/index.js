@@ -1,6 +1,6 @@
 import './CanvasDisplay.css'
 import React, { Component } from 'react'
-import { OBJ_MAP, COLOR_LIST, COLOR_MAP, bulkSaveAttachments } from '../../utils'
+import { OBJ_MAP, getColor, COLOR_MAP, bulkSaveAttachments } from '../../utils'
 
 export default class CanvasDisplay extends Component {
   constructor(props) {
@@ -72,7 +72,7 @@ export default class CanvasDisplay extends Component {
           const segMapPixel = flatSegMap[i / 4]
           let objColor = [0, 0, 0]
           if (segMapPixel) {
-            objColor = COLOR_LIST[this.props.segData.objectIDs.indexOf(segMapPixel) - 1]
+            objColor = getColor(this.props.segData.objectIDs.indexOf(segMapPixel))
             // apply appropriate color
             data[i]   = objColor[0]  // red channel
             data[i+1] = objColor[1]  // green channel

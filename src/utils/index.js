@@ -38,6 +38,10 @@ export const COLOR_MAP = {
 }
 export const COLOR_LIST = Object.values(COLOR_MAP)
 
+export const getColor = pixel => {
+  return COLOR_LIST[pixel - 1]
+}
+
 export const getAllDocs = () => {
   return pouchDB.allDocs({ include_docs : 'true', attachments: 'true' })
 }
@@ -52,11 +56,14 @@ export const cleanDocs = docs => {
         segName =>  ({ 
           name : segName,
           hasData : doc.doc._attachments[segName] && true,
-          url: (`data:image/png;base64,${doc.doc._attachments[segName].data}`)
+          base64: doc.doc._attachments[segName].data
           }
       ))
     }))
 }
+
+export const base64toURL = base64 => `data:image/png;base64,${base64}`
+export const URLto64 = dataURL => dataURL.split(',')[1]
 
 export const bulkSaveAttachments = uploadData => {
   console.log(`update attachment: ${Object.keys(uploadData)} rev: ${uploadData.rev}`)
@@ -124,9 +131,3 @@ export const parseMAXData = (imgName, response) => {
     'imageName' : imgName
   }
 }
-
-
-// this should be placed in some kind of init function
-// or component lifecycle method
-
-export const URLto64 = dataURL => dataURL.split(',')[1]
