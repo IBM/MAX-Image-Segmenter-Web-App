@@ -5,7 +5,7 @@ import UploadForm from './components/UploadForm'
 import AppHeader from './components/AppHeader'
 import FileDownload from './components/FileDownload'
 import Footer from './components/Footer'
-import { getAllDocs } from './utils';
+import { getAllDocs, cleanDocs } from './utils';
 
 export default class App extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export default class App extends Component {
 
   componentDidMount = async () => {
     this.setState({
-      savedDocs : (await getAllDocs()).rows.map(doc=>doc.doc)
+      savedDocs : cleanDocs(await getAllDocs())
     })
   }
 

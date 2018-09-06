@@ -11,7 +11,7 @@ const FileDownload = props => {
           + Click here to view locally stored files in PouchDB.
         </p>
         { 
-          props.expanded ? JSON.stringify(props.savedDocs) : <p />
+          props.expanded ? generateDocComponent(props.savedDocs) : <p />
         }
       </div>
     )
@@ -25,22 +25,32 @@ const getPictureFromDoc = doc => {
   return getAttachmentURL(doc.id, 'source')
 } 
 
-const generateDocComponent = async doc => {
-  const blob = await getAttachmentURL(doc.id, 'source')
-  return (
-    <div key={doc.id} className="savedDocLabel">
+const generateDocComponent = docs => {
+  //const blob = await getAttachmentURL(doc.id, 'source')
+  return docs.map(
+    doc => (
+      <div key={doc.id} className="savedDocLabel">
       <p className="fileName">{doc.id}</p> 
-      <img src={ `http://www.com` } alt={ doc.id }/>
-      <p>{ Object.keys(doc.doc._attachments).length } segments: </p>
-      <p>{ Object.keys(doc.doc._attachments).join(', ') }</p>
-      <div onClick={async () => console.log(`${JSON.stringify(Object.keys(doc.doc._attachments))}`)}>Click to Download</div>
-    </div>)
+        <img src={ doc.segments[0].url } alt={ doc.id }/>
+        <p>{ doc.segments.length } segments: </p>
+        <p>{ doc.segments.map(seg=>seg.name).join(', ') }</p>
+        <div onClick={async () => console.log(`${JSON.stringify(Object.keys(doc.segments))}`)}>Click to Download</div>
+      </div>
+    )
+  )
 }
 
-const parseSavedDocs = docs => {
-  return (
-    docs.map(doc => generateDocComponent(doc)) || []
-  )
+const parseSavedDocs = docs => { 
+ return docs.map(
+   doc=> ({
+    name: doc._id, 
+    segments: Object.keys(doc._attachments).map(
+      segName => ({ 
+        name: segName,
+        hasData : doc._attachments[segName] && true,
+        url: (`data:image/png;base64,${doc._attachments[segName].data}`)
+      }))
+  }))
 }
 
 export default FileDownload
