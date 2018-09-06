@@ -1,7 +1,8 @@
 import './FileDownload.css'
 import React from 'react'
-import { getAttachmentURL } from '../../utils'
-
+import { saveAs } from 'file-saver/FileSaver'
+import b64toBlob  from 'b64-to-blob'
+ 
 const FileDownload = props => {
     return (
       <div className="fileDownloadContainer" 
@@ -11,46 +12,46 @@ const FileDownload = props => {
           + Click here to view locally stored files in PouchDB.
         </p>
         { 
-          props.expanded ? generateDocComponent(props.savedDocs) : <p />
+          props.expanded ? 
+          generateDocComponent(props.savedDocs) 
+            : 
+          <p />
         }
       </div>
     )
 }
 
-const getPictureFromDoc = doc => {
+const downloadImage = doc => {
   // get the base64 from getAttachment (pouchDB lib)
   // use that.. modified how we need to get a src we can use
   //  - as a reference, look at how we did it in initial canvas
-  
-  return getAttachmentURL(doc.id, 'source')
+  console.log(`downloading image!`)
+
 } 
 
 const generateDocComponent = docs => {
-  //const blob = await getAttachmentURL(doc.id, 'source')
   return docs.map(
     doc => (
       <div key={doc.id} className="savedDocLabel">
-      <p className="fileName">{doc.id}</p> 
-        <img src={ doc.segments[0].url } alt={ doc.id }/>
-        <p>{ doc.segments.length } segments: </p>
-        <p>{ doc.segments.map(seg=>seg.name).join(', ') }</p>
-        <div onClick={async () => console.log(`${JSON.stringify(Object.keys(doc.segments))}`)}>Click to Download</div>
+        <p className="fileName">
+          {doc.id.split('-')[1]}
+        </p>
+        <img
+          src={ doc.segments[0].url } 
+          alt={ doc.id } 
+          onClick={ () => saveAs(b64toBlob(doc.segments[0].url.split(',')[1], 'image/png'), 'sampleSource.png') }
+        />
+        <p className="segCount">{ doc.segments.length } 
+          segments: 
+        </p>
+        { 
+          <p className="segList">
+            { doc.segments.map(seg=>seg.name).join(', ') }
+          </p> 
+        } 
       </div>
     )
   )
-}
-
-const parseSavedDocs = docs => { 
- return docs.map(
-   doc=> ({
-    name: doc._id, 
-    segments: Object.keys(doc._attachments).map(
-      segName => ({ 
-        name: segName,
-        hasData : doc._attachments[segName] && true,
-        url: (`data:image/png;base64,${doc._attachments[segName].data}`)
-      }))
-  }))
 }
 
 export default FileDownload

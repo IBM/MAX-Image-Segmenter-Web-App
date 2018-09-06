@@ -5,23 +5,28 @@
 .savedDocLabel {
   color: black;
   border: 1px solid black;
-  max-width: 25%;
-  margin: auto;
+  margin: 0 auto 0 auto;
   background-color: slategray;
+  display: inline-block;
+  min-width: 150px;
+  min-height: 100px;
+  width: 198px;
+  height: 148px;
 }
 
 .savedDocLabel p {
   margin: 1%;
 }
 
-.savedDocLabel .fileName {
+.fileName {
   font-size: 1.1em;
-}
-
-.savedDocLabel p:nth-child(2) {
   text-decoration: underline;
 }
 
-.savedDocLabel p:nth-child(3) {
-  font-size: .8em;
+.segCount {
+  font-weight: bold;
+}
+
+.segList {
+  font-size: .5em;
 }

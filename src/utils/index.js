@@ -42,12 +42,6 @@ export const getAllDocs = () => {
   return pouchDB.allDocs({ include_docs : 'true', attachments: 'true' })
 }
 
-export const getAttachmentURL = async (docID, attName) => {
-  console.log(docID)
-  const URLCreator = window.URL || window.webkitURL
-  return URLCreator.createObjectURL(await pouchDB.getAttachment(docID, attName))
-}
-
 export const cleanDocs = docs => {
   return docs.rows.map(
     doc=> ({
@@ -57,8 +51,8 @@ export const cleanDocs = docs => {
       segments: Object.keys(doc.doc._attachments).map(
         segName =>  ({ 
           name : segName,
-            hasData : doc.doc._attachments[segName] && true,
-            url: (`data:image/png;base64,${doc.doc._attachments[segName].data}`)
+          hasData : doc.doc._attachments[segName] && true,
+          url: (`data:image/png;base64,${doc.doc._attachments[segName].data}`)
           }
       ))
     }))
