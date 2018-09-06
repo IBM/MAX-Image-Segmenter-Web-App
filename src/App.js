@@ -22,7 +22,7 @@ export default class App extends Component {
 
   componentDidMount = async () => {
     this.setState({
-      savedDocs : await getAllDocs()
+      savedDocs : (await getAllDocs()).rows.map(doc=>doc.doc)
     })
   }
 
@@ -52,7 +52,7 @@ export default class App extends Component {
           toggleExpand={ () => this.setState({ localFilesExpanded: !this.state.localFilesExpanded }) }
           expanded={ this.state.localFilesExpanded }
           dbType={ this.state.dbType }
-          savedDocs={ this.state.savedDocs.rows }
+          savedDocs={ this.state.savedDocs }
         />
         <Footer />
       </div>

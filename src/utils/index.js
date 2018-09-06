@@ -38,13 +38,14 @@ export const COLOR_MAP = {
 }
 export const COLOR_LIST = Object.values(COLOR_MAP)
 
-export const getAllDocs = async () => {
-  return await pouchDB.allDocs({ include_docs : 'true' })
+export const getAllDocs = () => {
+  return pouchDB.allDocs({ include_docs : 'true' })
 }
 
-export const getAttachment = (doc, attName) => {
-  console.log(doc.id)
-  return pouchDB.getAttachment(doc.id, attName)
+export const getAttachmentURL = async (docID, attName) => {
+  console.log(docID)
+  const URLCreator = window.URL || window.webkitURL
+  return URLCreator.createObjectURL(await pouchDB.getAttachment(docID, attName))
 }
 
 export const bulkSaveAttachments = uploadData => {
