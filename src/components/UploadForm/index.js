@@ -2,19 +2,22 @@ import {} from 'dotenv/config'
 import React, { Component } from 'react'
 import { getPrediction, parseMAXData } from '../../utils'
 import CanvasDisplay from '../CanvasDisplay'
+import TextOutput from '../TextOutput';
+
+const initialState = {
+  'image' : {
+    'blank': true
+  },
+  'response' : '', 
+  'isLoading' : false
+}
 
 export default class UploadForm extends Component {
   constructor(props) {
     super(props)
     this.uploadRef = React.createRef()
     this.previewRef = React.createRef()
-    this.state = {
-      'image' : {
-        'blank': true
-      },
-      'response' : '', 
-      'isLoading' : false
-    }
+    this.state = initialState
   }
 
   receiveUpload = async e => {
@@ -89,6 +92,8 @@ export default class UploadForm extends Component {
         } catch (e) {
           console.error('error getting prediction from MAX Model.')
         }        
+        this.props.resetApp()
+
     }
       scaledImage.src = imageURL
   }
@@ -109,17 +114,21 @@ export default class UploadForm extends Component {
           <input type="submit" value="Upload" />
         </form>
         <canvas style={ previewStyle } ref={ this.previewRef }></canvas>
-         { this.state.response ? 
-          <CanvasDisplay 
-            style={ canvasStyle || { 'marginTop': '20px' } }
-            image={ this.state.image }
-            bulkStatus={ this.state.bulkComplete }
-            bulkComplete={ () => this.setState({bulkComplete: true})}
-            addNewURL={ (name, newURL) => this.setState({ image : { ...this.state.image, url : { ...this.state.image.url, [name] : newURL } } }) }
-            addSavedSegment={ segment => this.setState({ image : { ...this.state.image, savedSegments : [...this.state.image.savedSegments, segment] } }) } 
-            setNewRev={ rev => this.setState({ image : { ...this.state.image, rev: rev } }) }
-            segData={ this.state.response } 
-          /> : <p /> 
+        { 
+          this.state.response ? 
+            <div>
+              <CanvasDisplay 
+                style={ canvasStyle || { 'marginTop': '20px' } }
+                image={ this.state.image }
+                bulkStatus={ this.state.bulkComplete }
+                bulkComplete={ () => this.setState({ bulkComplete: true }) }
+                addNewURL={ (name, newURL) => this.setState({ image : { ...this.state.image, url : { ...this.state.image.url, [name] : newURL } } }) }
+                addSavedSegment={ segment => this.setState({ image : { ...this.state.image, savedSegments : [...this.state.image.savedSegments, segment] } }) } 
+                setNewRev={ rev => this.setState({ image : { ...this.state.image, rev: rev } }) }
+                segData={ this.state.response } 
+              />
+            </div> 
+          : <p/>
         }
         { this.state.isLoading ? 
           <p>LOADING...</p> : <p /> }

@@ -40,3 +40,21 @@
 .segList {
   font-size: .5em;
 }
+
+.openLabel {
+  color: black;
+}
+
+.downloadLabel {
+  color: black;
+}
+
+.deleteLabel {
+  color: black;
+  background-color: red;
+  font-size: .9em;
+  padding: .25%;
+  border-radius: 10px;
+  display: inline-block;
+}
+

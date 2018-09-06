@@ -9,12 +9,12 @@ const DEPLOY_TYPE = process.env.REACT_APP_DEPLOY_TYPE || ''
 const DBUser = process.env.REACT_APP_CLOUDANT_USER
 const DBPass = process.env.REACT_APP_CLOUDANT_PW
 const cloudantURL = `https://${DBUser}:${DBPass}@${DBUser}.cloudant.com/images`
-
 let pouchDB
-if (!DBUser || !DBPass) {
-  pouchDB = new PouchDB('offLine')
- } else {
-  pouchDB = new PouchDB(cloudantURL)
+
+
+export const DBMode = process.env.REACT_APP_CLOUDANT_USER && process.env.REACT_APP_CLOUDANT_PW ? 'remote' : 'local'
+export const deleteLocalImages = async () => {
+  return pouchDB.destroy()
 }
 
 export const OBJ_LIST = ['background', 'airplane', 'bicycle', 'bird', 'boat', 
@@ -43,13 +43,21 @@ export const getColor = pixel => {
 }
 
 export const getAllDocs = () => {
+  if (!DBUser || !DBPass) {
+    pouchDB = new PouchDB('offLine', { auto_compaction: true })
+   } else {
+    pouchDB = new PouchDB(cloudantURL)
+  }
+  
   return pouchDB.allDocs({ include_docs : 'true', attachments: 'true' })
 }
 
 export const cleanDocs = docs => {
+  console.log(docs)
   return docs.rows.map(
     doc=> ({
-      id: doc.doc._id, 
+      id: doc.doc._id,
+      rev: doc.value.rev,
       width: doc.doc.width,
       height: doc.doc.height,
       segments: Object.keys(doc.doc._attachments).map(

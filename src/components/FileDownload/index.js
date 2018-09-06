@@ -2,25 +2,51 @@ import './FileDownload.css'
 import React from 'react'
 import { saveAs } from 'file-saver/FileSaver'
 import b64toBlob  from 'b64-to-blob'
-import JSZip from 'jszip'
-import { base64toURL } from '../../utils';
+import { base64toURL, deleteLocalImages } from '../../utils';
  
 const FileDownload = props => {
     return (
       <div className="fileDownloadContainer" 
         onClick={ props.toggleExpand } 
       >
-        <p>
-          + Click here to view locally stored files in PouchDB.
-        </p>
-        { 
-          props.expanded ? 
-          generateDocComponent(props.savedDocs) 
+        { getToggleText(props) }
+        { props.expanded ? 
+          <div>
+            { generateDocComponent(props.savedDocs) }
+          </div>
             : 
-          <p />
+          <p /> 
         }
       </div>
     )
+}
+
+const getToggleText = props => {
+  let label = (
+    <p className="openLabel">
+      { `+ Click here to view locally stored files in PouchDB.` }
+    </p>
+  )
+  if (props.expanded) {
+    label = (
+      <div>
+        <p className="closeLabel">
+          { `- Click here to collapse locally stored files in PouchDB.` }
+        </p>
+        <p 
+          className="deleteLabel"
+          onClick={ () => deleteLocalImages() }
+        >
+          { `Click HERE to clear all images from local storage.` }
+        </p>
+        <p className="downloadLabel">
+          { `Click on an image thumbnail to download each segment as `
+            + `individual image files.` }
+        </p>
+      </div>
+    )
+  }
+  return label
 }
 
 const generateDocComponent = docs => {

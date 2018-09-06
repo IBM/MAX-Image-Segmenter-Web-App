@@ -1,23 +1,27 @@
 import './App.css'
-import {} from 'dotenv/config'
 import React, { Component } from 'react'
 import UploadForm from './components/UploadForm'
 import AppHeader from './components/AppHeader'
 import FileDownload from './components/FileDownload'
 import Footer from './components/Footer'
-import { getAllDocs, cleanDocs } from './utils';
+import { DBMode, getAllDocs, cleanDocs } from './utils';
+
+const initialState = {
+  'modelType' : 'mobile',
+  'dbType' : DBMode,
+  'localFilesExpanded' : false,
+  'savedDocs' : [],
+  'imageLoaded' : false
+}
 
 export default class App extends Component {
   constructor(props) {
     super(props)
-    let DBMode = process.env.REACT_APP_CLOUDANT_USER && process.env.REACT_APP_CLOUDANT_PW ? 'remote' : 'local'
-    this.state = {
-      'modelType' : 'mobile',
-      'dbType' : DBMode,
-      'localFilesExpanded' : false,
-      'savedDocs' : [],
-      'imageLoaded' : false
-    }
+    this.state = initialState
+  }
+
+  reset() {
+    this.setState(initialState)
   }
 
   componentDidMount = async () => {
@@ -41,18 +45,24 @@ export default class App extends Component {
     return (
       <div className="App">
         <AppHeader 
-          toggleFunc={ () => this.handleToggle() }
           modelType={ this.state.modelType }  
+          toggleFunc={ () => this.handleToggle() }
         />
         <UploadForm 
           modelType={ this.state.modelType }
-          setImageLoadState={ imageLoadState => this.setState({ imageLoaded : imageLoadState }) }
+          setImageLoadState={ imageLoadState => this.setState({ imageLoaded : imageLoadState, localFilesExpanded: false }) }
+          resetApp={ () => this.reset() }
         />
         <FileDownload 
-          toggleExpand={ () => this.setState({ localFilesExpanded: !this.state.localFilesExpanded }) }
           expanded={ this.state.localFilesExpanded }
           dbType={ this.state.dbType }
           savedDocs={ this.state.savedDocs }
+          toggleExpand={ async () => 
+            this.setState({ 
+              localFilesExpanded: !this.state.localFilesExpanded, 
+              savedDocs: cleanDocs(await getAllDocs()) 
+            }) 
+          }
         />
         <Footer />
       </div>

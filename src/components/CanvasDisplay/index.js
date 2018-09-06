@@ -1,6 +1,7 @@
 import './CanvasDisplay.css'
 import React, { Component } from 'react'
-import { OBJ_MAP, getColor, COLOR_MAP, bulkSaveAttachments } from '../../utils'
+import TextOutput from '../TextOutput'
+import { OBJ_MAP, getColor, bulkSaveAttachments } from '../../utils'
 
 export default class CanvasDisplay extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ export default class CanvasDisplay extends Component {
     this.textRef = React.createRef()
     this.editorRef = React.createRef()
     this.state = {
-      'selectedObject' : '' 
+      'selectedObject' : 'colormap' 
     }
   }
 
@@ -67,7 +68,7 @@ export default class CanvasDisplay extends Component {
       ctx.drawImage(img, 0, 0, img.width, img.height)
       const imageData = ctx.getImageData(0, 0, img.width, img.height)
       const data = imageData.data
-      if (this.state.selectedObject === '') {
+      if (this.state.selectedObject === 'colormap') {
         for (let i = 0; i < data.length; i += 4) {
           const segMapPixel = flatSegMap[i / 4]
           let objColor = [0, 0, 0]
@@ -94,7 +95,7 @@ export default class CanvasDisplay extends Component {
       ctx.putImageData(imageData, 0, 0)
       
       // this keeps the canvas from saving infinite 'colorSegment' images
-      if (this.state.selectedObject === '' && this.props.image.savedSegments.indexOf('colormap') === -1) {
+      if (this.state.selectedObject === 'colormap' && this.props.image.savedSegments.indexOf('colormap') === -1) {
         //console.log(`saved segments: ${this.props.image.savedSegments}`)
         try {
           const dataURL = canvas.toDataURL()
@@ -115,40 +116,7 @@ export default class CanvasDisplay extends Component {
     img.src = this.props.image.url.source
   }
 
-  getObjLabel = (objType) => {
-    const pixelMap = this.props.segData.objectPixels
-    const objects = Object.keys(pixelMap)
-    let labelTail
-    objects.indexOf(objType) !== objects.length-1 ? labelTail = `, ` : labelTail = ``
-    
-    return (
-    <span 
-      key={ objType }  
-      onClick={ () => this.selectObject(objType) }
-      style={ {
-        'fontSize' : '1.3em',
-        'display' : 'inline-block',
-        'cursor' : 'pointer'
-      } }
-    >
-      <span
-        className='objLabel'
-        style={ { 
-          'marginLeft' : '5px',
-          'display' : 'inline-block',
-          'textDecoration' : 'underline', 
-          'color' : 
-            objType === 'background' ? 
-              'inherit' : Object.keys(COLOR_MAP)[objects.indexOf(objType) - 1] 
-        } }
-      >
-        { `${objType}${labelTail}` }
-      </span>
-      
-    </span>)
-  }
-
-  selectObject = objType => {
+  setSelectedObject = objType => {
     this.setState({
       'selectedObject' : objType
     })
@@ -164,12 +132,7 @@ export default class CanvasDisplay extends Component {
     this.props.bulkComplete()
   }
   
-  render() {
-    const pixelMap = this.props.segData.objectPixels
-    const name = this.props.image.name
-    const width = this.props.image.width
-    const height = this.props.image.height
-    
+  render() {    
     // initiate bulk segment upload - NOW THAT ALL DATA URLS SHOULD BE IN STATE 
     if (Object.keys(this.props.image.url).length === this.props.image.foundSegments.length + 2 && !this.props.bulkStatus) {
       this.bulkUpload()
@@ -177,23 +140,14 @@ export default class CanvasDisplay extends Component {
 
     return (
       <div>
-        <canvas className="mainDisplay" ref={ this.canvasRef } width={ width } height={ height }></canvas>
-        { this.props.segData ? 
-        <div>
-          <div className='textBox' ref={ this.textRef }>
-          <p>
-            {`Resized '${ name }' to ${ width }x${ height } and identified ${ this.props.image.foundSegments.length } object segments.`}
-          </p>
-          <p>
-            { `Select from the following to labels to view the  ` }
-            <b className='maxLabel' onClick={ () => this.selectObject('') }>
-              full Image Segmenter color map
-            </b> 
-            {` or the objects:`}{Object.keys(pixelMap).map(objType => this.getObjLabel(objType)) }.
-          </p>
-          </div>
-        </div> : <p /> }
-        <canvas style = {{ 'display' : 'none' }} ref={ this.editorRef } width={ width } height={ height }></canvas>
+        <canvas className="mainDisplay" ref={ this.canvasRef } width={ this.props.image.width } height={ this.props.image.height }></canvas>
+        <canvas style = {{ 'display' : 'none' }} ref={ this.editorRef } width={ this.props.image.width } height={ this.props.image.height }></canvas>
+        <TextOutput 
+          style={ this.props.style }
+          segData={ this.props.segData }
+          image={ this.props.image }
+          selectObject={ this.setSelectedObject }
+        />
       </div>
     )
   }
