@@ -13,6 +13,7 @@
   width: 198px;
   height: 148px;
   vertical-align: bottom;
+  cursor: pointer;
 }
 
 .savedDocLabel + .savedDocLabel {
@@ -43,6 +44,11 @@
 
 .openLabel {
   color: black;
+  cursor: pointer;
+}
+
+.closeLabel {
+  cursor: pointer;
 }
 
 .downloadLabel {
@@ -56,5 +62,6 @@
   padding: .25%;
   border-radius: 10px;
   display: inline-block;
+  cursor: pointer;
 }
 

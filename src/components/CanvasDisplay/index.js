@@ -1,8 +1,7 @@
 import './CanvasDisplay.css'
 import React, { Component } from 'react'
-import TextOutput from '../TextOutput'
 import { OBJ_MAP, getColor, bulkSaveAttachments } from '../../utils'
-
+import TextOutput from '../TextOutput'
 export default class CanvasDisplay extends Component {
   constructor(props) {
     super(props)

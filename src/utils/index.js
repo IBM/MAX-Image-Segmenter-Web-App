@@ -13,7 +13,8 @@ let pouchDB
 
 
 export const DBMode = process.env.REACT_APP_CLOUDANT_USER && process.env.REACT_APP_CLOUDANT_PW ? 'remote' : 'local'
-export const deleteLocalImages = async () => {
+export const deleteLocalImages = async expandFunc => {
+  expandFunc()
   return pouchDB.destroy()
 }
 

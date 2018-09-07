@@ -2,7 +2,6 @@ import {} from 'dotenv/config'
 import React, { Component } from 'react'
 import { getPrediction, parseMAXData } from '../../utils'
 import CanvasDisplay from '../CanvasDisplay'
-import TextOutput from '../TextOutput';
 
 const initialState = {
   'image' : {

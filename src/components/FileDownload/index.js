@@ -6,9 +6,7 @@ import { base64toURL, deleteLocalImages } from '../../utils';
  
 const FileDownload = props => {
     return (
-      <div className="fileDownloadContainer" 
-        onClick={ props.toggleExpand } 
-      >
+      <div className="fileDownloadContainer" >
         { getToggleText(props) }
         { props.expanded ? 
           <div>
@@ -22,25 +20,26 @@ const FileDownload = props => {
 }
 
 const getToggleText = props => {
+  
   let label = (
-    <p className="openLabel">
+    <p className="openLabel" onClick={ props.toggleExpand }>
       { `+ Click here to view locally stored files in PouchDB.` }
     </p>
   )
   if (props.expanded) {
     label = (
       <div>
-        <p className="closeLabel">
+        <p className="closeLabel" onClick={ props.toggleExpand }>
           { `- Click here to collapse locally stored files in PouchDB.` }
         </p>
         <p 
           className="deleteLabel"
-          onClick={ () => deleteLocalImages() }
+          onClick={ () => deleteLocalImages(props.toggleExpand) }
         >
           { `Click HERE to clear all images from local storage.` }
         </p>
         <p className="downloadLabel">
-          { `Click on an image thumbnail to download each segment as `
+          { `Click on a saved image to download each of its segments as `
             + `individual image files.` }
         </p>
       </div>

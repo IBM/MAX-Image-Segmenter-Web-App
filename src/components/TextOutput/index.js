@@ -6,7 +6,7 @@ const TextOutput = props => {
     <div style={ { display: props.display } }>
       <div className='textBox'>
       <p>
-        {`Resized '${ props.name }' to ${ props.width }x${ props.height } and identified ${ props.segCount } object segments.`}
+        {`Resized '${ props.image.name }' to ${ props.image.width }x${ props.image.height } and identified ${ props.segCount } object segments.`}
       </p>
       <p>
         { `Select from the following to labels to view the  ` }
@@ -24,7 +24,7 @@ const getObjLabel = (props, objType) => {
   const pixelMap = props.segData.objectPixels 
   const objects = Object.keys(pixelMap)
   let labelTail
-  objects.indexOf(objType) !== objects.length-1 ? labelTail = `, ` : labelTail = ``
+  objects.indexOf(objType) !== objects.length - 1 ? labelTail = `, ` : labelTail = ``
 
   return (
   <span 
