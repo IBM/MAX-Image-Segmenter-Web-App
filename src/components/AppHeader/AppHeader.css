@@ -38,7 +38,7 @@
 }
 
 input:checked + .slider {
-  background-color: cornflowerblue;
+  background-color: #2196F3;
 }
 
 input:focus + .slider {

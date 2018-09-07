@@ -6,16 +6,38 @@
   display: none;
 }
 
+form {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
 form span.formBtn {
-  background-color: #26A8A2;
+  background-color: #0bc6c0;
   cursor: pointer;
   float: left;
-  border-color: #32A8A3;
+  border-color: #5FBFBB;
 }
 
 .formBtn:hover {
-  background-color: #1E8B87;
-  border-color: #1E8B87;
+  background-color: #26A8A2;
+  border-color: #26A8A2;
 }
 
 label.submitLabel {
@@ -23,16 +45,14 @@ label.submitLabel {
 }
 
 label.pickerLabel {
-  margin-right: 52%;
+  margin-left: 5%;
 }
 
 .uploadForm {
   margin: 0 auto 0 auto;
   max-width: 450px;
-  text-align: right;
 }
 
 .uploadForm h3 {
   margin: 0 0 2% 0;
-  text-align: center;
 }

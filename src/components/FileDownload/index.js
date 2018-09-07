@@ -9,8 +9,21 @@ const FileDownload = props => {
       <div className="fileDownloadContainer" >
         { getToggleText(props) }
         { props.expanded ? 
-          <div>
+          <div className="imageGallery">
             { generateDocComponent(props.savedDocs) }
+            <div className="panel panel-default deleteBox">
+              <div className="panel-heading">
+              <p>
+                { `Click the button below to ERASE all images from local storage.` }
+              </p>
+              </div>
+              <button 
+                className="btn btn-danger"
+                onClick={ () => deleteLocalImages(props.toggleExpand) }
+              >
+                Delete Saved Images
+              </button>
+            </div>
           </div>
             : 
           <p /> 
@@ -23,20 +36,14 @@ const getToggleText = props => {
   
   let label = (
     <p className="openLabel" onClick={ props.toggleExpand }>
-      { `+ Click here to view locally stored files in PouchDB.` }
+      { `+ Click here to view locally stored images in PouchDB.` }
     </p>
   )
   if (props.expanded) {
     label = (
       <div>
         <p className="closeLabel" onClick={ props.toggleExpand }>
-          { `- Click here to collapse locally stored files in PouchDB.` }
-        </p>
-        <p 
-          className="deleteLabel"
-          onClick={ () => deleteLocalImages(props.toggleExpand) }
-        >
-          { `Click HERE to clear all images from local storage.` }
+          { `- Click here to hide locally stored images.` }
         </p>
         <p className="downloadLabel">
           { `Click on a saved image to download each of its segments as `
@@ -52,21 +59,19 @@ const generateDocComponent = docs => {
   return docs.map(
     doc => (
       <div key={doc.id} className="savedDocLabel">
-        <p className="fileName">
-          {doc.id.split('-')[1]}
-        </p>
         <img
           src={ base64toURL(doc.segments[0].base64) } 
           alt={ doc.id } 
           onClick={ () => downloadSegments(doc.id.split('-')[1], doc.segments) }
         />
-        <p className="segCount">{ doc.segments.length } 
-         {` segments:` }
+        <p className="fileName">
+          {`${ doc.id.split('-')[1] }`/*: ${ doc.segments.length } segments`*/ }
         </p>
-        { 
+        { /*
           <p className="segList">
             { doc.segments.map(seg=>seg.name).join(', ') }
-          </p> 
+          </p>
+          */ 
         } 
       </div>
     )

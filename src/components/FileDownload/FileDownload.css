@@ -4,37 +4,30 @@
 
 .savedDocLabel {
   color: black;
-  border: 1px solid black;
-  margin: 0 auto 0 auto;
-  background-color: slategray;
-  display: inline-block;
-  min-width: 150px;
-  min-height: 100px;
+  background-color: #0bc6c0;
   width: 198px;
-  height: 148px;
-  vertical-align: bottom;
+  height: 168px;
+  padding: 1%;
+  margin: 0 auto 10px auto;
+  border-radius: 6px;
+  display: flex;
   cursor: pointer;
+  overflow: hidden;
+  flex-flow: column;
 }
 
-.savedDocLabel + .savedDocLabel {
-  margin-left: 2%;
-  margin-top: 1%; 
-}
-
-.savedDocLabel img {
+.savedDocLabel > * {
   margin: 0;
 }
 
-.savedDocLabel p {
-  margin: 1%;
+.savedDocLabel > img {
+  max-height: 85%;
+  width: auto;
+  margin: 0 auto 0 auto;
 }
 
 .fileName {
   font-size: 1.1em;
-  text-decoration: underline;
-}
-
-.segCount {
   font-weight: bold;
 }
 
@@ -51,17 +44,25 @@
   cursor: pointer;
 }
 
-.downloadLabel {
+.deleteBox {
   color: black;
-}
-
-.deleteLabel {
-  color: black;
-  background-color: red;
   font-size: .9em;
-  padding: .25%;
   border-radius: 10px;
-  display: inline-block;
-  cursor: pointer;
+  margin: auto;
 }
 
+.deleteBox > button {
+  margin: 1% 0 1% 0;
+}
+
+.deleteBox > div > p {
+  margin: 0;
+}
+
+.imageGallery {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  margin: 0 auto -10px;
+  max-width: 70%;
+}

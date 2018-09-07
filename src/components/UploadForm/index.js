@@ -111,17 +111,19 @@ export default class UploadForm extends Component {
     return (
        <div>
          <div className="uploadForm panel panel-default">
-          <h3 className="panel-heading">Upload an image to be processed:</h3>      
-          <form method="post" encType="multipart/form-data" onSubmit={ this.receiveUpload }>
-            <label className="pickerLabel" htmlFor="filePicker">
-              <span className="btn btn-primary formBtn filePickerBtn">Choose File</span>
-            </label>
-            <input id="filePicker" ref={ this.uploadRef } type="file" accept="image/*" />
-            <label className="submitLabel" htmlFor="submitter">
-              <span className="btn btn-primary formBtn submitBtn">Submit</span>
-            </label>
-            <input id="submitter" type="submit" value="Upload" />
-          </form>
+          <h3 className="panel-heading">Upload an image to be processed:</h3>  
+          <div className="formWrapper">
+            <form method="post" encType="multipart/form-data" onSubmit={ this.receiveUpload }>
+              <label className="pickerLabel" htmlFor="filePicker">
+                <span className="btn btn-primary formBtn filePickerBtn">Choose File</span>
+              </label>
+              <input id="filePicker" ref={ this.uploadRef } type="file" accept="image/*" />
+              <label className="submitLabel" htmlFor="submitter">
+                <span className="btn btn-primary formBtn submitBtn">Submit</span>
+              </label>
+              <input id="submitter" type="submit" value="Upload" />
+            </form>
+          </div>    
         </div>
         <canvas className={ previewClass } style={ previewStyle } ref={ this.previewRef }></canvas>
         { 

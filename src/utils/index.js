@@ -54,7 +54,6 @@ export const getAllDocs = () => {
 }
 
 export const cleanDocs = docs => {
-  console.log(docs)
   return docs.rows.map(
     doc=> ({
       id: doc.doc._id,
