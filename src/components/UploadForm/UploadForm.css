@@ -6,7 +6,7 @@
   display: none;
 }
 
-.formBtn {
+form span.formBtn {
   background-color: #26A8A2;
   cursor: pointer;
   float: left;
@@ -18,10 +18,21 @@
   border-color: #1E8B87;
 }
 
-.submitBtn {
-  margin-left: 100px;
+label.submitLabel {
+  margin-right: 5%;
+}
+
+label.pickerLabel {
+  margin-right: 52%;
 }
 
 .uploadForm {
-  margin: 2% auto 0 auto;
+  margin: 0 auto 0 auto;
+  max-width: 450px;
+  text-align: right;
+}
+
+.uploadForm h3 {
+  margin: 0 0 2% 0;
+  text-align: center;
 }

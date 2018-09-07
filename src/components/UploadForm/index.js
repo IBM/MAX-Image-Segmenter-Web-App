@@ -100,6 +100,7 @@ export default class UploadForm extends Component {
 
   render() {
     let previewStyle = { 'marginTop' :' 2%' }
+    let previewClass = `canvasDisplay`
     let canvasStyle = {}
     if (this.state.response) {
       previewStyle = { 'display' : 'none' }
@@ -109,19 +110,20 @@ export default class UploadForm extends Component {
 
     return (
        <div>
-         <div className="uploadForm">
+         <div className="uploadForm panel panel-default">
+          <h3 className="panel-heading">Upload an image to be processed:</h3>      
           <form method="post" encType="multipart/form-data" onSubmit={ this.receiveUpload }>
-            <label htmlFor="filePicker">
+            <label className="pickerLabel" htmlFor="filePicker">
               <span className="btn btn-primary formBtn filePickerBtn">Choose File</span>
             </label>
             <input id="filePicker" ref={ this.uploadRef } type="file" accept="image/*" />
-            <label htmlFor="submitter">
+            <label className="submitLabel" htmlFor="submitter">
               <span className="btn btn-primary formBtn submitBtn">Submit</span>
             </label>
             <input id="submitter" type="submit" value="Upload" />
           </form>
         </div>
-        <canvas style={ previewStyle } ref={ this.previewRef }></canvas>
+        <canvas className={ previewClass } style={ previewStyle } ref={ this.previewRef }></canvas>
         { 
           this.state.response ? 
             <div>

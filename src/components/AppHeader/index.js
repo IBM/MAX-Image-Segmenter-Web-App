@@ -2,7 +2,7 @@ import './AppHeader.css'
 import React from 'react'
 import logo from './codait-logo.png'
 
-const AppHeader = (props) => {
+const AppHeader = props => {
   const modelName = props.modelType === 'mobile' ? 'MobileNet v2 Model' : 'Full Deeplab v3 Model'  
   return (
     <div>
@@ -13,8 +13,9 @@ const AppHeader = (props) => {
         </span>
       </div>
       <hr/>
-      <div className="model-select">
-        <span className="text">Model Select:</span>
+      <div className="model-select panel panel-default">
+        <span className="text panel-heading">Model Select:</span>
+        
         <label className="switch">
           <input 
             type="checkbox" 
@@ -24,8 +25,8 @@ const AppHeader = (props) => {
           <span className="slider round"></span>
         </label>
         <h5 className="model-select-label">{modelName}</h5>
+
       </div>
-      <h3>Upload an image to be processed:</h3>      
     </div>
   )
 }

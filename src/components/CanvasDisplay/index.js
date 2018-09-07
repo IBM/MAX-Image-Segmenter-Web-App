@@ -139,7 +139,7 @@ export default class CanvasDisplay extends Component {
 
     return (
       <div>
-        <canvas className="mainDisplay" ref={ this.canvasRef } width={ this.props.image.width } height={ this.props.image.height }></canvas>
+        <canvas className="panel panel-default mainDisplay" ref={ this.canvasRef } width={ this.props.image.width } height={ this.props.image.height }></canvas>
         <canvas style = {{ 'display' : 'none' }} ref={ this.editorRef } width={ this.props.image.width } height={ this.props.image.height }></canvas>
         <TextOutput 
           style={ this.props.style }

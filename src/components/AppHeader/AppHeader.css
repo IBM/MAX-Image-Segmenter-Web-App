@@ -4,6 +4,7 @@
   display: inline-block;
   width: 60px;
   height: 34px;
+  margin: 4% 0 0 1%;
 }
 
 /* Hide default HTML checkbox */
@@ -80,7 +81,7 @@ img {
 
 .model-select {
   display: inline-block;
-  margin-top: 4%;
+  margin: 3% auto 4% auto;
 }
 
 .model-select input {
