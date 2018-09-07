@@ -1,3 +1,4 @@
+import './UploadForm.css'
 import {} from 'dotenv/config'
 import React, { Component } from 'react'
 import { getPrediction, parseMAXData } from '../../utils'
@@ -108,10 +109,18 @@ export default class UploadForm extends Component {
 
     return (
        <div>
-        <form method="post" encType="multipart/form-data" onSubmit={ this.receiveUpload }>
-          <input ref={ this.uploadRef } type="file" accept="image/*" />
-          <input type="submit" value="Upload" />
-        </form>
+         <div className="uploadForm">
+          <form method="post" encType="multipart/form-data" onSubmit={ this.receiveUpload }>
+            <label htmlFor="filePicker">
+              <span className="btn btn-primary formBtn filePickerBtn">Choose File</span>
+            </label>
+            <input id="filePicker" ref={ this.uploadRef } type="file" accept="image/*" />
+            <label htmlFor="submitter">
+              <span className="btn btn-primary formBtn submitBtn">Submit</span>
+            </label>
+            <input id="submitter" type="submit" value="Upload" />
+          </form>
+        </div>
         <canvas style={ previewStyle } ref={ this.previewRef }></canvas>
         { 
           this.state.response ? 

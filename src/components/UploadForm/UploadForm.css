@@ -1,0 +1,27 @@
+#submitter {
+  display: none;
+}
+
+#filePicker {
+  display: none;
+}
+
+.formBtn {
+  background-color: #26A8A2;
+  cursor: pointer;
+  float: left;
+  border-color: #32A8A3;
+}
+
+.formBtn:hover {
+  background-color: #1E8B87;
+  border-color: #1E8B87;
+}
+
+.submitBtn {
+  margin-left: 100px;
+}
+
+.uploadForm {
+  margin: 2% auto 0 auto;
+}
