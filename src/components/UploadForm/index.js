@@ -99,10 +99,10 @@ export default class UploadForm extends Component {
   }
 
   render() {
-    let previewStyle = { 'marginTop' :' 2%' }
-    let previewClass = `canvasDisplay`
-    let canvasStyle = {}
-    if (this.state.response) {
+    let canvasStyle = { }
+    let previewStyle = { }
+    let previewClass = `panel panel-default mainDisplay`
+    if (this.state.response || !this.props.imageLoaded) {
       previewStyle = { 'display' : 'none' }
     } else {
       canvasStyle = { 'display' : 'none' }

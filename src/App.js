@@ -52,6 +52,7 @@ export default class App extends Component {
           modelType={ this.state.modelType }
           setImageLoadState={ imageLoadState => this.setState({ imageLoaded : imageLoadState, localFilesExpanded: false }) }
           resetApp={ () => this.reset() }
+          imageLoaded={ this.state.imageLoaded }
         />
         <FileDownload 
           expanded={ this.state.localFilesExpanded }
