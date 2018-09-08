@@ -7,7 +7,7 @@ const AppHeader = props => {
   return (
     <div>
       <div className="title-banner">
-      <img src={ logo } alt="logo" />
+      <img className="logoImg" src={ logo } alt="logo" />
         <span>
          <u><b>MAX</b> Image Segmenter</u> -  Magic Cropping Tool
         </span>

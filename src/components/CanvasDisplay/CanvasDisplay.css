@@ -29,4 +29,5 @@
 .mainDisplay {
   margin: 2%;
   padding: 1%;
+  display: inline-block;
 }

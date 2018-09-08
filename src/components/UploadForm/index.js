@@ -3,8 +3,6 @@ import { getPrediction, parseMAXData, OBJ_MAP, getColor, bulkSaveAttachments } f
 import './UploadForm.css'
 
 const initialState = {
-  'image' : {},
-  'response' : '', 
   'isLoading' : false
 }
 
@@ -26,24 +24,24 @@ export default class UploadForm extends Component {
     this.setState({
       'isLoading': true
     })
-
+    
+    // this can eventually be brought out as an ENV var..
+    // but it must match the size of the output from MAX model
+    const MAX_SIZE = 513
+    // Image taken from input Form
     const fileObj = this.uploadRef.current.files[0]
     const imageURL = window.URL.createObjectURL(fileObj)
-    let scaledWidth
-    let scaledHeight
-    let canvas = this.previewRef.current
-    let imageObj = {}
-    //console.log('before load')
-    
-    // drawing the pre MAX preview image
+
+    const canvas = this.previewRef.current
+    const ctx = canvas.getContext('2d')  
+
+    let imageObj = {} // alternative to internal component state.. may switch back
     let scaledImage = new Image()
+    // drawing the pre-MAX preview image
     scaledImage.onload = async () => {
-      // this can eventually be brought out as an ENV var..
-      // but it must match the size of the output from MAX model
-      const MAX_SIZE = 513
-      const ctx = canvas.getContext('2d')  
-      scaledWidth = scaledImage.naturalWidth
-      scaledHeight = scaledImage.naturalHeight
+      // scaling image.. put in function for reuse?
+      let scaledWidth = scaledImage.naturalWidth
+      let scaledHeight = scaledImage.naturalHeight
       let ratio
       if (scaledWidth > scaledHeight) {
         ratio = scaledHeight / scaledWidth
@@ -57,22 +55,21 @@ export default class UploadForm extends Component {
       scaledImage.width = scaledWidth
       scaledImage.height = scaledHeight
       canvas.width = scaledWidth 
-      canvas.height = scaledHeight 
+      canvas.height = scaledHeight
       ctx.drawImage(scaledImage, 0, 0, scaledWidth, scaledHeight)
-
+      
+      // building image object to send to MAX
       imageObj = {
         'name' : fileObj.name,
         'type' : fileObj.type,
         'height' : scaledHeight,
         'width' : scaledWidth,
-        'urls' : {
-          'source' : canvas.toDataURL()
-        }
+        'urls' : { 'source' : canvas.toDataURL() }
       }
-      console.log(imageObj)
+      console.log('sending to MAX...')
       try {
-        console.log('sending to MAX...')
         const cleanJSON = parseMAXData(imageObj.name, await getPrediction(this.props.modelType, fileObj))
+        // add MAX response to image object
         imageObj = {
           ...imageObj,
           'foundSegments' : cleanJSON.objectTypes.concat('colormap'),
@@ -82,11 +79,12 @@ export default class UploadForm extends Component {
         console.error('error getting prediction from MAX Model.')
       }
       try {
-        let dataURLs = this.mapNeededURLs(imageObj)
-        dataURLs = {...dataURLs, source: imageObj.urls.source}
+        // build/add additional segment images and colormap to image object
+        let dataURLs = { ...this.mapNeededURLs(imageObj), source: imageObj.urls.source }
+        //dataURLs = {...dataURLs, source: imageObj.urls.source}
         const currentImage = { ...imageObj, urls: dataURLs }
-        console.log(`current image: ${Object.keys(currentImage)}`)
-        console.log(`dataURLs needs to be legit here - colormap: ${JSON.stringify(dataURLs)}`)
+        //console.log(`current image: ${Object.keys(currentImage)}`)
+        //console.log(`dataURLs needs to be legit here - colormap: ${JSON.stringify(dataURLs)}`)
         this.props.setAppImageData(currentImage)
         this.setState({
           'isLoading': false
@@ -122,9 +120,25 @@ export default class UploadForm extends Component {
       const imgHeight = imageObj.height
       const imgWidth = imageObj.width
       const flatSegMap = imageObj.response.flatSegMap
-      
-      img.width = imgWidth
-      img.height = imgHeight
+      let scaledWidth = img.naturalWidth
+      let scaledHeight = img.naturalHeight
+      let ratio
+
+      if (scaledWidth > scaledHeight) {
+        ratio = scaledHeight / scaledWidth
+        scaledWidth = 513
+        scaledHeight = Math.round(scaledWidth * ratio)
+      } else {
+        ratio = scaledWidth / scaledHeight
+        scaledHeight = 513
+        scaledWidth = Math.round(scaledHeight * ratio)
+      }
+      img.width = scaledWidth
+      img.height = scaledHeight
+      canvas.width = scaledWidth 
+      canvas.height = scaledHeight 
+
+
       ctx.drawImage(img, 0, 0, img.width, img.height)
       const imageData = ctx.getImageData(0, 0, img.width, img.height)
       const data = imageData.data
@@ -208,7 +222,7 @@ export default class UploadForm extends Component {
         </div>
 
         <canvas className={ previewClass } style={ previewStyle } ref={ this.previewRef }></canvas>
-        <canvas style = {{ 'display' : 'none' }} ref={ this.editorRef } width={ this.state.image.width } height={ this.state.image.height }></canvas>
+        <canvas style = {{ 'display' : 'none' }} ref={ this.editorRef }></canvas>
         { this.state.isLoading ? <p>LOADING...</p> : <p /> }
       </div>
     )

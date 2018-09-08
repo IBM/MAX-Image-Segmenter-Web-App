@@ -73,7 +73,7 @@ input:checked + .slider:before {
   margin-top: 3.5%;
 }
 
-img {
+.logoImg {
   width: 40%;
   max-width: 180px;
   margin-right: 2%;
