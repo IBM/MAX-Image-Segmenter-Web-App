@@ -81,7 +81,7 @@ img {
 
 .model-select {
   display: inline-block;
-  margin: 3% auto 4% auto;
+  margin: 2% auto 1% auto;
 }
 
 .model-select input {
@@ -92,7 +92,7 @@ img {
   font-size: 1.75em;
   font-weight: bold;
   display: block;
-  margin-bottom: 6%;
+  margin-bottom: 4%;
 }
 
 .model-select-label {

@@ -1,6 +1,6 @@
-import './UploadForm.css'
 import React, { Component } from 'react'
 import { getPrediction, parseMAXData, OBJ_MAP, getColor, bulkSaveAttachments } from '../../utils'
+import './UploadForm.css'
 
 const initialState = {
   'image' : {},
@@ -32,6 +32,7 @@ export default class UploadForm extends Component {
     let scaledWidth
     let scaledHeight
     let canvas = this.previewRef.current
+    let imageObj = {}
     //console.log('before load')
     
     // drawing the pre MAX preview image
@@ -58,35 +59,41 @@ export default class UploadForm extends Component {
       canvas.width = scaledWidth 
       canvas.height = scaledHeight 
       ctx.drawImage(scaledImage, 0, 0, scaledWidth, scaledHeight)
-      this.setState({
-        'image' : {
-          'name' : fileObj.name,
-          'type' : fileObj.type,
-          'height' : scaledHeight,
-          'width' : scaledWidth,
-          'urls' : {
-            'source' : canvas.toDataURL()
-          }
+
+      imageObj = {
+        'name' : fileObj.name,
+        'type' : fileObj.type,
+        'height' : scaledHeight,
+        'width' : scaledWidth,
+        'urls' : {
+          'source' : canvas.toDataURL()
         }
-      })
+      }
+      console.log(imageObj)
       try {
         console.log('sending to MAX...')
-        const cleanJSON = parseMAXData(this.state.image.name, await getPrediction(this.props.modelType, fileObj))
-        this.setState({
-          'image': {
-            ...this.state.image,
-            'foundSegments' : cleanJSON.objectTypes
-          },
-          'response' : cleanJSON,
-          'isLoading' : false
-        })
+        const cleanJSON = parseMAXData(imageObj.name, await getPrediction(this.props.modelType, fileObj))
+        imageObj = {
+          ...imageObj,
+          'foundSegments' : cleanJSON.objectTypes.concat('colormap'),
+          'response' : cleanJSON
+        }
+
+        /*
+       
+        */
+
       } catch (e) {
         console.error('error getting prediction from MAX Model.')
       }
       try {
-        const currentImage = this.state.image
-        const dataURLs = this.mapNeededURLs(currentImage.foundSegments.concat('colormap'))
-        this.props.setAppImageData(this.state.response, {...currentImage, urls: {...currentImage.urls, ...dataURLs}})
+        let dataURLs = this.mapNeededURLs(imageObj)
+        dataURLs = {...dataURLs, source: imageObj.urls.source}
+        const currentImage = { ...imageObj, urls: dataURLs }
+        console.log(`current image: ${Object.keys(currentImage)}`)
+        this.props.setAppImageData(currentImage)
+
+      
       } catch (e) {
         console.error('error saving urls in parent state')
       }       
@@ -94,26 +101,33 @@ export default class UploadForm extends Component {
       scaledImage.src = imageURL
   }
 
-  mapNeededURLs = neededSegments => {
+  mapNeededURLs = imageObj => {
+    const neededSegments = imageObj.foundSegments
     console.log(neededSegments)
     let URLMap = {}
     for (let name in neededSegments) {
       console.log(neededSegments[name])
-      URLMap[neededSegments[name]] = this.invisibleSegment(neededSegments[name])
+      URLMap[neededSegments[name]] = this.invisibleSegment(neededSegments[name], imageObj)
     }
+    console.log(`URLMAP: ${JSON.stringify(URLMap)}`)
+    this.setState({
+      'isLoading': false
+    })
     return URLMap
   }
 
-  invisibleSegment = segmentName => {
+  invisibleSegment = (segmentName, imageObj) => {
     console.log('invisiblesegments')
     let canvas = this.editorRef.current
-    const imgHeight = this.state.response.size.height
-    const imgWidth = this.state.response.size.width
-    const flatSegMap = this.state.response.flatSegMap
+    const ctx = canvas.getContext('2d')
     let img = new Image()
+    let imageURL = canvas.toDataURL()
 
     img.onload = () => {
-      const ctx = canvas.getContext('2d')
+      const imgHeight = imageObj.height
+      const imgWidth = imageObj.width
+      const flatSegMap = imageObj.response.flatSegMap
+      
       img.width = imgWidth
       img.height = imgHeight
       ctx.drawImage(img, 0, 0, img.width, img.height)
@@ -126,7 +140,7 @@ export default class UploadForm extends Component {
           const segMapPixel = flatSegMap[i / 4]
           let objColor = [0, 0, 0]
           if (segMapPixel) {
-            objColor = getColor(this.state.response.objectIDs.indexOf(segMapPixel))
+            objColor = getColor(imageObj.response.objectIDs.indexOf(segMapPixel))
             // apply appropriate color
             data[i]   = objColor[0]  // red channel
             data[i+1] = objColor[1]  // green channel
@@ -145,11 +159,13 @@ export default class UploadForm extends Component {
         }
       }
       // insert colorized pixels into image
-      //ctx.putImageData(imageData, 0, 0)      
+      ctx.putImageData(imageData, 0, 0)      
+      console.log(`canvas.toDataURL()`)
       console.log(`invisible ${segmentName} saved`)
     }
-    img.src = this.state.image.urls.source
-    return canvas.toDataURL()
+    img.src = imageObj.urls.source
+    console.log(`imageURL for ${segmentName} - ${imageURL}`)
+    return imageURL
   }
 
   bulkUpload = async () => {  
@@ -166,7 +182,7 @@ export default class UploadForm extends Component {
     let previewStyle = { }
     let previewClass = `panel panel-default mainDisplay`
     if (!this.state.isLoading) {
-      previewStyle = { 'display' : 'none' }
+      previewStyle = { 'display' : 'hidden', 'border': 'none', 'boxShadow': 'none' }
     }
 
     return (

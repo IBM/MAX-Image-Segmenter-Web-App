@@ -39,7 +39,8 @@ export default class CanvasDisplay extends Component {
     })
   }
 
-  render() {    
+  render() {
+    console.log(`rendering canvas with props ${Object.keys(this.props)}`)    
     return (
       <div>
         <canvas className="panel panel-default mainDisplay" ref={ this.canvasRef } width={ this.props.image.width } height={ this.props.image.height }></canvas>
@@ -47,7 +48,7 @@ export default class CanvasDisplay extends Component {
         <TextOutput 
           image={ this.props.image }
           selectObject={ this.setSelectedObject }
-          segData={ this.props.segData }
+          segData={ this.props.image.response }
         />
         <img src={this.props.image.urls[this.state.selectedObject]} />
       </div>
