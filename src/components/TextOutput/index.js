@@ -6,7 +6,7 @@ const TextOutput = props => {
     <div style={ { display: props.display } }>
       <div className='textBox'>
       <p>
-        {`Resized '${ props.image.name }' to ${ props.image.width }x${ props.image.height } and identified ${ props.segCount } object segments.`}
+        {`Resized `}<a onClick={ () => props.selectObject('source') }>{props.image.name}</a> {`to ${ props.image.width }x${ props.image.height } and identified ${ props.segCount } object segments.`}
       </p>
       <p>
         { `Select from the following to labels to view the  ` }

@@ -32,7 +32,7 @@ export default class UploadForm extends Component {
     let scaledWidth
     let scaledHeight
     let canvas = this.previewRef.current
-    console.log('before load')
+    //console.log('before load')
     
     // drawing the pre MAX preview image
     let scaledImage = new Image()

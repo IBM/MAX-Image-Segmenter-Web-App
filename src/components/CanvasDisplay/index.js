@@ -46,20 +46,11 @@ export default class CanvasDisplay extends Component {
         
         <TextOutput 
           image={ this.props.image }
-          selectObject={ selected => this.setSelectedObject(selected) }
+          selectObject={ this.setSelectedObject }
           segData={ this.props.segData }
         />
-        
+        <img src={this.props.image.urls[this.state.selectedObject]} />
       </div>
     )
   }
 }
-
-/*
-        <TextOutput 
-          style={ this.props.style }
-          segData={ this.props.segData }
-          image={ this.props.image }
-          selectObject={ this.setSelectedObject }
-        />
-        */

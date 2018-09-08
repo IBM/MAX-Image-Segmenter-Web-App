@@ -40,6 +40,13 @@ export default class App extends Component {
     })
   }
 
+  resetLoadState = () => {
+    this.setState({ 
+      'imageLoaded' : false, 
+      'localFilesExpanded': false 
+    })
+  }
+
   setImageData = (segData, newImage) => {
     this.setState({
       'segData' : segData, 
@@ -50,19 +57,16 @@ export default class App extends Component {
   }
 
   renderCanvas() {
-    if (this.state.imageLoaded && Object.keys(this.state.image.urls).length === this.state.image.foundSegments.length + 2) {
-      console.log('passed the "ready to render canvas" check')
+    if (this.state.imageLoaded && 
+      Object.keys(this.state.image.urls).length === this.state.image.foundSegments.length + 2) {
+      //console.log('passed the "ready to render canvas" check')
       return (
         <CanvasDisplay 
           style={ { 'marginTop': '20px' } }
           image={ this.state.image }
           segData={ this.state.segData }
         />
-  )} else {
-    return (
-      <p />
-    )
-  }
+    )}
   }
 
   render() {
@@ -74,8 +78,8 @@ export default class App extends Component {
         />
         <UploadForm 
           modelType={ this.state.modelType }
-          resetLoadState={ () => this.setState({ 'imageLoaded' : false, 'localFilesExpanded': false }) }
-          setAppImageData={this.setImageData }
+          resetLoadState={ this.resetLoadState }
+          setAppImageData={ this.setImageData }
           imageLoaded={ this.state.imageLoaded }
         />
         { this.renderCanvas() }
