@@ -55,9 +55,20 @@ export default class App extends Component {
     })
   }
 
+  addSegURL = (name, url) => {
+    this.setState({
+      'image' : {
+        ...this.state.image,
+        'urls' : {
+          ...this.state.image.urls,
+          [name] : url
+        }
+      }
+    })
+  }
+
   renderCanvas() {
     if (this.state.imageLoaded) {
-      //console.log('passed the "ready to render canvas" check')
       return (
         <CanvasDisplay 
           image={ this.state.image }
@@ -81,6 +92,7 @@ export default class App extends Component {
               resetLoadState={ this.resetLoadState }
               setAppImageData={ this.setImageData }
               imageLoaded={ this.state.imageLoaded }
+              addSegURL={ this.addSegURL }
             />
         }
         {/*

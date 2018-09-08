@@ -78,11 +78,6 @@ export default class UploadForm extends Component {
           'foundSegments' : cleanJSON.objectTypes.concat('colormap'),
           'response' : cleanJSON
         }
-
-        /*
-       
-        */
-
       } catch (e) {
         console.error('error getting prediction from MAX Model.')
       }
@@ -91,9 +86,11 @@ export default class UploadForm extends Component {
         dataURLs = {...dataURLs, source: imageObj.urls.source}
         const currentImage = { ...imageObj, urls: dataURLs }
         console.log(`current image: ${Object.keys(currentImage)}`)
+        console.log(`dataURLs needs to be legit here - colormap: ${JSON.stringify(dataURLs)}`)
         this.props.setAppImageData(currentImage)
-
-      
+        this.setState({
+          'isLoading': false
+        })
       } catch (e) {
         console.error('error saving urls in parent state')
       }       
@@ -107,21 +104,19 @@ export default class UploadForm extends Component {
     let URLMap = {}
     for (let name in neededSegments) {
       console.log(neededSegments[name])
-      URLMap[neededSegments[name]] = this.invisibleSegment(neededSegments[name], imageObj)
+      this.invisibleSegment(URLMap, neededSegments[name], imageObj)
     }
-    console.log(`URLMAP: ${JSON.stringify(URLMap)}`)
-    this.setState({
-      'isLoading': false
-    })
+    console.log(`URLMAP: ${Object.keys(URLMap)}`)
+
     return URLMap
   }
 
-  invisibleSegment = (segmentName, imageObj) => {
+  invisibleSegment = (URLMap, segmentName, imageObj) => {
     console.log('invisiblesegments')
     let canvas = this.editorRef.current
     const ctx = canvas.getContext('2d')
     let img = new Image()
-    let imageURL = canvas.toDataURL()
+    let imageURL
 
     img.onload = () => {
       const imgHeight = imageObj.height
@@ -160,12 +155,21 @@ export default class UploadForm extends Component {
       }
       // insert colorized pixels into image
       ctx.putImageData(imageData, 0, 0)      
-      console.log(`canvas.toDataURL()`)
+      console.log(`${canvas.toDataURL()}`)
+      imageURL = canvas.toDataURL()
+      this.setImageURL(URLMap, segmentName, imageURL)
       console.log(`invisible ${segmentName} saved`)
     }
     img.src = imageObj.urls.source
+    // imageURL IS UNDEFINED HERE
     console.log(`imageURL for ${segmentName} - ${imageURL}`)
-    return imageURL
+  }
+
+  setImageURL = (URLMap, segmentName, imageURL) => {
+    // imageURL is valid here!
+    console.log(`setting ${segmentName} URL to ${imageURL}`)
+    URLMap[segmentName] = imageURL
+    this.props.addSegURL(segmentName, imageURL)
   }
 
   bulkUpload = async () => {  
