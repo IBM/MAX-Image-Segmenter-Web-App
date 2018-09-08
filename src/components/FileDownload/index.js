@@ -10,7 +10,7 @@ const FileDownload = props => {
         { getToggleText(props) }
         { props.expanded ? 
           <div className="imageGallery">
-            { generateDocComponent(props.savedDocs) }
+            { generateDocComponent(props) }
             <div className="panel panel-default deleteBox">
               <div className="panel-heading">
               <p>
@@ -36,17 +36,17 @@ const getToggleText = props => {
   
   let label = (
     <p className="openLabel" onClick={ props.toggleExpand }>
-      { `+ Click here to view locally stored images in PouchDB.` }
+      { `+ Click here to view locally cached images in PouchDB.` }
     </p>
   )
   if (props.expanded) {
     label = (
       <div>
         <p className="closeLabel" onClick={ props.toggleExpand }>
-          { `- Click here to hide locally stored images.` }
+          { `- Click here to hide locally cached images.` }
         </p>
         <p className="downloadLabel">
-          { `Click on a saved image to download each of its segments as `
+          { `Click on a cached image to download each of its segments as `
             + `individual image files.` }
         </p>
       </div>
@@ -55,17 +55,28 @@ const getToggleText = props => {
   return label
 }
 
-const generateDocComponent = docs => {
+const getThumbSource = (hoverDoc, doc) => {
+  if (hoverDoc === doc.id){
+    return base64toURL(doc.segments[0].base64)
+  } else {
+    return base64toURL(doc.segments[1].base64)
+  }
+}
+
+const generateDocComponent = props => {
+  const docs = props.savedDocs
   return docs.map(
     doc => (
-      <div key={doc.id} className="savedDocLabel">
+      <div key={doc.id} className="savedDocThumb">
         <img
-          src={ base64toURL(doc.segments[0].base64) } 
-          alt={ doc.id } 
+          src={ getThumbSource(props.hoverDoc, doc) } 
+          alt={ doc.id }
+          onMouseEnter={ () => props.setHoverDoc(doc.id) } 
+          onMouseLeave={ () => props.setHoverDoc('') } 
           onClick={ () => downloadSegments(doc.id.split('-')[1], doc.segments) }
         />
-        <p className="fileName">
-          {`${ doc.id.split('-')[1] }`/*: ${ doc.segments.length } segments`*/ }
+        <p className="imageLabel">
+          <span className="imageTitle">{ `${ doc.id.split('-')[1] }:`}</span>{ ` ${ doc.segments.length } segments` }
         </p>
         { /*
           <p className="segList">

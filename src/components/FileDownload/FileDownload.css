@@ -2,33 +2,39 @@
   color: lightslategray;
 }
 
-.savedDocLabel {
+.savedDocThumb {
   color: black;
   background-color: #0bc6c0;
   width: 198px;
   height: 168px;
   padding: 1%;
   margin: 0 auto 10px auto;
-  border-radius: 6px;
+  border-radius: 4px;
   display: flex;
   cursor: pointer;
   overflow: hidden;
   flex-flow: column;
 }
 
-.savedDocLabel > * {
+.savedDocThumb > * {
   margin: 0;
 }
 
-.savedDocLabel > img {
+.savedDocThumb > img {
   max-height: 85%;
   width: auto;
   margin: 0 auto 0 auto;
 }
 
-.fileName {
+.imageLabel {
   font-size: 1.1em;
-  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.imageTitle {
+  font-weight: bolder;
+  text-transform: unset;
 }
 
 .segList {
@@ -47,7 +53,7 @@
 .deleteBox {
   color: black;
   font-size: .9em;
-  border-radius: 10px;
+  border-radius: 4px;
   margin: auto;
 }
 
