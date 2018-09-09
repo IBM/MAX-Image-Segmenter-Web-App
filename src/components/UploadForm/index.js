@@ -118,8 +118,6 @@ export default class UploadForm extends Component {
     let imageURL
 
     img.onload = () => {
-      const imgHeight = imageObj.height
-      const imgWidth = imageObj.width
       const flatSegMap = imageObj.response.flatSegMap
       let scaledWidth = img.naturalWidth
       let scaledHeight = img.naturalHeight

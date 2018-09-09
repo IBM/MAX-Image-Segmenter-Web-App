@@ -2,29 +2,32 @@ import './FileDownload.css'
 import React from 'react'
 import { saveAs } from 'file-saver/FileSaver'
 import b64toBlob  from 'b64-to-blob'
-import { base64toURL, deleteLocalImages } from '../../utils';
+import { deleteLocalImages } from '../../utils';
  
 const FileDownload = props => {
     return (
       <div className="fileDownloadContainer" >
         { getToggleText(props) }
         { props.expanded ? 
+        <div>
           <div className="imageGallery">
             { generateDocComponent(props) }
-            <div className="panel panel-default deleteBox">
-              <div className="panel-heading">
-              <p>
-                { `Click the button below to ERASE all images from local storage.` }
-              </p>
-              </div>
-              <button 
-                className="btn btn-danger"
-                onClick={ () => deleteLocalImages(props.toggleExpand) }
-              >
-                Delete Saved Images
-              </button>
-            </div>
+
           </div>
+                      <div className="panel panel-default deleteBox">
+                      <div className="panel-heading">
+                      <p>
+                        { `Click the button below to ERASE all images from local storage.` }
+                      </p>
+                      </div>
+                      <button 
+                        className="btn btn-danger deleteBtn"
+                        onClick={ () => deleteLocalImages(props.toggleExpand) }
+                      >
+                        Delete Saved Images
+                      </button>
+                    </div>
+                    </div>
             : 
           <p /> 
         }

@@ -37,7 +37,7 @@ export default class CanvasDisplay extends Component {
       <div>
         
         <div className="panel panel-default mainDisplay">
-          <img src={this.props.image.urls[this.state.selectedObject]} style={{ 'height': this.props.image.height, 'width': this.props.image.width }}/>
+          <img alt={ this.props.image.name } src={this.props.image.urls[this.state.selectedObject]} style={{ 'height': this.props.image.height, 'width': this.props.image.width }}/>
         </div>
         <TextOutput 
           image={ this.props.image }

@@ -54,11 +54,12 @@
   color: black;
   font-size: .9em;
   border-radius: 4px;
-  margin: auto;
+  margin: 2% auto 5% auto;
+  max-width: 20%;
 }
 
-.deleteBox > button {
-  margin: 1% 0 1% 0;
+.deleteBtn {
+  margin: 2%;
 }
 
 .deleteBox > div > p {
