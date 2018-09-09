@@ -57,9 +57,9 @@ const getToggleText = props => {
 
 const getThumbSource = (hoverDoc, doc) => {
   if (hoverDoc === doc.id){
-    return base64toURL(doc.segments[0].base64)
+    return doc.segments[1].url
   } else {
-    return base64toURL(doc.segments[1].base64)
+    return doc.segments[0].url
   }
 }
 
@@ -69,7 +69,7 @@ const generateDocComponent = props => {
     doc => (
       <div key={doc.id} className="savedDocThumb">
         <img
-          src={ getThumbSource(props.hoverDoc, doc) } 
+          src={ /*doc.segments[0].url*/ getThumbSource(props.hoverDoc, doc) } 
           alt={ doc.id }
           onMouseEnter={ () => props.setHoverDoc(doc.id) } 
           onMouseLeave={ () => props.setHoverDoc('') } 

@@ -5,7 +5,7 @@ import AppHeader from './components/AppHeader'
 import FileDownload from './components/FileDownload'
 import CanvasDisplay from './components/CanvasDisplay'
 import Footer from './components/Footer'
-import { DBMode, getAllDocs, cleanDocs } from './utils';
+import { DBMode, getAllDocs, cleanDocs, bulkSaveAttachments } from './utils';
 
 const initialState = {
   'modelType' : 'mobile',
@@ -28,6 +28,11 @@ export default class App extends Component {
   }
 
   componentDidMount = async () => {
+    const myDocs = cleanDocs(await getAllDocs())
+    console.log(`mounted with docs[0] ${JSON.stringify(myDocs[0])}`)
+    if (myDocs.length > 0)
+      console.log(`mounted with docs[0]segments ${JSON.stringify(Object.keys(myDocs[0].segments))}`)
+    
     this.setState({
       savedDocs : cleanDocs(await getAllDocs())
     })
@@ -59,12 +64,26 @@ export default class App extends Component {
     this.setState({
       'image' : {
         ...this.state.image,
-        'urls' : {
+        'urls' : { 
           ...this.state.image.urls,
-          [name] : url
+          [name]: url
         }
       }
     })
+    if (Object.keys(this.state.image.urls).length === Object.keys(this.state.image.foundSegments).length+1){
+      console.log('current image urls ' + Object.keys(this.state.image.urls))
+      console.log('current foundsges ' + Object.keys(this.state.image.foundSegments))
+      this.saveToPouch(this.state.image)
+    }
+  }
+
+  saveToPouch = async imageObj => {  
+    const bulkUploadJSON = await bulkSaveAttachments({ 
+      urls : imageObj.urls, 
+      name : imageObj.name, 
+      width: imageObj.width,
+      height : imageObj.height })
+    console.log(`bulk upload fired. id: ${bulkUploadJSON.id}`)
   }
 
   renderCanvas() {
@@ -95,7 +114,6 @@ export default class App extends Component {
               addSegURL={ this.addSegURL }
             />
         }
-        {/*
         <FileDownload 
           expanded={ this.state.localFilesExpanded }
           dbType={ this.state.dbType }
@@ -109,7 +127,6 @@ export default class App extends Component {
             }) 
           }
         />
-        */}
         <Footer />
       </div>
     );

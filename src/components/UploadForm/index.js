@@ -84,11 +84,12 @@ export default class UploadForm extends Component {
         //dataURLs = {...dataURLs, source: imageObj.urls.source}
         const currentImage = { ...imageObj, urls: dataURLs }
         //console.log(`current image: ${Object.keys(currentImage)}`)
-        //console.log(`dataURLs needs to be legit here - colormap: ${JSON.stringify(dataURLs)}`)
+        //console.log(`dataURLs needs to be legit here - colormap: ${JSON.stringify(dataURLs.colormap)}`)
         this.props.setAppImageData(currentImage)
+        
         this.setState({
-          'isLoading': false
-        })
+          'isLoading': false 
+       })
       } catch (e) {
         console.error('error saving urls in parent state')
       }       
@@ -186,14 +187,13 @@ export default class UploadForm extends Component {
     this.props.addSegURL(segmentName, imageURL)
   }
 
-  bulkUpload = async () => {  
+  bulkUpload = async imageObj => {  
     const bulkUploadJSON = await bulkSaveAttachments({ 
-      urls : this.props.image.url, 
-      name : this.props.image.name, 
-      width: this.props.image.width,
-      height : this.props.image.height })
+      urls : imageObj.urls, 
+      name : imageObj.name, 
+      width: imageObj.width,
+      height : imageObj.height })
     console.log(`bulk upload fired. id: ${bulkUploadJSON.id}`)
-    this.props.bulkComplete()
   }
 
   render() {

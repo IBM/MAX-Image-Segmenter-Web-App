@@ -49,7 +49,6 @@ export const getAllDocs = () => {
    } else {
     pouchDB = new PouchDB(cloudantURL)
   }
-  
   return pouchDB.allDocs({ include_docs : 'true', attachments: 'true' })
 }
 
@@ -64,7 +63,7 @@ export const cleanDocs = docs => {
         segName =>  ({ 
           name : segName,
           hasData : doc.doc._attachments[segName] && true,
-          base64: doc.doc._attachments[segName].data
+          url: base64toURL(doc.doc._attachments[segName].data)
           }
       ))
     }))
