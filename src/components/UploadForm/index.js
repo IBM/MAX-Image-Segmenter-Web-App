@@ -196,9 +196,11 @@ export default class UploadForm extends Component {
 
   render() {
     let previewStyle = { }
-    let previewClass = `panel panel-default mainDisplay`
+    let previewClass = ``
     if (!this.state.isLoading) {
-      previewStyle = { 'display' : 'hidden', 'border': 'none', 'boxShadow': 'none' }
+      previewStyle = { 'display' : 'none', 'border': 'none', 'boxShadow': 'none' }
+    } else {
+      previewClass = `panel panel-default mainDisplay`
     }
 
     return (

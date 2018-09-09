@@ -2,7 +2,7 @@ import './FileDownload.css'
 import React from 'react'
 import { saveAs } from 'file-saver/FileSaver'
 import b64toBlob  from 'b64-to-blob'
-import { deleteLocalImages } from '../../utils';
+import { deleteLocalImages, URLto64 } from '../../utils';
  
 const FileDownload = props => {
   return (
@@ -12,7 +12,6 @@ const FileDownload = props => {
         <div>
           <div className="imageGallery">
             { generateDocComponent(props) }
-
           </div>
           <div className="panel panel-default deleteBox">
             <div className="panel-heading">
@@ -93,7 +92,7 @@ const generateDocComponent = props => {
 }
 
 const downloadSingleSeg = (imgName, segment) => {
-  saveAs(b64toBlob(segment.base64, 'image/png'), `${imgName}-${segment.name}.png`)
+  saveAs(b64toBlob(URLto64(segment.url), 'image/png'), `${imgName}-${segment.name}.png`)
 }
 
 const downloadSegments = async (imgName, docSegments) => {

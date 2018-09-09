@@ -61,6 +61,7 @@ export default class App extends Component {
   }
 
   addSegURL = (name, url) => {
+    console.log(`name is getting put in doc as ${name}`)
     this.setState({
       'image' : {
         ...this.state.image,
@@ -102,17 +103,18 @@ export default class App extends Component {
           modelType={ this.state.modelType }  
           toggleFunc={ this.handleModelToggle }
         />
+        <UploadForm 
+          modelType={ this.state.modelType }
+          resetLoadState={ this.resetLoadState }
+          setAppImageData={ this.setImageData }
+          imageLoaded={ this.state.imageLoaded }
+          addSegURL={ this.addSegURL }
+        />
         {
           this.state.imageLoaded ?
-            this.renderCanvas() 
+            this.renderCanvas()
           :
-            <UploadForm 
-              modelType={ this.state.modelType }
-              resetLoadState={ this.resetLoadState }
-              setAppImageData={ this.setImageData }
-              imageLoaded={ this.state.imageLoaded }
-              addSegURL={ this.addSegURL }
-            />
+          <p />
         }
         <FileDownload 
           expanded={ this.state.localFilesExpanded }

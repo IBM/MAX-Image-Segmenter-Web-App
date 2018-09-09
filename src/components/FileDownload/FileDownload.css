@@ -7,7 +7,7 @@
   background-color: #0bc6c0;
   width: 198px;
   height: 168px;
-  padding: 1%;
+  padding: .75%;
   margin: 0 auto 10px auto;
   border-radius: 4px;
   display: flex;
@@ -22,12 +22,12 @@
 
 .savedDocThumb > img {
   max-height: 85%;
-  width: auto;
+  max-width: 100%;
   margin: 0 auto 0 auto;
 }
 
 .imageLabel {
-  font-size: 1.1em;
+  margin-top: 1%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
