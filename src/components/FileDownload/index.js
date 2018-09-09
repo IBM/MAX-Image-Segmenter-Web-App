@@ -71,7 +71,7 @@ const generateDocComponent = props => {
     doc => (
       <div key={doc.id} className="savedDocThumb">
         <img
-          src={ /*doc.segments[0].url*/ getThumbSource(props.hoverDoc, doc) } 
+          src={ getThumbSource(props.hoverDoc, doc) } 
           alt={ doc.id }
           onMouseEnter={ () => props.setHoverDoc(doc.id) } 
           onMouseLeave={ () => props.setHoverDoc('') } 

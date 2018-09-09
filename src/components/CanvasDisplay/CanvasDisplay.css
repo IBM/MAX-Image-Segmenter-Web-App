@@ -27,7 +27,13 @@
 }
 
 .mainDisplay {
-  margin: 2%;
+  margin: 1%;
   padding: 1%;
   display: inline-block;
+  max-width: 98%
+}
+
+.mainDisplay > * {
+  max-width: 100%;
+  height: auto;
 }

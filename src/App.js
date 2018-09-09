@@ -29,9 +29,9 @@ export default class App extends Component {
 
   componentDidMount = async () => {
     const myDocs = cleanDocs(await getAllDocs())
-    console.log(`mounted with docs[0] ${JSON.stringify(myDocs[0])}`)
+    //console.log(`mounted with docs[0] ${JSON.stringify(myDocs[0])}`)
     if (myDocs.length > 0)
-      console.log(`mounted with docs[0]segments ${JSON.stringify(Object.keys(myDocs[0].segments))}`)
+      //console.log(`mounted with docs[0]segments ${JSON.stringify(Object.keys(myDocs[0].segments))}`)
     
     this.setState({
       savedDocs : cleanDocs(await getAllDocs())
@@ -61,7 +61,7 @@ export default class App extends Component {
   }
 
   addSegURL = (name, url) => {
-    console.log(`name is getting put in doc as ${name}`)
+    //console.log(`name is getting put in doc as ${name}`)
     this.setState({
       'image' : {
         ...this.state.image,
@@ -72,9 +72,12 @@ export default class App extends Component {
       }
     })
     if (Object.keys(this.state.image.urls).length === Object.keys(this.state.image.foundSegments).length+1){
-      console.log('current image urls ' + Object.keys(this.state.image.urls))
-      console.log('current foundsges ' + JSON.stringify(this.state.image.foundSegments))
+      //console.log('current image urls ' + Object.keys(this.state.image.urls))
+      //console.log('current foundsges ' + JSON.stringify(this.state.image.foundSegments))
       this.saveToPouch(this.state.image)
+      this.setState({
+        'canvasReady' : true
+      })
     }
   }
 
@@ -107,11 +110,11 @@ export default class App extends Component {
           modelType={ this.state.modelType }
           resetLoadState={ this.resetLoadState }
           setAppImageData={ this.setImageData }
-          imageLoaded={ this.state.imageLoaded }
+          imageLoaded={ this.state.canvasReady }
           addSegURL={ this.addSegURL }
         />
         {
-          this.state.imageLoaded ?
+          this.state.canvasReady ?
             this.renderCanvas()
           :
           <p />

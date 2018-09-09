@@ -6,7 +6,7 @@ export default class CanvasDisplay extends Component {
     super(props)
     this.canvasRef = React.createRef()
     this.state = {
-      'selectedObject' : 'source' 
+      'selectedObject' : 'colormap' 
     }
   }
 
@@ -37,7 +37,7 @@ export default class CanvasDisplay extends Component {
       <div>
         
         <div className="panel panel-default mainDisplay">
-          <img alt={ this.props.image.name } src={this.props.image.urls[this.state.selectedObject]} style={{ 'height': this.props.image.height, 'width': this.props.image.width }}/>
+          <img alt={ this.props.image.name } src={this.props.image.urls[this.state.selectedObject]} />
         </div>
         <TextOutput 
           image={ this.props.image }

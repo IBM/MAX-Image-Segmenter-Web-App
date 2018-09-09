@@ -194,6 +194,11 @@ export default class UploadForm extends Component {
     console.log(`bulk upload fired. id: ${bulkUploadJSON.id}`)
   }
 
+  renderLoadingMsg() {
+    if (this.state.isLoading) 
+      return <p>LOADING...</p>
+  }
+
   render() {
     let previewStyle = { }
     let previewClass = ``
@@ -220,10 +225,9 @@ export default class UploadForm extends Component {
             </form>
           </div>    
         </div>
-
         <canvas className={ previewClass } style={ previewStyle } ref={ this.previewRef }></canvas>
         <canvas style = {{ 'display' : 'none' }} ref={ this.editorRef }></canvas>
-        { this.state.isLoading ? <p>LOADING...</p> : <p /> }
+        { this.renderLoadingMsg() }
       </div>
     )
   }
