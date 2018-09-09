@@ -70,13 +70,16 @@ const generateDocComponent = props => {
   return docs.map(
     doc => {
       return (
-      <div key={doc.id} className="savedDocThumb">
+      <div 
+        key={doc.id} 
+        className="savedDocThumb"
+        onMouseEnter={ () => props.setHoverDoc(doc.id) } 
+        onMouseLeave={ () => props.setHoverDoc('') } 
+        onClick={ () => downloadSegments(doc.id.split('-')[1], doc.segments) }
+      >
         <img
           src={ getThumbSource(props.hoverDoc, doc) } 
           alt={ doc.id }
-          onMouseEnter={ () => props.setHoverDoc(doc.id) } 
-          onMouseLeave={ () => props.setHoverDoc('') } 
-          onClick={ () => downloadSegments(doc.id.split('-')[1], doc.segments) }
         />
         <p className="imageLabel">
           <span className="imageTitle">{ `${ doc.id.split('-')[1] }:`}</span>{ ` ${ Object.keys(doc.segments).length-2 } segments` }

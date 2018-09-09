@@ -8,7 +8,7 @@
 
 .savedDocThumb {
   color: black;
-  background-color: #0bc6c0;
+  background-color: #ddd;
   width: 198px;
   height: 198px;
   padding: .75%;
@@ -19,6 +19,10 @@
   overflow: hidden;
   flex-flow: column;
   border: 1px solid #ddd;
+}
+
+.savedDocThumb:hover {
+  background-color: #0bc6c0;
 }
 
 .savedDocThumb > * {

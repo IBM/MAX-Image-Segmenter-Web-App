@@ -5,11 +5,11 @@ import AppHeader from './components/AppHeader'
 import FileDownload from './components/FileDownload'
 import ImageDisplay from './components/ImageDisplay'
 import Footer from './components/Footer'
-import { DBMode, getAllDocs, cleanDocs, bulkSaveAttachments } from './utils';
+import { DBType, getAllDocs, cleanDocs, bulkSaveAttachments } from './utils';
 
 const initialState = {
   'modelType' : 'mobile',
-  'dbType' : DBMode,
+  'DBType' : DBType,
   'localFilesExpanded' : false,
   'savedDocs' : [],
   'hoverDoc' : '',
@@ -124,19 +124,24 @@ export default class App extends Component {
           :
           <p />
         }
-        <FileDownload 
-          expanded={ this.state.localFilesExpanded }
-          dbType={ this.state.dbType }
-          savedDocs={ this.state.savedDocs }
-          hoverDoc={ this.state.hoverDoc }
-          setHoverDoc={ hoverDocID => this.setState({ hoverDoc : hoverDocID }) }
-          toggleExpand={ () => 
-            this.setState({ 
-              localFilesExpanded: !this.state.localFilesExpanded, 
-              savedDocs: this.state.savedDocs
-            }) 
-          }
-        />
+        {
+          this.state.DBType === 'local' ?
+            <FileDownload 
+              expanded={ this.state.localFilesExpanded }
+              dBType={ this.state.dBType }
+              savedDocs={ this.state.savedDocs }
+              hoverDoc={ this.state.hoverDoc }
+              setHoverDoc={ hoverDocID => this.setState({ hoverDoc : hoverDocID }) }
+              toggleExpand={ () => 
+                this.setState({ 
+                  localFilesExpanded: !this.state.localFilesExpanded, 
+                  savedDocs: this.state.savedDocs
+                }) 
+              }
+            />
+          :
+            <p />
+        }
         <Footer />
       </div>
     );
