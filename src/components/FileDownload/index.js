@@ -68,7 +68,8 @@ const getThumbSource = (hoverDoc, doc) => {
 const generateDocComponent = props => {
   const docs = props.savedDocs
   return docs.map(
-    doc => (
+    doc => {
+      return (
       <div key={doc.id} className="savedDocThumb">
         <img
           src={ getThumbSource(props.hoverDoc, doc) } 
@@ -87,7 +88,7 @@ const generateDocComponent = props => {
           */ 
         } 
       </div>
-    )
+    )}
   )
 }
 

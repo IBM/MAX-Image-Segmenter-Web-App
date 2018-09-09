@@ -23,16 +23,13 @@ export default class App extends Component {
     this.state = initialState
   }
 
-  reset() {
-    this.setState(initialState)
+  componentDidMount = async () => {
+    this.setState({
+      savedDocs : cleanDocs(await getAllDocs())
+    })
   }
 
-  componentDidMount = async () => {
-    const myDocs = cleanDocs(await getAllDocs())
-    //console.log(`mounted with docs[0] ${JSON.stringify(myDocs[0])}`)
-    if (myDocs.length > 0)
-      //console.log(`mounted with docs[0]segments ${JSON.stringify(Object.keys(myDocs[0].segments))}`)
-    
+  componentDidUpdate = async () => {
     this.setState({
       savedDocs : cleanDocs(await getAllDocs())
     })
@@ -48,6 +45,7 @@ export default class App extends Component {
   resetLoadState = () => {
     this.setState({ 
       'imageLoaded' : false, 
+      'canvasReady' : false,
       'localFilesExpanded': false 
     })
   }
@@ -91,12 +89,19 @@ export default class App extends Component {
   }
 
   renderCanvas() {
-    if (this.state.imageLoaded) {
+    if (this.state.canvasReady) {
       return (
         <CanvasDisplay 
           image={ this.state.image }
         />
-    )}
+      )
+    } else if (this.state.previewImg) {
+      return (
+        <CanvasDisplay
+          previewImg={ this.state.previewImg }
+        />
+      )
+    }
   }
 
   render() {
@@ -106,14 +111,15 @@ export default class App extends Component {
         <UploadForm 
           toggleFunc={ this.handleModelToggle }
           modelType={ this.state.modelType }
-          resetLoadState={ this.resetLoadState }
+          resetLoadState={ () => this.forceUpdate() }
           setAppImageData={ this.setImageData }
           imageLoaded={ this.state.canvasReady }
           addSegURL={ this.addSegURL }
           imageName={ this.state.image.name }
+          setPreviewImg={ image => this.setState({ previewImg: image, image: {}, canvasReady: false }) }
         />
         {
-          this.state.canvasReady ?
+          this.state.previewImg || this.state.canvasReady ?
             this.renderCanvas()
           :
           <p />
@@ -124,10 +130,10 @@ export default class App extends Component {
           savedDocs={ this.state.savedDocs }
           hoverDoc={ this.state.hoverDoc }
           setHoverDoc={ hoverDocID => this.setState({ hoverDoc : hoverDocID }) }
-          toggleExpand={ async () => 
+          toggleExpand={ () => 
             this.setState({ 
               localFilesExpanded: !this.state.localFilesExpanded, 
-              savedDocs: cleanDocs(await getAllDocs()) 
+              savedDocs: this.state.savedDocs
             }) 
           }
         />

@@ -10,20 +10,12 @@ export default class UploadForm extends Component {
   constructor(props) {
     super(props)
     this.uploadRef = React.createRef()
-    this.previewRef = React.createRef()
     this.editorRef = React.createRef()
     this.state = initialState
   }
 
   receiveUpload = e => {
     e.preventDefault()
-    
-    // this will eventually trigger a state 'reset' to 
-    // prepare for subsequent image uploads
-    this.props.resetLoadState()
-    this.setState({
-      'isLoading': true
-    })
     
     // this can eventually be brought out as an ENV var..
     // but it must match the size of the output from MAX model
@@ -32,12 +24,14 @@ export default class UploadForm extends Component {
     const fileObj = this.uploadRef.current.files[0]
     const imageURL = window.URL.createObjectURL(fileObj)
 
-    const canvas = this.previewRef.current
+    const canvas = this.editorRef.current
     const ctx = canvas.getContext('2d')  
     this.setState({
       'image' : {
-        'name' : fileObj.name
-      }
+        'name' : fileObj.name,
+        'url' : imageURL        
+      },
+      'isLoading' : 'true'
     })
     let imageObj = {} // alternative to internal component state.. may switch back
     let scaledImage = new Image()
@@ -70,6 +64,7 @@ export default class UploadForm extends Component {
         'width' : scaledWidth,
         'urls' : { 'source' : canvas.toDataURL() }
       }
+      this.props.setPreviewImg(imageObj)
       console.log('sending to MAX...')
       try {
         const cleanJSON = parseMAXData(imageObj.name, await getPrediction(this.props.modelType, fileObj))
@@ -198,21 +193,8 @@ export default class UploadForm extends Component {
     console.log(`bulk upload fired. id: ${bulkUploadJSON.id}`)
   }
 
-  renderLoadingMsg() {
-    if (this.state.isLoading) 
-      return <p>LOADING...</p>
-  }
-
   render() {
     const modelName = this.props.modelType === 'mobile' ? 'MobileNet v2 Model' : 'Full Deeplab v3 Model' 
-    let previewStyle = { }
-    let previewClass = ``
-    if (!this.state.isLoading) {
-      previewStyle = { 'display' : 'none', 'border': 'none', 'boxShadow': 'none' }
-    } else {
-      previewClass = `panel panel-default mainDisplay`
-    }
-
     return (
        <div className="UploadForm">
           <div className="controlPanel">
@@ -245,9 +227,7 @@ export default class UploadForm extends Component {
             </div>  
           </div>
         </div>
-        <canvas className={ previewClass } style={ previewStyle } ref={ this.previewRef }></canvas>
-        <canvas style = {{ 'display' : 'none' }} ref={ this.editorRef }></canvas>
-        { this.renderLoadingMsg() }
+        <canvas style = {{ 'display' : 'none' }} ref={ this.editorRef }></canvas>    
       </div>
     )
   }

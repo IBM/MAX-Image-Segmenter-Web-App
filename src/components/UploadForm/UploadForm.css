@@ -22,7 +22,7 @@
 }
 
 form {
-  margin: 6% 0 6% 0;
+  margin: 3%;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -41,12 +41,11 @@ form {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 form > * {
-  margin-right: 7%;
-  margin-left: 7%;
+  margin: 1%;
 }
 
 form span.formBtn {
