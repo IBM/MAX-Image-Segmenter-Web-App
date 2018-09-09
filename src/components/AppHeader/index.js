@@ -5,7 +5,7 @@ import logo from './codait-logo.png'
 const AppHeader = props => { 
   return (
     <div>
-      <div className="title-banner">
+      <div className="titleBanner">
       <img className="logoImg" src={ logo } alt="logo" />
         <span>
          <u><b>MAX</b> Image Segmenter</u> -  Magic Cropping Tool

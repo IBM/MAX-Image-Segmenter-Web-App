@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import UploadForm from './components/UploadForm'
 import AppHeader from './components/AppHeader'
 import FileDownload from './components/FileDownload'
-import CanvasDisplay from './components/CanvasDisplay'
+import ImageDisplay from './components/ImageDisplay'
 import Footer from './components/Footer'
 import { DBMode, getAllDocs, cleanDocs, bulkSaveAttachments } from './utils';
 
@@ -91,13 +91,13 @@ export default class App extends Component {
   renderCanvas() {
     if (this.state.canvasReady) {
       return (
-        <CanvasDisplay 
+        <ImageDisplay 
           image={ this.state.image }
         />
       )
     } else if (this.state.previewImg) {
       return (
-        <CanvasDisplay
+        <ImageDisplay
           previewImg={ this.state.previewImg }
         />
       )

@@ -1,28 +1,13 @@
-import './CanvasDisplay.css'
+import './ImageDisplay.css'
 import React, { Component } from 'react'
 import TextOutput from '../TextOutput'
-export default class CanvasDisplay extends Component {
+export default class ImageDisplay extends Component {
   constructor(props) {
     super(props)
     this.canvasRef = React.createRef()
     this.state = {
       'selectedObject' : 'colormap' 
     }
-  }
-
-  drawSegments = () => {
-    let canvas = this.canvasRef.current
-    const imgHeight = this.props.image.height
-    const imgWidth = this.props.image.width
-    let img = new Image()
-
-    img.onload = () => {
-      const ctx = canvas.getContext('2d')
-      img.width = imgWidth
-      img.height = imgHeight
-      ctx.drawImage(img, 0, 0, img.width, img.height)
-    }
-    img.src = this.props.image.urls[this.state.selectedObject]
   }
 
   setSelectedObject = objType => {

@@ -105,7 +105,6 @@ export default class UploadForm extends Component {
       this.invisibleSegment(URLMap, neededSegments[name], imageObj)
     }
     console.log(`URLMAP: ${Object.keys(URLMap)}`)
-
     return URLMap
   }
 
@@ -152,15 +151,12 @@ export default class UploadForm extends Component {
             data[i]   = objColor[0]  // red channel
             data[i+1] = objColor[1]  // green channel
             data[i+2] = objColor[2]  // blue channel
-            // data[i+3] = 0          // alpha channel
           }
         }
       } else { 
         for (let i = 0; i < data.length; i += 4) {
           const segMapPixel = flatSegMap[i / 4]
           if (segMapPixel !== OBJ_MAP[segmentName]) {
-            // take out non-person pixels..
-            // only need to set alpha to 0 (transparent)
             data[i+3] = 0    // alpha
           }
         }
@@ -173,13 +169,9 @@ export default class UploadForm extends Component {
       console.log(`invisible ${segmentName} saved`)
     }
     img.src = imageObj.urls.source
-    // imageURL IS UNDEFINED HERE
-    //console.log(`imageURL for ${segmentName} - ${imageURL}`)
   }
 
   setImageURL = (URLMap, segmentName, imageURL) => {
-    // imageURL is valid here!
-    //console.log(`setting ${segmentName} URL to ${imageURL}`)
     URLMap[segmentName] = imageURL
     this.props.addSegURL(segmentName, imageURL)
   }
@@ -198,7 +190,7 @@ export default class UploadForm extends Component {
     return (
        <div className="UploadForm">
           <div className="controlPanel">
-            <div className="model-select panel panel-default">
+            <div className="modelSelect panel panel-default">
               <h3 className="text panel-heading">Model Select:</h3>
               <label className="switch">
                 <input 
@@ -208,7 +200,7 @@ export default class UploadForm extends Component {
                 />
                 <span className="slider round"></span>
               </label>
-              <h5 className="model-select-label">{modelName}</h5>
+              <h5 className="modelSelectLabel">{modelName}</h5>
             </div>
             <div className="uploadForm panel panel-default">
             <h3 className="text panel-heading">Upload an image to be processed:</h3>  

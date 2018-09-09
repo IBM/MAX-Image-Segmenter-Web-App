@@ -134,7 +134,7 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.model-select input {
+.modelSelect input {
   margin: 0 5% 0 5%;
 }
 
@@ -146,7 +146,7 @@ input:checked + .slider:before {
   vertical-align: middle;
 }
 
-.model-select-label {
+.modelSelectLabel {
   font-size: 1em;
   font-weight: lighter;
 }

@@ -1,3 +1,4 @@
+import './TextOutput.css'
 import React from 'react'
 import { COLOR_MAP } from '../../utils'
 

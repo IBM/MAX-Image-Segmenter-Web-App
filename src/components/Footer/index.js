@@ -5,8 +5,8 @@ const Footer = () => {
   return (
     <div className="footerContainer">
       <div>
-        <p>
-          Start building your own Machine Learning enabled apps with this and other open-souce models at the <a href="https://developer.ibm.com/code/exchanges/models/">Model Asset eXchange.</a>
+        <p className="maxMessage">
+          Start building your own Machine Learning powered apps with open-souce models from the <a href="https://developer.ibm.com/code/exchanges/models/">Model Asset eXchange.</a>
         </p>
       </div>
       <hr/>
