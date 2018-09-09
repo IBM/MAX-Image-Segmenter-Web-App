@@ -167,19 +167,19 @@ export default class UploadForm extends Component {
       }
       // insert colorized pixels into image
       ctx.putImageData(imageData, 0, 0)      
-      console.log(`${canvas.toDataURL()}`)
+      //console.log(`${canvas.toDataURL()}`)
       imageURL = canvas.toDataURL()
       this.setImageURL(URLMap, segmentName, imageURL)
       console.log(`invisible ${segmentName} saved`)
     }
     img.src = imageObj.urls.source
     // imageURL IS UNDEFINED HERE
-    console.log(`imageURL for ${segmentName} - ${imageURL}`)
+    //console.log(`imageURL for ${segmentName} - ${imageURL}`)
   }
 
   setImageURL = (URLMap, segmentName, imageURL) => {
     // imageURL is valid here!
-    console.log(`setting ${segmentName} URL to ${imageURL}`)
+    //console.log(`setting ${segmentName} URL to ${imageURL}`)
     URLMap[segmentName] = imageURL
     this.props.addSegURL(segmentName, imageURL)
   }
