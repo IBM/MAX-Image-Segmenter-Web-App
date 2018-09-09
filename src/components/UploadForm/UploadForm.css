@@ -35,6 +35,13 @@ form span.formBtn {
   border-color: #5FBFBB;
 }
 
+form > span > p {
+  vertical-align: middle;
+  font-size: 1.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .formBtn:hover {
   background-color: #26A8A2;
   border-color: #26A8A2;
@@ -42,10 +49,12 @@ form span.formBtn {
 
 label.submitLabel {
   margin-right: 5%;
+  margin-bottom: 2%;
 }
 
 label.pickerLabel {
   margin-left: 5%;
+  margin-bottom: 2%;
 }
 
 .uploadForm {

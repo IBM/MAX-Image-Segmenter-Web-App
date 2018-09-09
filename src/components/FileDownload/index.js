@@ -9,7 +9,7 @@ const FileDownload = props => {
     <div className="fileDownloadContainer" >
       { getToggleText(props) }
       { props.expanded ? 
-        <div>
+        <div className="galleryBox">
           <div className="imageGallery">
             { generateDocComponent(props) }
           </div>

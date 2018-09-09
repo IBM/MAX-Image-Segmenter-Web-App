@@ -34,7 +34,11 @@ export default class UploadForm extends Component {
 
     const canvas = this.previewRef.current
     const ctx = canvas.getContext('2d')  
-
+    this.setState({
+      'image' : {
+        'name' : fileObj.name
+      }
+    })
     let imageObj = {} // alternative to internal component state.. may switch back
     let scaledImage = new Image()
     // drawing the pre-MAX preview image
@@ -217,6 +221,7 @@ export default class UploadForm extends Component {
               <label className="pickerLabel" htmlFor="filePicker">
                 <span className="btn btn-primary formBtn filePickerBtn">Choose File</span>
               </label>
+              <span><p>{ this.state.image ? this.state.image.name : `` }</p></span>
               <input id="filePicker" ref={ this.uploadRef } type="file" accept="image/*" />
               <label className="submitLabel" htmlFor="submitter">
                 <span className="btn btn-primary formBtn submitBtn">Submit</span>

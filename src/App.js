@@ -112,6 +112,7 @@ export default class App extends Component {
           setAppImageData={ this.setImageData }
           imageLoaded={ this.state.canvasReady }
           addSegURL={ this.addSegURL }
+          imageName={ this.state.image.name }
         />
         {
           this.state.canvasReady ?
