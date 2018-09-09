@@ -1,3 +1,18 @@
+.controlPanel {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+.uploadForm {
+  max-width: 450px;
+}
+
+.controlPanel > .panel {
+  margin: 2%
+}
+
 #submitter {
   display: none;
 }
@@ -7,6 +22,7 @@
 }
 
 form {
+  margin: 6% 0 6% 0;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -25,7 +41,12 @@ form {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+form > * {
+  margin-right: 7%;
+  margin-left: 7%;
 }
 
 form span.formBtn {
@@ -36,6 +57,7 @@ form span.formBtn {
 }
 
 form > span > p {
+  display: inline;
   vertical-align: middle;
   font-size: 1.2em;
   overflow: hidden;
@@ -47,21 +69,85 @@ form > span > p {
   border-color: #26A8A2;
 }
 
-label.submitLabel {
-  margin-right: 5%;
-  margin-bottom: 2%;
+
+
+/* everything below is for 'model select' box */
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin: 4% 0 0 1%;
 }
 
-label.pickerLabel {
-  margin-left: 5%;
-  margin-bottom: 2%;
+/* Hide default HTML checkbox */
+.switch input {
+  display:none;
 }
 
-.uploadForm {
-  margin: 0 auto 0 auto;
-  max-width: 450px;
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0bc6c0;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
 
-.uploadForm h3 {
-  margin: 0 0 2% 0;
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.model-select input {
+  margin: 0 5% 0 5%;
+}
+
+.text {
+  font-size: 1.75em;
+  font-weight: bold;
+  height: 75px;
+  margin: auto auto 4% auto;
+  vertical-align: middle;
+}
+
+.model-select-label {
+  font-size: 1em;
+  font-weight: lighter;
 }

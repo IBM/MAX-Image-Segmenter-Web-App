@@ -15,9 +15,9 @@ const TextOutput = props => {
            object segments.` }
         </p>
         <p>
-          { `Select from the following to labels to view the  ` }
+          { `Click the following to labels to view the MAX Image Segmenter ` }
           <b className='maxLabel' onClick={ () => props.selectObject('colormap') }>
-            full Image Segmenter color map
+            color map
           </b> 
           {` or the objects:`}{Object.keys(props.segData.objectPixels).map(objType => getObjLabel(props, objType)) }.
         </p>

@@ -102,11 +102,9 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <AppHeader 
-          modelType={ this.state.modelType }  
-          toggleFunc={ this.handleModelToggle }
-        />
+        <AppHeader />
         <UploadForm 
+          toggleFunc={ this.handleModelToggle }
           modelType={ this.state.modelType }
           resetLoadState={ this.resetLoadState }
           setAppImageData={ this.setImageData }
