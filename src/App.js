@@ -73,7 +73,7 @@ export default class App extends Component {
     })
     if (Object.keys(this.state.image.urls).length === Object.keys(this.state.image.foundSegments).length+1){
       console.log('current image urls ' + Object.keys(this.state.image.urls))
-      console.log('current foundsges ' + Object.keys(this.state.image.foundSegments))
+      console.log('current foundsges ' + JSON.stringify(this.state.image.foundSegments))
       this.saveToPouch(this.state.image)
     }
   }

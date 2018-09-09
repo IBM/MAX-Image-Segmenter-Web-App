@@ -54,19 +54,25 @@ export const getAllDocs = () => {
 
 export const cleanDocs = docs => {
   return docs.rows.map(
-    doc=> ({
-      id: doc.doc._id,
-      rev: doc.value.rev,
-      width: doc.doc.width,
-      height: doc.doc.height,
-      segments: Object.keys(doc.doc._attachments).map(
-        segName =>  ({ 
-          name : segName,
-          hasData : doc.doc._attachments[segName] && true,
-          url: base64toURL(doc.doc._attachments[segName].data)
-          }
-      ))
-    }))
+    doc=> {
+      const segList = Object.keys(doc.doc._attachments)
+      let segObject = {}
+      for (let seg in segList) {
+        segObject[segList[seg]] = { 
+          name : segList[seg],
+          hasData : doc.doc._attachments[segList[seg]] && true,
+          url: base64toURL(doc.doc._attachments[segList[seg]].data)
+        }
+      }
+      return {
+        id: doc.doc._id,
+        rev: doc.value.rev,
+        width: doc.doc.width,
+        height: doc.doc.height,
+        segments: segObject
+      }
+    }
+  )
 }
 
 export const base64toURL = base64 => `data:image/png;base64,${base64}`
@@ -80,12 +86,14 @@ export const bulkSaveAttachments = uploadData => {
   let attachments = {}
   const segmentList = Object.keys(urls)
   for (let seg in segmentList) {
-    attachments[[segmentList[seg]]] = {
-      content_type : 'image/png',
-      data : URLto64(urls[segmentList[seg]])
+    attachments = {
+      ...attachments,
+      [segmentList[seg]] : {
+        content_type : 'image/png',
+        data : URLto64(urls[segmentList[seg]])
+      }
     }
   }
-  console.log(attachments)
   return pouchDB.put({
     _id: id,
     name: name,

@@ -59,9 +59,9 @@ const getToggleText = props => {
 
 const getThumbSource = (hoverDoc, doc) => {
   if (hoverDoc === doc.id){
-    return doc.segments[1].url
+    return doc.segments.source.url
   } else {
-    return doc.segments[0].url
+    return doc.segments.colormap.url
   }
 }
 
@@ -78,7 +78,7 @@ const generateDocComponent = props => {
           onClick={ () => downloadSegments(doc.id.split('-')[1], doc.segments) }
         />
         <p className="imageLabel">
-          <span className="imageTitle">{ `${ doc.id.split('-')[1] }:`}</span>{ ` ${ doc.segments.length } segments` }
+          <span className="imageTitle">{ `${ doc.id.split('-')[1] }:`}</span>{ ` ${ Object.keys(doc.segments).length-2 } segments` }
         </p>
         { /*
           <p className="segList">
