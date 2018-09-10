@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+/images
 
 # production
 /build
@@ -26,5 +27,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# WIP ACTIONS
+# WIP ACTIONS + deployment
 /actions
+/kube_files
