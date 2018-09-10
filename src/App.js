@@ -23,18 +23,6 @@ export default class App extends Component {
     this.state = initialState
   }
 
-  componentDidMount = async () => {
-    this.setState({
-      savedDocs : cleanDocs(await getAllDocs())
-    })
-  }
-
-  componentDidUpdate = async () => {
-    this.setState({
-      savedDocs : cleanDocs(await getAllDocs())
-    })
-  }
-
   handleModelToggle = () => {
     const modelSelection = this.state.modelType === 'mobile' ? 'full' : 'mobile'
     this.setState({
@@ -132,10 +120,10 @@ export default class App extends Component {
               savedDocs={ this.state.savedDocs }
               hoverDoc={ this.state.hoverDoc }
               setHoverDoc={ hoverDocID => this.setState({ hoverDoc : hoverDocID }) }
-              toggleExpand={ () => 
+              toggleExpand={ async () => 
                 this.setState({ 
                   localFilesExpanded: !this.state.localFilesExpanded, 
-                  savedDocs: this.state.savedDocs
+                  savedDocs: cleanDocs(await getAllDocs())
                 }) 
               }
             />
