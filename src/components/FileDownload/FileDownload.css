@@ -35,7 +35,7 @@
 }
 
 .imageLabel {
-  margin-top: 1%;
+  margin-top: auto;
   overflow: hidden;
   text-overflow: ellipsis;
 }
