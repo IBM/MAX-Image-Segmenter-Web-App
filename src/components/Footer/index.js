@@ -12,7 +12,7 @@ const Footer = () => {
       <hr/>
       <footer>
         <p className="left">Created at the <a href="https://developer.ibm.com/code/open/centers/codait/">IBM Center for Open-Source Data & AI Technologies.</a></p>
-        <p className="right">Source code <i>not yet</i> available on <a href="https://www.github.com">GitHub.</a></p>
+        <p className="right">Source code available on <a href="https://github.com/IBM/MAX-ImgSeg-Magic-Cropping-Tool">GitHub.</a></p>
       </footer>
     </div>
   )
