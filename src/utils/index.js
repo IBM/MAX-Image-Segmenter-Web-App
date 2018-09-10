@@ -9,11 +9,12 @@ const DEPLOY_TYPE = process.env.REACT_APP_DEPLOY_TYPE || ''
 const DBUser = process.env.REACT_APP_CLOUDANT_USER
 const DBPass = process.env.REACT_APP_CLOUDANT_PW
 const cloudantURL = `https://${DBUser}:${DBPass}@${DBUser}.cloudant.com/images`
-let pouchDB
+
 
 export const DBType = process.env.REACT_APP_CLOUDANT_USER && process.env.REACT_APP_CLOUDANT_PW ? 'remote' : 'local'
 export const deleteLocalImages = async expandFunc => {
   expandFunc()
+  let pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.destroy()
 }
 
@@ -43,6 +44,7 @@ export const getColor = pixel => {
 }
 
 export const getAllDocs = () => {
+  let pouchDB
   if (!DBUser || !DBPass) {
     pouchDB = new PouchDB('offLine', { auto_compaction: true })
    } else {
@@ -78,7 +80,14 @@ export const base64toURL = base64 => `data:image/png;base64,${base64}`
 export const URLto64 = dataURL => dataURL.split(',')[1]
 
 export const bulkSaveAttachments = uploadData => {
-  console.log(`update attachment: ${Object.keys(uploadData)} rev: ${uploadData.rev}`)
+  let pouchDB
+
+  if (!DBUser || !DBPass) {
+    pouchDB = new PouchDB('offLine', { auto_compaction: true })
+   } else {
+    pouchDB = new PouchDB(cloudantURL)
+  }
+  //console.log(`update attachment: ${Object.keys(uploadData)} rev: ${uploadData.rev}`)
   const { urls, name, width, height } = uploadData
   const id = `${String(Date.now()).substring(6)}-${name.split('.')[0]}`
   // build attachments object
