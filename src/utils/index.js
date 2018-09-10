@@ -9,12 +9,13 @@ const DEPLOY_TYPE = process.env.REACT_APP_DEPLOY_TYPE || ''
 const DBUser = process.env.REACT_APP_CLOUDANT_USER
 const DBPass = process.env.REACT_APP_CLOUDANT_PW
 const cloudantURL = `https://${DBUser}:${DBPass}@${DBUser}.cloudant.com/images`
-let pouchDB
 
-if (!DBUser || !DBPass) {
-  pouchDB = new PouchDB('offLine')
- } else {
-  pouchDB = new PouchDB(cloudantURL)
+
+export const DBType = process.env.REACT_APP_CLOUDANT_USER && process.env.REACT_APP_CLOUDANT_PW ? 'remote' : 'local'
+export const deleteLocalImages = async expandFunc => {
+  expandFunc()
+  let pouchDB = new PouchDB('offLine', { auto_compaction: true })
+  return pouchDB.destroy()
 }
 
 export const OBJ_LIST = ['background', 'airplane', 'bicycle', 'bird', 'boat', 
@@ -38,24 +39,69 @@ export const COLOR_MAP = {
 }
 export const COLOR_LIST = Object.values(COLOR_MAP)
 
-export const getAllDocs = async () => {
-  return await pouchDB.allDocs({ include_docs : 'true' })
+export const getColor = pixel => {
+  return COLOR_LIST[pixel - 1]
 }
 
+export const getAllDocs = () => {
+  let pouchDB
+  if (!DBUser || !DBPass) {
+    pouchDB = new PouchDB('offLine', { auto_compaction: true })
+   } else {
+    pouchDB = new PouchDB(cloudantURL)
+  }
+  return pouchDB.allDocs({ include_docs : 'true', attachments: 'true' })
+}
+
+export const cleanDocs = docs => {
+  return docs.rows.map(
+    doc=> {
+      const segList = Object.keys(doc.doc._attachments)
+      let segObject = {}
+      for (let seg in segList) {
+        segObject[segList[seg]] = { 
+          name : segList[seg],
+          hasData : doc.doc._attachments[segList[seg]] && true,
+          url: base64toURL(doc.doc._attachments[segList[seg]].data)
+        }
+      }
+      return {
+        id: doc.doc._id,
+        rev: doc.value.rev,
+        width: doc.doc.width,
+        height: doc.doc.height,
+        segments: segObject
+      }
+    }
+  )
+}
+
+export const base64toURL = base64 => `data:image/png;base64,${base64}`
+export const URLto64 = dataURL => dataURL.split(',')[1]
+
 export const bulkSaveAttachments = uploadData => {
-  console.log(`update attachment: ${Object.keys(uploadData)} rev: ${uploadData.rev}`)
+  let pouchDB
+
+  if (!DBUser || !DBPass) {
+    pouchDB = new PouchDB('offLine', { auto_compaction: true })
+   } else {
+    pouchDB = new PouchDB(cloudantURL)
+  }
+  //console.log(`update attachment: ${Object.keys(uploadData)} rev: ${uploadData.rev}`)
   const { urls, name, width, height } = uploadData
   const id = `${String(Date.now()).substring(6)}-${name.split('.')[0]}`
   // build attachments object
   let attachments = {}
   const segmentList = Object.keys(urls)
   for (let seg in segmentList) {
-    attachments[[segmentList[seg]]] = {
-      content_type : 'image/png',
-      data : URLto64(urls[segmentList[seg]])
+    attachments = {
+      ...attachments,
+      [segmentList[seg]] : {
+        content_type : 'image/png',
+        data : URLto64(urls[segmentList[seg]])
+      }
     }
   }
-  console.log(attachments)
   return pouchDB.put({
     _id: id,
     name: name,
@@ -108,5 +154,3 @@ export const parseMAXData = (imgName, response) => {
     'imageName' : imgName
   }
 }
-
-export const URLto64 = dataURL => dataURL.split(',')[1]
