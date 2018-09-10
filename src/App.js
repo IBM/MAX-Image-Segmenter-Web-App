@@ -14,7 +14,8 @@ const initialState = {
   'savedDocs' : [],
   'hoverDoc' : '',
   'imageLoaded' : false,
-  'image' : {}
+  'image' : {},
+  'selectedObject' : '',
 }
 
 export default class App extends Component {
@@ -46,6 +47,12 @@ export default class App extends Component {
     })
   }
 
+  setSelectedObject = objType => {
+    this.setState({
+      'selectedObject' : objType
+    })
+  }
+
   addSegURL = (name, url) => {
     //console.log(`name is getting put in doc as ${name}`)
     this.setState({
@@ -62,7 +69,8 @@ export default class App extends Component {
       //console.log('current foundsges ' + JSON.stringify(this.state.image.foundSegments))
       this.saveToPouch(this.state.image)
       this.setState({
-        'canvasReady' : true
+        'canvasReady' : true,
+        'selectedObject' : 'colormap'
       })
     }
   }
@@ -80,7 +88,9 @@ export default class App extends Component {
     if (this.state.canvasReady) {
       return (
         <ImageDisplay 
-          image={ this.state.image }
+        setSelectedObject={ this.setSelectedObject }
+        selectedObject={ this.state.selectedObject }
+        image={ this.state.image }
         />
       )
     } else if (this.state.previewImg) {

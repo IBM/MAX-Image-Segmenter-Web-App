@@ -98,18 +98,18 @@ export default class UploadForm extends Component {
 
   mapNeededURLs = imageObj => {
     const neededSegments = imageObj.foundSegments
-    console.log(neededSegments)
+    //console.log(neededSegments)
     let URLMap = {}
     for (let name in neededSegments) {
-      console.log(neededSegments[name])
+      //console.log(neededSegments[name])
       this.invisibleSegment(URLMap, neededSegments[name], imageObj)
     }
-    console.log(`URLMAP: ${Object.keys(URLMap)}`)
+    //console.log(`URLMAP: ${Object.keys(URLMap)}`)
     return URLMap
   }
 
   invisibleSegment = (URLMap, segmentName, imageObj) => {
-    console.log('invisiblesegments')
+    //console.log('invisiblesegments')
     let canvas = this.editorRef.current
     const ctx = canvas.getContext('2d')
     let img = new Image()
