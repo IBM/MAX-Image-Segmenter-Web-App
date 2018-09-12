@@ -177,39 +177,47 @@ export default class UploadForm extends Component {
   }
 
   render() {
-    const modelName = this.props.modelType === 'mobile' ? 'MobileNet v2 Model' : 'Full Deeplab v3 Model' 
     return (
        <div className="UploadForm">
-          <div className="controlPanel">
-            <div className="modelSelect panel panel-default">
-              <h3 className="text panel-heading">Model Select:</h3>
-              <label className="switch">
-                <input 
-                  type="checkbox" 
-                  checked={ this.props.modelType === 'full' }
-                  onClick={ this.props.toggleFunc } 
-                />
-                <span className="slider round"></span>
+        <div className="uploadForm panel panel-default">
+          <h3 className="text panel-heading">
+            Upload an image to be processed:
+          </h3>  
+          <div className="formWrapper">
+            <form 
+              method="post" 
+              encType="multipart/form-data" 
+              onSubmit={ this.receiveUpload }>
+              
+              <label className="pickerLabel" htmlFor="filePicker">
+                <span className="btn btn-primary formBtn filePickerBtn">
+                  Choose File
+                </span>
               </label>
-              <h5 className="modelSelectLabel">{modelName}</h5>
-            </div>
-            <div className="uploadForm panel panel-default">
-            <h3 className="text panel-heading">Upload an image to be processed:</h3>  
-            <div className="formWrapper">
-              <form method="post" encType="multipart/form-data" onSubmit={ this.receiveUpload }>
-                <label className="pickerLabel" htmlFor="filePicker">
-                  <span className="btn btn-primary formBtn filePickerBtn">Choose File</span>
-                </label>
-                <span><p>{ this.state.image ? this.state.image.name : `` }</p></span>
-                <input id="filePicker" ref={ this.uploadRef } type="file" accept="image/*" />
-                <label className="submitLabel" htmlFor="submitter">
-                  <span className="btn btn-primary formBtn submitBtn">Submit</span>
-                </label>
-                <input id="submitter" type="submit" value="Upload" />
-              </form>
-            </div>  
+              <span>
+                <p>
+                  { this.state.image || `` }
+                </p>
+              </span>
+              <input 
+                id="filePicker" 
+                ref={ this.uploadRef } 
+                type="file" 
+                accept="image/*" />
+
+              <label className="submitLabel" htmlFor="submitter">
+                <span className="btn btn-primary formBtn submitBtn">
+                  Submit
+                </span>
+              </label>
+              <input 
+                id="submitter" 
+                type="submit" 
+                value="Upload" />
+            </form>
           </div>
         </div>
+
         <canvas style = {{ 'display' : 'none' }} ref={ this.editorRef }></canvas>    
       </div>
     )
