@@ -77,13 +77,13 @@ If you receive an error about duplicate containers or container names already be
 _this option currently still in development_  
 
 <hr>
-
-**DEMO VIDEO**  
-  _in development_
+<div style="text-align: center">
+<b>DEMO VIDEO</b> <br>  
+<i>in development</i>
 
 #### Main App UI
 ![App UI](./screenshots/controls.png)
 
 #### Sample Output
 ![Sample Output](./screenshots/output.png)
-
+</div>
