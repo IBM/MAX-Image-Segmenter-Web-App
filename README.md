@@ -68,7 +68,9 @@ Then, `cd` into the new directory.
 
 The app will be running at `http://localhost:4444`
 
-![App UI](./screenshots/app-ui.png)
+**DEMO VIDEO** To be placed in README upon completion.
 
-![Sample Output](./screenshots/app-output.png)
+![App UI](./screenshots/controls.png)
+
+![Sample Output](./screenshots/output.png)
 
