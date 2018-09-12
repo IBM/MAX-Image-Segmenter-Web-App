@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor } from '../../utils'
+import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, MAX_SIZE } from '../../utils'
 import './UploadForm.css'
 
 const initialState = {
@@ -17,10 +17,8 @@ export default class UploadForm extends Component {
 
   receiveUpload = e => {
     e.preventDefault()
-    
     // this can eventually be brought out as an ENV var..
     // but it must match the size of the output from MAX model
-    const MAX_SIZE = 513
     const fileObj = this.uploadRef.current.files[0]
     const imageURL = window.URL.createObjectURL(fileObj)
     const canvas = this.editorRef.current

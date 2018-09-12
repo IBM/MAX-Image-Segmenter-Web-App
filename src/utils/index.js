@@ -7,6 +7,8 @@ const KUBE_MODEL_PORT = process.env.REACT_APP_KUBE_MODEL_PORT || ''
 const LOCAL_MODEL_PORT = process.env.REACT_APP_LOCAL_MODEL_PORT || 5000
 const DEPLOY_TYPE = process.env.REACT_APP_DEPLOY_TYPE || ''
 
+export const MAX_SIZE = process.env.REACT_APP_DEPLOY_TYPE || 513
+
 export const OBJ_LIST = ['background', 'airplane', 'bicycle', 'bird', 'boat', 
 'bottle', 'bus', 'car', 'cat', 'chair', 'cow', 'dining_table', 
 'dog', 'horse', 'motorbike', 'person', 'potted_plant', 'sheep', 
