@@ -1,6 +1,59 @@
 # MAX Image Segmenter: Magic Cropping Tool Web App
 
-## Install Option 1: Build/Run in one step with Docker-Compose
+## Step 1: Start the MAX Image Segmenter Model API Server
+
+This app leverages the API server included with the MAX Image Segmenter model located [here](https://github.com/IBM/MAX-Image-Segmenter). 
+
+The official docs recommend using [Docker](https://docs.docker.com/) to run the MAX model server on your machine, which is also the recommended method to build and run this app. See the [Docker install docs](https://docs.docker.com/install/) for more information about installing Docker on your machine.
+
+Once the required steps have been completed to install Docker, use the following command to run the model:  
+`docker run -it -p 5000:5000 -e CORS_ENABLE=true kastentx/cors-max-imgseg`  
+_(custom MAX Model image being used pending merge of [PR #14](https://github.com/IBM/MAX-Image-Segmenter/pull/14))_ 
+
+Once Docker downloads the image and starts the container, you should see logging info in the terminal indicating that the server is `Running on http://0.0.0.0:5000/`, among other things. 
+
+Leave this terminal open, with the model server running, and continue with the folllowing steps in a new terminal window.
+
+## Step 2: Start the Web App
+
+### Option 1: Build/Run the app locally with `npm`
+
+First, clone this repo.
+
+Then, `cd` into the new directory. 
+
+* `npm install`
+* rename the environment file with `mv sample.env .env`
+  * the need for this may change depending on the fate of the cloudant/object storage integration
+* `npm start`
+
+The app will be running at `http://localhost:4444`
+
+### Option 2: Build/Run each container individually with Docker
+
+First, run the latest version of the MAX Image Segmenter API server with the command  
+`docker run -it -p 5000:5000 kastentx/cors-dualmode-imgseg`  
+_(development-use image)_
+
+Then, run the Magic Cropping Tool frontend app with the command  
+`docker run -it -p 4444:4444 kastentx/img-upload-app`   
+_(development-use image)_
+
+Open your browser and navigate to `http://localhost:4444` to run the app, 
+or `http://localhost:5000` to view the MAX model's API documentation.
+
+#### To Stop
+
+This command will stop all running containers.  
+`docker kill $(docker ps -aq)`
+
+To remove the containers from your system, use the similar command from the section above. See the [Docker docs](https://docs.docker.com/) for more information about removing images and containers that you've accumulated. 
+
+#### Troubleshooting
+
+If you receive errors about ports being in use, check to make sure nothing else is already using ports `5000` or `4444` which are needed by this app. To make sure the containers aren't already running, use the command `docker ps` to list all running containers.
+
+## Alternative Install Option: Build/Run MAX Model + Web App in one step with Docker-Compose
 
 First, download the configuriation file from a terminal window with the command `curl https://raw.githubusercontent.com/IBM/MAX-ImgSeg-Magic-Cropping-Tool/downloads/docker-compose.yml > docker-compose.yml`
 
@@ -20,57 +73,18 @@ This command will stop both the front-end app and the Model's API service.
 If you receive an error about duplicate containers or container names already being in use, or you just want to get rid of all saved containers use the command:
 `docker rm $(docker ps -aq)`
 
-## Install Option 2: Build/Run each container individually with Docker
+## Alternative Install Option: Run Web App Using Model Running on Kubernetes Cluster
 
-First, run the latest version of the MAX Image Segmenter API server with the command `docker run -it -p 5000:5000 kastentx/cors-dualmode-imgseg` _(development-use image)_
+_this option currently still in development_  
 
-Then, run the Magic Cropping Tool frontend app with the command `docker run -it -p 4444:4444 kastentx/img-upload-app` _(development-use image)_
+<hr>
 
-Open your browser and navigate to `http://localhost:4444` to run the app, 
-or `http://localhost:5000` to view the MAX model's API documentation.
+**DEMO VIDEO**  
+  _in development_
 
-### To Stop
-
-This command will stop all running containers.
-`docker kill $(docker ps -aq)`
-
-To remove the containers from your system, use the similar command from the section above. See the [Docker docs](https://docs.docker.com/) for more information about removing images and containers that you've accumulated. 
-
-### Troubleshooting
-
-If you receive errors about ports being in use, check to make sure nothing else is already using ports `5000` or `4444` which are needed by this app. To make sure the containers aren't already running, use the command `docker ps` to list all running containers.
-
-## Install Option 3: Deploy the MAX model and app to a Kubernetes cluster
-
-* insert directions on setting up a free cluster
-  * should be able to do through ibmcloud CLI
-  * if not, steps to set up through UI w/ screen shots
-  * offer up minikube as an option?
-* review how to set up terminal env vars for `kubectl`
-* get public IP with `ibmcloud ks workers mycluster-ntk`
-* get public NodePorts with `kubectl get svc`
-* set details needed in the yaml file
-  * rename (if cloudant/creds are still an issue going forward)
-* `kubctl -f apply <single-pod-deployment.yaml>`
-  
-_As of now, the public nodePort and public IP address must be set properly in the YAML file for the MAX model to be accesible from the app. A better deployment/service configuration is being written that shouldn't need this step._
-
-## Install Option 4: Build/Run the app locally with `npm`
-
-First, clone this repo.
-
-Then, `cd` into the new directory. 
-
-* `npm install`
-* rename the environment file with `mv sample.env .env`
-  * the need for this may change depending on the fate of the cloudant/object storage integration
-* `npm start`
-
-The app will be running at `http://localhost:4444`
-
-**DEMO VIDEO** To be placed in README upon completion.
-
+#### Main App UI
 ![App UI](./screenshots/controls.png)
 
+#### Sample Output
 ![Sample Output](./screenshots/output.png)
 
