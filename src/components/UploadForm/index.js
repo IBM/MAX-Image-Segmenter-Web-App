@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { getPrediction, parseMAXData, OBJ_MAP, getColor } from '../../utils'
+import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor } from '../../utils'
 import './UploadForm.css'
 
 const initialState = {
-  'isLoading' : false
+  image: {},
+  isLoading: false
 }
 
 export default class UploadForm extends Component {
@@ -20,21 +21,12 @@ export default class UploadForm extends Component {
     // this can eventually be brought out as an ENV var..
     // but it must match the size of the output from MAX model
     const MAX_SIZE = 513
-    // Image taken from input Form
     const fileObj = this.uploadRef.current.files[0]
     const imageURL = window.URL.createObjectURL(fileObj)
-
     const canvas = this.editorRef.current
     const ctx = canvas.getContext('2d')  
-    this.setState({
-      'image' : {
-        'name' : fileObj.name,
-        'url' : imageURL        
-      },
-      'isLoading' : 'true'
-    })
-    let imageObj = {} // alternative to internal component state.. may switch back
     let scaledImage = new Image()
+
     // drawing the pre-MAX preview image
     scaledImage.onload = async () => {
       // scaling image.. put in function for reuse?
@@ -55,42 +47,39 @@ export default class UploadForm extends Component {
       canvas.width = scaledWidth 
       canvas.height = scaledHeight
       ctx.drawImage(scaledImage, 0, 0, scaledWidth, scaledHeight)
-      
-      // building image object to send to MAX
-      imageObj = {
-        'name' : fileObj.name,
-        'type' : fileObj.type,
-        'height' : scaledHeight,
-        'width' : scaledWidth,
-        'urls' : { 'source' : canvas.toDataURL() }
-      }
-      this.props.setPreviewImg(imageObj)
-      console.log('sending to MAX...')
-      try {
-        const cleanJSON = parseMAXData(imageObj.name, await getPrediction(this.props.modelType, fileObj))
-        // add MAX response to image object
-        imageObj = {
-          ...imageObj,
-          'foundSegments' : cleanJSON.objectTypes.concat('colormap'),
-          'response' : cleanJSON
+  
+      const newImage = {
+        name: fileObj.name,
+        type: fileObj.type,
+        height: scaledHeight,
+        width: scaledWidth,
+        urls: { 
+          source: canvas.toDataURL() 
         }
-      } catch (e) {
-        console.error('error getting prediction from MAX Model.')
       }
+      this.setState({
+        isLoading: true,
+        image: newImage
+      })
+      this.props.setAppPreviewImg(newImage)
       try {
-        // build/add additional segment images and colormap to image object
-        let dataURLs = { ...this.mapNeededURLs(imageObj), source: imageObj.urls.source }
-        //dataURLs = {...dataURLs, source: imageObj.urls.source}
-        const currentImage = { ...imageObj, urls: dataURLs }
+        console.log('sending to MAX...')
+        const MAXData = cleanMAXResponse(newImage.name, await getPrediction(fileObj))
+        let dataURLs = { 
+          ...this.mapNeededURLs({ ...newImage, ...MAXData }), 
+          source: newImage.urls.source 
+        }
+        console.log(Object.keys(dataURLs))
+        const MAXImage = { ...newImage, ...MAXData, urls: dataURLs }
         //console.log(`current image: ${Object.keys(currentImage)}`)
         //console.log(`dataURLs needs to be legit here - colormap: ${JSON.stringify(dataURLs.colormap)}`)
-        this.props.setAppImageData(currentImage)
+        this.props.setAppImageData(MAXImage)
         
         this.setState({
           'isLoading': false 
        })
       } catch (e) {
-        console.error('error saving urls in parent state')
+        console.error('error saving MAX Image data in parent state')
       }       
     }
       scaledImage.src = imageURL
@@ -98,10 +87,8 @@ export default class UploadForm extends Component {
 
   mapNeededURLs = imageObj => {
     const neededSegments = imageObj.foundSegments
-    //console.log(neededSegments)
     let URLMap = {}
     for (let name in neededSegments) {
-      //console.log(neededSegments[name])
       this.invisibleSegment(URLMap, neededSegments[name], imageObj)
     }
     //console.log(`URLMAP: ${Object.keys(URLMap)}`)
@@ -120,7 +107,6 @@ export default class UploadForm extends Component {
       let scaledWidth = img.naturalWidth
       let scaledHeight = img.naturalHeight
       let ratio
-
       if (scaledWidth > scaledHeight) {
         ratio = scaledHeight / scaledWidth
         scaledWidth = 513
@@ -135,7 +121,6 @@ export default class UploadForm extends Component {
       canvas.width = scaledWidth 
       canvas.height = scaledHeight 
 
-
       ctx.drawImage(img, 0, 0, img.width, img.height)
       const imageData = ctx.getImageData(0, 0, img.width, img.height)
       const data = imageData.data
@@ -147,10 +132,10 @@ export default class UploadForm extends Component {
           let objColor = [0, 0, 0]
           if (segMapPixel) {
             objColor = getColor(imageObj.response.objectIDs.indexOf(segMapPixel))
-            // apply appropriate color
             data[i]   = objColor[0]  // red channel
             data[i+1] = objColor[1]  // green channel
             data[i+2] = objColor[2]  // blue channel
+            data[i+3] = 200          // alpha
           }
         }
       } else { 
@@ -161,7 +146,6 @@ export default class UploadForm extends Component {
           }
         }
       }
-      // insert colorized pixels into image
       ctx.putImageData(imageData, 0, 0)      
       //console.log(`${canvas.toDataURL()}`)
       imageURL = canvas.toDataURL()
@@ -218,7 +202,10 @@ export default class UploadForm extends Component {
           </div>
         </div>
 
-        <canvas style = {{ 'display' : 'none' }} ref={ this.editorRef }></canvas>    
+        <canvas 
+          ref={ this.editorRef }
+          style = { { display: 'none' } } >
+        </canvas>    
       </div>
     )
   }

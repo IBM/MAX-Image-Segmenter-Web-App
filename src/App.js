@@ -8,13 +8,12 @@ import Footer from './components/Footer'
 import { getAllDocs, cleanDocs, saveToPouch } from './utils'
 
 const initialState = {
-  'modelType' : 'mobile',
-  'localFilesExpanded' : false,
-  'savedDocs' : [],
-  'hoverDoc' : '',
-  'imageLoaded' : false,
-  'image' : {},
-  'selectedObject' : '',
+  localFilesExpanded: false,
+  savedDocs: [],
+  hoverDoc: '',
+  imageLoaded: false,
+  image: {},
+  selectedObject: '',
 }
 
 export default class App extends Component {
@@ -23,40 +22,41 @@ export default class App extends Component {
     this.state = initialState
   }
 
-  handleModelToggle = () => {
-    const modelSelection = this.state.modelType === 'mobile' ? 'full' : 'mobile'
-    this.setState({
-      'modelType': modelSelection
+  resetLoadState = () => {
+    this.setState({ 
+      imageLoaded: false, 
+      canvasReady: false,
+      localFilesExpanded: false 
     })
   }
 
-  resetLoadState = () => {
+  setPreviewImg = newImage => {
     this.setState({ 
-      'imageLoaded' : false, 
-      'canvasReady' : false,
-      'localFilesExpanded': false 
+      previewImg: newImage, 
+      image: {}, 
+      canvasReady: false 
     })
   }
 
   setImageData = newImage => {
     this.setState({ 
-      'image': newImage,
-      'localFilesExpanded' : false,
-      'imageLoaded': true  
+      image: newImage,
+      localFilesExpanded: false,
+      imageLoaded: true  
     })
   }
 
   setSelectedObject = objType => {
     this.setState({
-      'selectedObject' : objType
+      selectedObject: objType
     })
   }
 
   addSegURL = async (name, url) => {
     this.setState({
-      'image' : {
+      image: {
         ...this.state.image,
-        'urls' : { 
+        urls: { 
           ...this.state.image.urls,
           [name]: url
         }
@@ -72,8 +72,8 @@ export default class App extends Component {
 
   reloadDisplay = () => {
     this.setState({
-      'canvasReady' : true,
-      'selectedObject' : 'colormap'
+      canvasReady: true,
+      selectedObject: 'colormap'
     })
   }
 
@@ -105,7 +105,7 @@ export default class App extends Component {
           imageLoaded={ this.state.canvasReady }
           addSegURL={ this.addSegURL }
           imageName={ this.state.image.name }
-          setPreviewImg={ image => this.setState({ previewImg: image, image: {}, canvasReady: false }) } />
+          setAppPreviewImg={ this.setPreviewImg } />
         {
           this.state.previewImg || this.state.canvasReady ?
             this.renderCanvas()
