@@ -1,5 +1,5 @@
 .fileDownloadContainer {
-  color: lightslategray;
+  color: #666;
 }
 
 .galleryBox {
@@ -9,40 +9,58 @@
 .savedDocThumb {
   color: black;
   background-color: #ddd;
-  width: 198px;
-  height: 198px;
-  padding: .75%;
+  width: 250px;
+  height: 250px;
   margin: 0 .5% 1% .5%;
   border-radius: 4px;
   display: flex;
   cursor: pointer;
   overflow: hidden;
   flex-flow: column;
-  border: 1px solid #ddd;
+  border: 1px solid #aaa;
 }
 
 .savedDocThumb:hover {
-  background-color: #0bc6c0;
+  background-color: #0bc6c0; 
 }
 
-.savedDocThumb > * {
-  margin: 0;
+.savedDocThumb:hover > .imageLabel.top {
+  background-color: #26A8A2; 
+  font-weight: 900;
 }
 
-.savedDocThumb > img {
-  max-height: 85%;
+.savedDocThumb:hover > .imageLabel.bottom {
+  background-color: inherit; 
+  color: #fff;
+}
+
+.thumbImg {
+  display: block;
+  height: 65%;
   width: auto;
+  margin: 0 5% 0 5%;
+  border-radius: 3px;
 }
 
 .imageLabel {
-  margin-top: auto;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+.imageLabel.bottom {
+  margin-top: 5%;
+}
+
+.imageLabel.top {
+  font-weight: bold;
+  padding: 2%;
+  vertical-align: center;
+  margin-bottom: 5%;
+  background-color: #aaa;
+}
+
 .imageTitle {
-  font-weight: bolder;
-  text-transform: unset;
+  text-transform: capitalize;
 }
 
 .segList {
@@ -52,10 +70,12 @@
 .openLabel {
   color: black;
   cursor: pointer;
+  display: inline-block;
 }
 
 .closeLabel {
   cursor: pointer;
+  display: inline-block;
 }
 
 .deleteBox {
@@ -68,10 +88,6 @@
 
 .deleteBtn {
   margin: 2%;
-}
-
-.deleteBox > div > p {
-  margin: 0;
 }
 
 .imageGallery {

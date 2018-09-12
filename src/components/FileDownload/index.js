@@ -34,7 +34,6 @@ const FileDownload = props => {
 }
 
 const getToggleText = props => {
-  
   let label = (
     <p className="openLabel" onClick={ props.toggleExpand }>
       { `+ Click here to view locally cached images in PouchDB.` }
@@ -75,16 +74,19 @@ const generateDocComponent = props => {
           onMouseEnter={ () => props.setHoverDoc(doc.id) } 
           onMouseLeave={ () => props.setHoverDoc('') } 
           onClick={ () => downloadSegments(doc.id.split('-')[1], doc.segments) }>
-          <img
-            src={ getThumbSource(props.hoverDoc, doc) } 
-            alt={ doc.id } />
-          <p className="imageLabel">
-            <span className="imageTitle">
-              { `${ doc.id.split('-')[1] }:` }
-            </span>
-            { ` ${ Object.keys(doc.segments).length-2 } segments` }
-          </p>
-        </div>
+            <p className="imageLabel top">
+              <span className="imageTitle">
+                { doc.id.split('-')[1] }
+              </span>
+            </p>
+            <img
+              className="thumbImg"
+              src={ getThumbSource(props.hoverDoc, doc) } 
+              alt={ doc.id } />
+            <p className="imageLabel bottom">
+              { ` ${ Object.keys(doc.segments).length-2 } segments` }
+            </p>
+          </div>
       )
     }
   )
