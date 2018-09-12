@@ -18,24 +18,22 @@ Leave this terminal open, with the model server running, and continue with the f
 
 ### Option 1: Build/Run the app locally with `npm`
 
-First, clone this repo.
+* First, clone this repo.
+* Then, `cd` into the new directory. 
+* Install dependencies with the command `npm install`
+* Rename the environment file with `mv sample.env .env` (and populate any blank values if running with a MAX model deployed to K8s)
+* Start the app with `npm start`
 
-Then, `cd` into the new directory. 
-
-* `npm install`
-* rename the environment file with `mv sample.env .env`
-  * the need for this may change depending on the fate of the cloudant/object storage integration
-* `npm start`
-
-The app will be running at `http://localhost:4444`
+Open your browser and navigate to `http://localhost:4444` to run the app, 
+or `http://localhost:5000` to view the MAX model's API documentation.
 
 ### Option 2: Build/Run each container individually with Docker
 
-First, run the latest version of the MAX Image Segmenter API server with the command  
+* First, run the latest version of the MAX Image Segmenter API server with the command  
 `docker run -it -p 5000:5000 kastentx/cors-dualmode-imgseg`  
 _(development-use image)_
 
-Then, run the Magic Cropping Tool frontend app with the command  
+* Then, run the Magic Cropping Tool frontend app with the command  
 `docker run -it -p 4444:4444 kastentx/img-upload-app`   
 _(development-use image)_
 
@@ -55,9 +53,10 @@ If you receive errors about ports being in use, check to make sure nothing else 
 
 ## Alternative Install Option: Build/Run MAX Model + Web App in one step with Docker-Compose
 
-First, download the configuriation file from a terminal window with the command `curl https://raw.githubusercontent.com/IBM/MAX-ImgSeg-Magic-Cropping-Tool/downloads/docker-compose.yml > docker-compose.yml`
+* First, download the configuriation file from a terminal window with the command  
+  `curl https://raw.githubusercontent.com/IBM/MAX-ImgSeg-Magic-Cropping-Tool/downloads/docker-compose.yml > docker-compose.yml`
 
-Then, in the same directory as this file you've just downloaded, use the following command to build and run the containers with [docker-compose](https://docs.docker.com/compose/).
+* Then, in the same directory as this file you've just downloaded, use the following command to build and run the containers with [docker-compose](https://docs.docker.com/compose/).
 `docker-compose up -d --build`
 
 Open your browser and navigate to `http://localhost:4444` to run the app, 
