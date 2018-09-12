@@ -64,7 +64,7 @@ export default class UploadForm extends Component {
         this.mapNeededURLs({ ...newImage, ...MAXData })
         this.props.setAppImageData(MAXImage)
         this.setState({
-          'isLoading': false 
+          isLoading: false 
        })
       } catch (e) {
         console.error('error saving MAX Image data in parent state')
@@ -77,13 +77,13 @@ export default class UploadForm extends Component {
       const neededSegments = imageObj.foundSegments
       let URLMap = {}
       for (let name in neededSegments) {
-        URLMap[neededSegments[name]] = await this.invisibleSegment(URLMap, neededSegments[name], imageObj)
+        URLMap[neededSegments[name]] = await this.invisibleSegment(neededSegments[name], imageObj)
       }
       console.log(`URLMAP: ${Object.keys(URLMap)}`)
       return URLMap
   }
 
-  invisibleSegment = (URLMap, segmentName, imageObj) => {
+  invisibleSegment = (segmentName, imageObj) => {
     return new Promise((resolve, reject) => {
       let canvas = this.editorRef.current
       const ctx = canvas.getContext('2d')
@@ -96,11 +96,11 @@ export default class UploadForm extends Component {
         let ratio
         if (scaledWidth > scaledHeight) {
           ratio = scaledHeight / scaledWidth
-          scaledWidth = 513
+          scaledWidth = MAX_SIZE
           scaledHeight = Math.round(scaledWidth * ratio)
         } else {
           ratio = scaledWidth / scaledHeight
-          scaledHeight = 513
+          scaledHeight = MAX_SIZE
           scaledWidth = Math.round(scaledHeight * ratio)
         }
         img.width = scaledWidth
@@ -113,7 +113,7 @@ export default class UploadForm extends Component {
         const data = imageData.data
 
         if (segmentName === 'colormap') {
-          console.log(`building ${segmentName}`)
+          console.log(`building ${ segmentName }`)
           for (let i = 0; i < data.length; i += 4) {
             const segMapPixel = flatSegMap[i / 4]
             let objColor = [0, 0, 0]
@@ -129,15 +129,14 @@ export default class UploadForm extends Component {
           for (let i = 0; i < data.length; i += 4) {
             const segMapPixel = flatSegMap[i / 4]
             if (segMapPixel !== OBJ_MAP[segmentName]) {
-              data[i+3] = 0    // alpha
+              data[i+3] = 0           // alpha
             }
           }
         }
         ctx.putImageData(imageData, 0, 0)      
-        //console.log(`${canvas.toDataURL()}`)
         imageURL = canvas.toDataURL()
         this.props.addSegURL(segmentName, imageURL)
-        console.log(`invisible ${segmentName} saved`)
+        console.log(`invisible ${ segmentName } saved`)
         resolve(imageURL)
       }
       try {
