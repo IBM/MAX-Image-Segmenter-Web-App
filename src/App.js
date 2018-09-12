@@ -62,9 +62,7 @@ export default class App extends Component {
         }
       }
     })
-    if (Object.keys(this.state.image.urls).length === Object.keys(this.state.image.foundSegments).length+1){
-      //console.log('current image urls ' + Object.keys(this.state.image.urls))
-      //console.log('current foundsegs ' + JSON.stringify(this.state.image.foundSegments))
+    if (Object.keys(this.state.image.urls).length === Object.keys(this.state.image.foundSegments).length+1) {
       const { urls, name, width, height } = this.state.image
       const pouchResponse = await saveToPouch({ urls, name, width, height })
       console.log(`Saved image w/ MAX Model Data in PouchDB. id: ${pouchResponse.id}`)
@@ -85,14 +83,12 @@ export default class App extends Component {
         <ImageDisplay 
         setSelectedObject={ this.setSelectedObject }
         selectedObject={ this.state.selectedObject }
-        image={ this.state.image }
-        />
+        image={ this.state.image } />
       )
     } else if (this.state.previewImg) {
       return (
         <ImageDisplay
-          previewImg={ this.state.previewImg }
-        />
+          previewImg={ this.state.previewImg } />
       )
     }
   }
@@ -109,8 +105,7 @@ export default class App extends Component {
           imageLoaded={ this.state.canvasReady }
           addSegURL={ this.addSegURL }
           imageName={ this.state.image.name }
-          setPreviewImg={ image => this.setState({ previewImg: image, image: {}, canvasReady: false }) }
-        />
+          setPreviewImg={ image => this.setState({ previewImg: image, image: {}, canvasReady: false }) } />
         {
           this.state.previewImg || this.state.canvasReady ?
             this.renderCanvas()
@@ -127,8 +122,7 @@ export default class App extends Component {
               localFilesExpanded: !this.state.localFilesExpanded, 
               savedDocs: cleanDocs(await getAllDocs())
             }) 
-          }
-        />
+          } />
         <Footer />
       </div>
     )
