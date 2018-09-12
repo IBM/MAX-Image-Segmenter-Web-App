@@ -12,7 +12,6 @@ const AppHeader = props => {
         </span>
       </div>
       <hr/>
-
     </div>
   )
 }

@@ -7,7 +7,11 @@ const ImageDisplay = props => {
     return (
       <div>
         <div className="panel panel-default mainDisplay">
-          <img alt={ props.previewImg.name } src={ props.previewImg.urls.source } width={ props.previewImg.width } height={ props.previewImg.height }/>
+          <img 
+            alt={ props.previewImg.name } 
+            src={ props.previewImg.urls.source } 
+            width={ props.previewImg.width } 
+            height={ props.previewImg.height } />
         </div>
         { renderLoadingMsg() }
       </div>
@@ -16,13 +20,14 @@ const ImageDisplay = props => {
     return (
       <div>
         <div className="panel panel-default mainDisplay">
-          <img alt={ props.image.name } src={ props.image.urls[props.selectedObject] } />
+          <img 
+            alt={ props.image.name } 
+            src={ props.image.urls[props.selectedObject] } />
         </div>
         <TextOutput 
           image={ props.image }
           selectObject={ props.setSelectedObject }
-          segData={ props.image.response }
-        />
+          segData={ props.image.response } />
       </div>
     )  
   }

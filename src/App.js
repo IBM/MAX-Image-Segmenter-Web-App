@@ -5,17 +5,15 @@ import AppHeader from './components/AppHeader'
 import FileDownload from './components/FileDownload'
 import ImageDisplay from './components/ImageDisplay'
 import Footer from './components/Footer'
-import { DBType, getAllDocs, cleanDocs, bulkSaveAttachments } from './utils';
+import { getAllDocs, cleanDocs, saveToPouch } from './utils'
 
 const initialState = {
-  'modelType' : 'mobile',
-  'DBType' : DBType,
-  'localFilesExpanded' : false,
-  'savedDocs' : [],
-  'hoverDoc' : '',
-  'imageLoaded' : false,
-  'image' : {},
-  'selectedObject' : '',
+  localFilesExpanded: false,
+  savedDocs: [],
+  hoverDoc: '',
+  imageLoaded: false,
+  image: {},
+  selectedObject: '',
 }
 
 export default class App extends Component {
@@ -24,64 +22,59 @@ export default class App extends Component {
     this.state = initialState
   }
 
-  handleModelToggle = () => {
-    const modelSelection = this.state.modelType === 'mobile' ? 'full' : 'mobile'
-    this.setState({
-      'modelType': modelSelection
+  resetLoadState = () => {
+    this.setState({ 
+      imageLoaded: false, 
+      canvasReady: false,
+      localFilesExpanded: false 
     })
   }
 
-  resetLoadState = () => {
+  setPreviewImg = newImage => {
     this.setState({ 
-      'imageLoaded' : false, 
-      'canvasReady' : false,
-      'localFilesExpanded': false 
+      previewImg: newImage, 
+      image: {}, 
+      canvasReady: false 
     })
   }
 
   setImageData = newImage => {
     this.setState({ 
-      'image': newImage,
-      'localFilesExpanded' : false,
-      'imageLoaded': true  
+      image: newImage,
+      localFilesExpanded: false,
+      imageLoaded: true  
     })
   }
 
   setSelectedObject = objType => {
     this.setState({
-      'selectedObject' : objType
+      selectedObject: objType
     })
   }
 
-  addSegURL = (name, url) => {
-    //console.log(`name is getting put in doc as ${name}`)
+  addSegURL = async (name, url) => {
     this.setState({
-      'image' : {
+      image: {
         ...this.state.image,
-        'urls' : { 
+        urls: { 
           ...this.state.image.urls,
           [name]: url
         }
       }
     })
-    if (Object.keys(this.state.image.urls).length === Object.keys(this.state.image.foundSegments).length+1){
-      //console.log('current image urls ' + Object.keys(this.state.image.urls))
-      //console.log('current foundsges ' + JSON.stringify(this.state.image.foundSegments))
-      this.saveToPouch(this.state.image)
-      this.setState({
-        'canvasReady' : true,
-        'selectedObject' : 'colormap'
-      })
+    if (Object.keys(this.state.image.urls).length === Object.keys(this.state.image.foundSegments).length+1) {
+      const { urls, name, width, height } = this.state.image
+      const pouchResponse = await saveToPouch({ urls, name, width, height })
+      console.log(`Saved image w/ MAX Model Data in PouchDB. id: ${pouchResponse.id}`)
+      this.reloadDisplay()
     }
   }
 
-  saveToPouch = async imageObj => {  
-    const bulkUploadJSON = await bulkSaveAttachments({ 
-      urls : imageObj.urls, 
-      name : imageObj.name, 
-      width: imageObj.width,
-      height : imageObj.height })
-    console.log(`bulk upload fired. id: ${bulkUploadJSON.id}`)
+  reloadDisplay = () => {
+    this.setState({
+      canvasReady: true,
+      selectedObject: 'colormap'
+    })
   }
 
   renderCanvas() {
@@ -90,14 +83,12 @@ export default class App extends Component {
         <ImageDisplay 
         setSelectedObject={ this.setSelectedObject }
         selectedObject={ this.state.selectedObject }
-        image={ this.state.image }
-        />
+        image={ this.state.image } />
       )
     } else if (this.state.previewImg) {
       return (
         <ImageDisplay
-          previewImg={ this.state.previewImg }
-        />
+          previewImg={ this.state.previewImg } />
       )
     }
   }
@@ -114,34 +105,26 @@ export default class App extends Component {
           imageLoaded={ this.state.canvasReady }
           addSegURL={ this.addSegURL }
           imageName={ this.state.image.name }
-          setPreviewImg={ image => this.setState({ previewImg: image, image: {}, canvasReady: false }) }
-        />
+          setAppPreviewImg={ this.setPreviewImg } />
         {
           this.state.previewImg || this.state.canvasReady ?
             this.renderCanvas()
           :
           <p />
         }
-        {
-          this.state.DBType === 'local' ?
-            <FileDownload 
-              expanded={ this.state.localFilesExpanded }
-              dBType={ this.state.dBType }
-              savedDocs={ this.state.savedDocs }
-              hoverDoc={ this.state.hoverDoc }
-              setHoverDoc={ hoverDocID => this.setState({ hoverDoc : hoverDocID }) }
-              toggleExpand={ async () => 
-                this.setState({ 
-                  localFilesExpanded: !this.state.localFilesExpanded, 
-                  savedDocs: cleanDocs(await getAllDocs())
-                }) 
-              }
-            />
-          :
-            <p />
-        }
+        <FileDownload 
+          expanded={ this.state.localFilesExpanded }
+          savedDocs={ this.state.savedDocs }
+          hoverDoc={ this.state.hoverDoc }
+          setHoverDoc={ hoverDocID => this.setState({ hoverDoc : hoverDocID }) }
+          toggleExpand={ async () => 
+            this.setState({ 
+              localFilesExpanded: !this.state.localFilesExpanded, 
+              savedDocs: cleanDocs(await getAllDocs())
+            }) 
+          } />
         <Footer />
       </div>
-    );
+    )
   }
 }

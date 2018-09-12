@@ -1,26 +1,3 @@
-.controlPanel {
-  display: flex;
-  flex-flow: row wrap;
-  align-content: center;
-  justify-content: center;
-}
-
-.uploadForm {
-  max-width: 450px;
-}
-
-.controlPanel > .panel {
-  margin: 2%
-}
-
-#submitter {
-  display: none;
-}
-
-#filePicker {
-  display: none;
-}
-
 form {
   margin: 3%;
   display: -ms-flexbox;
@@ -48,13 +25,6 @@ form > * {
   margin: 1%;
 }
 
-form span.formBtn {
-  background-color: #0bc6c0;
-  cursor: pointer;
-  float: left;
-  border-color: #5FBFBB;
-}
-
 form > span > p {
   display: inline;
   vertical-align: middle;
@@ -63,79 +33,28 @@ form > span > p {
   text-overflow: ellipsis;
 }
 
+.formBtn {
+  background-color: #0bc6c0;
+  cursor: pointer;
+  float: left;
+  border-color: #5FBFBB;
+}
+
 .formBtn:hover {
   background-color: #26A8A2;
   border-color: #26A8A2;
 }
 
-
-
-/* everything below is for 'model select' box */
-
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  margin: 4% 0 0 1%;
+.uploadWrapper {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin: 2%;
+  text-align: center;
 }
 
-/* Hide default HTML checkbox */
-.switch input {
-  display:none;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #0bc6c0;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-.modelSelect input {
-  margin: 0 5% 0 5%;
+.uploadForm {
+  max-width: 450px;
 }
 
 .text {
@@ -146,7 +65,10 @@ input:checked + .slider:before {
   vertical-align: middle;
 }
 
-.modelSelectLabel {
-  font-size: 1em;
-  font-weight: lighter;
+#submitter {
+  display: none;
+}
+
+#filePicker {
+  display: none;
 }

@@ -1,8 +1,8 @@
 import './FileDownload.css'
 import React from 'react'
 import { saveAs } from 'file-saver/FileSaver'
-import b64toBlob  from 'b64-to-blob'
-import { deleteLocalImages, URLto64 } from '../../utils';
+import B64toBlob  from 'b64-to-blob'
+import { deleteLocalImages, URLtoB64 } from '../../utils'
  
 const FileDownload = props => {
   return (
@@ -21,8 +21,7 @@ const FileDownload = props => {
             </div>
             <button 
               className="btn btn-danger deleteBtn"
-              onClick={ () => deleteLocalImages(props.toggleExpand) } 
-            >
+              onClick={ () => deleteLocalImages(props.toggleExpand) }>
               Delete Saved Images
             </button>
           </div>
@@ -58,7 +57,7 @@ const getToggleText = props => {
 }
 
 const getThumbSource = (hoverDoc, doc) => {
-  if (hoverDoc === doc.id){
+  if (hoverDoc === doc.id) {
     return doc.segments.source.url
   } else {
     return doc.segments.colormap.url
@@ -70,33 +69,29 @@ const generateDocComponent = props => {
   return docs.map(
     doc => {
       return (
-      <div 
-        key={doc.id} 
-        className="savedDocThumb"
-        onMouseEnter={ () => props.setHoverDoc(doc.id) } 
-        onMouseLeave={ () => props.setHoverDoc('') } 
-        onClick={ () => downloadSegments(doc.id.split('-')[1], doc.segments) }
-      >
-        <img
-          src={ getThumbSource(props.hoverDoc, doc) } 
-          alt={ doc.id }
-        />
-        <p className="imageLabel">
-          <span className="imageTitle">{ `${ doc.id.split('-')[1] }:`}</span>{ ` ${ Object.keys(doc.segments).length-2 } segments` }
-        </p>
-        { /*
-          <p className="segList">
-            { doc.segments.map(seg=>seg.name).join(', ') }
+        <div 
+          key={doc.id} 
+          className="savedDocThumb"
+          onMouseEnter={ () => props.setHoverDoc(doc.id) } 
+          onMouseLeave={ () => props.setHoverDoc('') } 
+          onClick={ () => downloadSegments(doc.id.split('-')[1], doc.segments) }>
+          <img
+            src={ getThumbSource(props.hoverDoc, doc) } 
+            alt={ doc.id } />
+          <p className="imageLabel">
+            <span className="imageTitle">
+              { `${ doc.id.split('-')[1] }:` }
+            </span>
+            { ` ${ Object.keys(doc.segments).length-2 } segments` }
           </p>
-          */ 
-        } 
-      </div>
-    )}
+        </div>
+      )
+    }
   )
 }
 
 const downloadSingleSeg = (imgName, segment) => {
-  saveAs(b64toBlob(URLto64(segment.url), 'image/png'), `${imgName}-${segment.name}.png`)
+  saveAs(B64toBlob(URLtoB64(segment.url), 'image/png'), `${ imgName }-${ segment.name }.png`)
 }
 
 const downloadSegments = async (imgName, docSegments) => {
