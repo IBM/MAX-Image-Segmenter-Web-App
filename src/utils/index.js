@@ -2,21 +2,10 @@ import {} from 'dotenv/config'
 import axios from 'axios'
 import PouchDB from 'pouchdb'
 
-const KUBE_MODEL_IP = process.env.REACT_APP_KUBE_IP
-const KUBE_MODEL_PORT = process.env.REACT_APP_KUBE_MODEL_PORT
-const LOCAL_MODEL_PORT = process.env.REACT_APP_LOCAL_MODEL_PORT
+const KUBE_MODEL_IP = process.env.REACT_APP_KUBE_IP || ''
+const KUBE_MODEL_PORT = process.env.REACT_APP_KUBE_MODEL_PORT || ''
+const LOCAL_MODEL_PORT = process.env.REACT_APP_LOCAL_MODEL_PORT || 5000
 const DEPLOY_TYPE = process.env.REACT_APP_DEPLOY_TYPE || ''
-const DBUser = process.env.REACT_APP_CLOUDANT_USER
-const DBPass = process.env.REACT_APP_CLOUDANT_PW
-const cloudantURL = `https://${DBUser}:${DBPass}@${DBUser}.cloudant.com/images`
-
-
-export const DBType = process.env.REACT_APP_CLOUDANT_USER && process.env.REACT_APP_CLOUDANT_PW ? 'remote' : 'local'
-export const deleteLocalImages = async expandFunc => {
-  expandFunc()
-  let pouchDB = new PouchDB('offLine', { auto_compaction: true })
-  return pouchDB.destroy()
-}
 
 export const OBJ_LIST = ['background', 'airplane', 'bicycle', 'bird', 'boat', 
 'bottle', 'bus', 'car', 'cat', 'chair', 'cow', 'dining_table', 
@@ -39,18 +28,21 @@ export const COLOR_MAP = {
 }
 export const COLOR_LIST = Object.values(COLOR_MAP)
 
-export const getColor = pixel => {
-  return COLOR_LIST[pixel - 1]
-}
+export const getColor = pixel => COLOR_LIST[pixel - 1]
+
+export const base64toURL = base64 => `data:image/png;base64,${base64}`
+
+export const URLto64 = dataURL => dataURL.split(',')[1]
 
 export const getAllDocs = () => {
-  let pouchDB
-  if (!DBUser || !DBPass) {
-    pouchDB = new PouchDB('offLine', { auto_compaction: true })
-   } else {
-    pouchDB = new PouchDB(cloudantURL)
-  }
+  const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.allDocs({ include_docs : 'true', attachments: 'true' })
+}
+
+export const deleteLocalImages = async expandFunc => {
+  expandFunc()
+  const pouchDB = new PouchDB('offLine', { auto_compaction: true })
+  return pouchDB.destroy()
 }
 
 export const cleanDocs = docs => {
@@ -76,18 +68,8 @@ export const cleanDocs = docs => {
   )
 }
 
-export const base64toURL = base64 => `data:image/png;base64,${base64}`
-export const URLto64 = dataURL => dataURL.split(',')[1]
-
 export const bulkSaveAttachments = uploadData => {
-  let pouchDB
-
-  if (!DBUser || !DBPass) {
-    pouchDB = new PouchDB('offLine', { auto_compaction: true })
-   } else {
-    pouchDB = new PouchDB(cloudantURL)
-  }
-  //console.log(`update attachment: ${Object.keys(uploadData)} rev: ${uploadData.rev}`)
+  const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   const { urls, name, width, height } = uploadData
   const id = `${String(Date.now()).substring(6)}-${name.split('.')[0]}`
   // build attachments object
@@ -125,7 +107,6 @@ export const getPrediction = (modelType, img) => {
     modelPort = LOCAL_MODEL_PORT
     modelIP = 'localhost'
   }
-  
   return axios({
     method: 'post',
     url: `http://${modelIP}:${modelPort}/model/predict/${modelType}`,
@@ -139,7 +120,6 @@ export const parseMAXData = (imgName, response) => {
   const flatSegMap = response.data.seg_map.reduce((a, b) => a.concat(b), [])
   const objIDs = [...new Set(flatSegMap)] // eslint-disable-next-line
   const objPixels = flatSegMap.reduce((a, b) => (a[OBJ_LIST[b]] = ++a[OBJ_LIST[b]] || 1, a), {})
-
   return {
     'size' : {
       'width' : size[0],

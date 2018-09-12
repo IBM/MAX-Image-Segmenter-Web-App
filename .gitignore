@@ -1,5 +1,3 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
 # dependencies
 /actions/node_modules
 /node_modules
@@ -23,10 +21,11 @@ whisk.env
 db_env
 single-pod-deployment.yaml
 
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# WIP ACTIONS + deployment
+# legacy manifest + deployment files
 /actions
 /kube_files

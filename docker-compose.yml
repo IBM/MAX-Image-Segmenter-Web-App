@@ -6,9 +6,6 @@ services:
     image: kastentx/img-upload-app
     ports:
       - '4444:4444'
-    environment:
-      - REACT_APP_CLOUDANT_USER=
-      - REACT_APP_CLOUDANT_PW=
 
   max-model:
     container_name: cors-dualmode-imgseg
