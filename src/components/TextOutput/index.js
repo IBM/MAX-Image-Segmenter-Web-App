@@ -12,7 +12,7 @@ const TextOutput = props => {
             { props.image.name }
           </a> 
           { ` to ${ props.image.width }x${ props.image.height } 
-           and identified ${ props.segData.objectTypes.length } 
+           and identified ${ props.image.foundSegments.length } 
            object segments.` }
         </p>
         <p>
@@ -23,7 +23,7 @@ const TextOutput = props => {
               { `color map` }
           </b> 
           { ` or the objects:` }
-          { Object.keys(props.segData.objectPixels).map(objType => getObjLabel(props, objType)) }.
+          { props.image.foundSegments.filter(name=>name!=='colormap').map(objType => getObjLabel(props, objType)) }.
         </p>
       </div>
     </div>
@@ -31,8 +31,7 @@ const TextOutput = props => {
 }
 
 const getObjLabel = (props, objType) => {
-  const pixelMap = props.segData.objectPixels 
-  const objects = Object.keys(pixelMap)
+  const objects = props.image.foundSegments.filter(name=>name!=='colormap')
   let labelText = objType + `, `
   if (objects.indexOf(objType) === objects.length - 1) {
     labelText = objType

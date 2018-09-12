@@ -27,7 +27,7 @@ export default class UploadForm extends Component {
 
     // drawing the pre-MAX preview image
     scaledImage.onload = async () => {
-      // scaling image.. put in function for reuse?
+      // scaling image.. put in function for reuse
       let scaledWidth = scaledImage.naturalWidth
       let scaledHeight = scaledImage.naturalHeight
       let ratio
@@ -45,7 +45,6 @@ export default class UploadForm extends Component {
       canvas.width = scaledWidth 
       canvas.height = scaledHeight
       ctx.drawImage(scaledImage, 0, 0, scaledWidth, scaledHeight)
-  
       const newImage = {
         name: fileObj.name,
         type: fileObj.type,
@@ -56,23 +55,18 @@ export default class UploadForm extends Component {
         }
       }
       this.setState({
-        isLoading: true,
-        image: newImage
+        isLoading: true
       })
       this.props.setAppPreviewImg(newImage)
       try {
         console.log('sending to MAX...')
         const MAXData = cleanMAXResponse(newImage.name, await getPrediction(fileObj))
-        let dataURLs = { 
-          ...this.mapNeededURLs({ ...newImage, ...MAXData }), 
-          source: newImage.urls.source 
+        this.mapNeededURLs({ ...newImage, ...MAXData })
+        const MAXImage = { 
+          ...newImage, 
+          foundSegments: MAXData.foundSegments 
         }
-        console.log(Object.keys(dataURLs))
-        const MAXImage = { ...newImage, ...MAXData, urls: dataURLs }
-        //console.log(`current image: ${Object.keys(currentImage)}`)
-        //console.log(`dataURLs needs to be legit here - colormap: ${JSON.stringify(dataURLs.colormap)}`)
         this.props.setAppImageData(MAXImage)
-        
         this.setState({
           'isLoading': false 
        })
@@ -80,77 +74,86 @@ export default class UploadForm extends Component {
         console.error('error saving MAX Image data in parent state')
       }       
     }
-      scaledImage.src = imageURL
+    scaledImage.src = imageURL
   }
 
   mapNeededURLs = imageObj => {
-    const neededSegments = imageObj.foundSegments
-    let URLMap = {}
-    for (let name in neededSegments) {
-      this.invisibleSegment(URLMap, neededSegments[name], imageObj)
-    }
-    //console.log(`URLMAP: ${Object.keys(URLMap)}`)
-    return URLMap
+    return new Promise(async (resolve, reject) =>{
+      const neededSegments = imageObj.foundSegments
+      let URLMap = {}
+      for (let name in neededSegments) {
+        URLMap[neededSegments[name]] = await this.invisibleSegment(URLMap, neededSegments[name], imageObj)
+      }
+      console.log(`URLMAP: ${Object.keys(URLMap)}`)
+
+      resolve(URLMap)
+    })
   }
 
   invisibleSegment = (URLMap, segmentName, imageObj) => {
-    //console.log('invisiblesegments')
-    let canvas = this.editorRef.current
-    const ctx = canvas.getContext('2d')
-    let img = new Image()
-    let imageURL
+    return new Promise((resolve, reject) => {
+      //console.log('invisiblesegments')
+      let canvas = this.editorRef.current
+      const ctx = canvas.getContext('2d')
+      let img = new Image()
+      let imageURL
+      img.onload = () => {
+        const flatSegMap = imageObj.response.flatSegMap
+        let scaledWidth = img.naturalWidth
+        let scaledHeight = img.naturalHeight
+        let ratio
+        if (scaledWidth > scaledHeight) {
+          ratio = scaledHeight / scaledWidth
+          scaledWidth = 513
+          scaledHeight = Math.round(scaledWidth * ratio)
+        } else {
+          ratio = scaledWidth / scaledHeight
+          scaledHeight = 513
+          scaledWidth = Math.round(scaledHeight * ratio)
+        }
+        img.width = scaledWidth
+        img.height = scaledHeight
+        canvas.width = scaledWidth 
+        canvas.height = scaledHeight 
 
-    img.onload = () => {
-      const flatSegMap = imageObj.response.flatSegMap
-      let scaledWidth = img.naturalWidth
-      let scaledHeight = img.naturalHeight
-      let ratio
-      if (scaledWidth > scaledHeight) {
-        ratio = scaledHeight / scaledWidth
-        scaledWidth = 513
-        scaledHeight = Math.round(scaledWidth * ratio)
-      } else {
-        ratio = scaledWidth / scaledHeight
-        scaledHeight = 513
-        scaledWidth = Math.round(scaledHeight * ratio)
-      }
-      img.width = scaledWidth
-      img.height = scaledHeight
-      canvas.width = scaledWidth 
-      canvas.height = scaledHeight 
+        ctx.drawImage(img, 0, 0, img.width, img.height)
+        const imageData = ctx.getImageData(0, 0, img.width, img.height)
+        const data = imageData.data
 
-      ctx.drawImage(img, 0, 0, img.width, img.height)
-      const imageData = ctx.getImageData(0, 0, img.width, img.height)
-      const data = imageData.data
-
-      if (segmentName === 'colormap') {
-        console.log(`building ${segmentName}`)
-        for (let i = 0; i < data.length; i += 4) {
-          const segMapPixel = flatSegMap[i / 4]
-          let objColor = [0, 0, 0]
-          if (segMapPixel) {
-            objColor = getColor(imageObj.response.objectIDs.indexOf(segMapPixel))
-            data[i]   = objColor[0]  // red channel
-            data[i+1] = objColor[1]  // green channel
-            data[i+2] = objColor[2]  // blue channel
-            data[i+3] = 200          // alpha
+        if (segmentName === 'colormap') {
+          console.log(`building ${segmentName}`)
+          for (let i = 0; i < data.length; i += 4) {
+            const segMapPixel = flatSegMap[i / 4]
+            let objColor = [0, 0, 0]
+            if (segMapPixel) {
+              objColor = getColor(imageObj.response.objectIDs.indexOf(segMapPixel))
+              data[i]   = objColor[0]  // red channel
+              data[i+1] = objColor[1]  // green channel
+              data[i+2] = objColor[2]  // blue channel
+              data[i+3] = 200          // alpha
+            }
+          }
+        } else { 
+          for (let i = 0; i < data.length; i += 4) {
+            const segMapPixel = flatSegMap[i / 4]
+            if (segMapPixel !== OBJ_MAP[segmentName]) {
+              data[i+3] = 0    // alpha
+            }
           }
         }
-      } else { 
-        for (let i = 0; i < data.length; i += 4) {
-          const segMapPixel = flatSegMap[i / 4]
-          if (segMapPixel !== OBJ_MAP[segmentName]) {
-            data[i+3] = 0    // alpha
-          }
-        }
+        ctx.putImageData(imageData, 0, 0)      
+        //console.log(`${canvas.toDataURL()}`)
+        imageURL = canvas.toDataURL()
+        this.setImageURL(URLMap, segmentName, imageURL)
+        console.log(`invisible ${segmentName} saved`)
+        resolve(imageURL)
+      }
+      try {
+        img.src = imageObj.urls.source
+      } catch (e) {
+        reject(`image load error`)
       }
-      ctx.putImageData(imageData, 0, 0)      
-      //console.log(`${canvas.toDataURL()}`)
-      imageURL = canvas.toDataURL()
-      this.setImageURL(URLMap, segmentName, imageURL)
-      console.log(`invisible ${segmentName} saved`)
-    }
-    img.src = imageObj.urls.source
+    })
   }
 
   setImageURL = (URLMap, segmentName, imageURL) => {
@@ -202,7 +205,7 @@ export default class UploadForm extends Component {
 
         <canvas 
           ref={ this.editorRef }
-          style = { { display: 'none' } } >
+          style = { { display: 'none' } }>
         </canvas>    
       </div>
     )
