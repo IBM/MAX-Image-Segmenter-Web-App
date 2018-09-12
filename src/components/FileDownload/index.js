@@ -2,7 +2,7 @@ import './FileDownload.css'
 import React from 'react'
 import { saveAs } from 'file-saver/FileSaver'
 import B64toBlob  from 'b64-to-blob'
-import { deleteLocalImages, URLtoB64 } from '../../utils';
+import { deleteLocalImages, URLtoB64 } from '../../utils'
  
 const FileDownload = props => {
   return (
