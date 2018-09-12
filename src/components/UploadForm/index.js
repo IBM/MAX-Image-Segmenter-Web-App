@@ -3,7 +3,6 @@ import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, MAX_SIZE } from '..
 import './UploadForm.css'
 
 const initialState = {
-  image: {},
   isLoading: false
 }
 
@@ -17,15 +16,11 @@ export default class UploadForm extends Component {
 
   receiveUpload = e => {
     e.preventDefault()
-    // this can eventually be brought out as an ENV var..
-    // but it must match the size of the output from MAX model
     const fileObj = this.uploadRef.current.files[0]
     const imageURL = window.URL.createObjectURL(fileObj)
     const canvas = this.editorRef.current
     const ctx = canvas.getContext('2d')  
     let scaledImage = new Image()
-
-    // drawing the pre-MAX preview image
     scaledImage.onload = async () => {
       // scaling image.. put in function for reuse
       let scaledWidth = scaledImage.naturalWidth
@@ -55,17 +50,18 @@ export default class UploadForm extends Component {
         }
       }
       this.setState({
-        isLoading: true
+        isLoading: true,
+        imageName: fileObj.name
       })
       this.props.setAppPreviewImg(newImage)
       try {
         console.log('sending to MAX...')
         const MAXData = cleanMAXResponse(newImage.name, await getPrediction(fileObj))
-        this.mapNeededURLs({ ...newImage, ...MAXData })
         const MAXImage = { 
           ...newImage, 
           foundSegments: MAXData.foundSegments 
         }
+        this.mapNeededURLs({ ...newImage, ...MAXData })
         this.props.setAppImageData(MAXImage)
         this.setState({
           'isLoading': false 
@@ -77,22 +73,18 @@ export default class UploadForm extends Component {
     scaledImage.src = imageURL
   }
 
-  mapNeededURLs = imageObj => {
-    return new Promise(async (resolve, reject) =>{
+  mapNeededURLs = async imageObj => {
       const neededSegments = imageObj.foundSegments
       let URLMap = {}
       for (let name in neededSegments) {
         URLMap[neededSegments[name]] = await this.invisibleSegment(URLMap, neededSegments[name], imageObj)
       }
       console.log(`URLMAP: ${Object.keys(URLMap)}`)
-
-      resolve(URLMap)
-    })
+      return URLMap
   }
 
   invisibleSegment = (URLMap, segmentName, imageObj) => {
     return new Promise((resolve, reject) => {
-      //console.log('invisiblesegments')
       let canvas = this.editorRef.current
       const ctx = canvas.getContext('2d')
       let img = new Image()
@@ -114,7 +106,7 @@ export default class UploadForm extends Component {
         img.width = scaledWidth
         img.height = scaledHeight
         canvas.width = scaledWidth 
-        canvas.height = scaledHeight 
+        canvas.height = scaledHeight
 
         ctx.drawImage(img, 0, 0, img.width, img.height)
         const imageData = ctx.getImageData(0, 0, img.width, img.height)
@@ -144,7 +136,7 @@ export default class UploadForm extends Component {
         ctx.putImageData(imageData, 0, 0)      
         //console.log(`${canvas.toDataURL()}`)
         imageURL = canvas.toDataURL()
-        this.setImageURL(URLMap, segmentName, imageURL)
+        this.props.addSegURL(segmentName, imageURL)
         console.log(`invisible ${segmentName} saved`)
         resolve(imageURL)
       }
@@ -154,11 +146,6 @@ export default class UploadForm extends Component {
         reject(`image load error`)
       }
     })
-  }
-
-  setImageURL = (URLMap, segmentName, imageURL) => {
-    URLMap[segmentName] = imageURL
-    this.props.addSegURL(segmentName, imageURL)
   }
 
   render() {
@@ -181,7 +168,7 @@ export default class UploadForm extends Component {
               </label>
               <span>
                 <p>
-                  { this.state.image ? this.state.image.name : `` }
+                  { this.state.imageName }
                 </p>
               </span>
               <input 
