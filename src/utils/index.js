@@ -30,9 +30,9 @@ export const COLOR_LIST = Object.values(COLOR_MAP)
 
 export const getColor = pixel => COLOR_LIST[pixel - 1]
 
-export const base64toURL = base64 => `data:image/png;base64,${base64}`
+export const B64toURL = base64 => `data:image/png;base64,${base64}`
 
-export const URLto64 = dataURL => dataURL.split(',')[1]
+export const URLtoB64 = dataURL => dataURL.split(',')[1]
 
 export const getAllDocs = () => {
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
@@ -54,7 +54,7 @@ export const cleanDocs = docs => {
         segObject[segList[seg]] = { 
           name : segList[seg],
           hasData : doc.doc._attachments[segList[seg]] && true,
-          url: base64toURL(doc.doc._attachments[segList[seg]].data)
+          url: B64toURL(doc.doc._attachments[segList[seg]].data)
         }
       }
       return {
@@ -68,7 +68,7 @@ export const cleanDocs = docs => {
   )
 }
 
-export const bulkSaveAttachments = uploadData => {
+export const saveToPouch = uploadData => {
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   const { urls, name, width, height } = uploadData
   const id = `${String(Date.now()).substring(6)}-${name.split('.')[0]}`
@@ -80,7 +80,7 @@ export const bulkSaveAttachments = uploadData => {
       ...attachments,
       [segmentList[seg]] : {
         content_type : 'image/png',
-        data : URLto64(urls[segmentList[seg]])
+        data : URLtoB64(urls[segmentList[seg]])
       }
     }
   }

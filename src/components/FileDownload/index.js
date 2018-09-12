@@ -1,8 +1,8 @@
 import './FileDownload.css'
 import React from 'react'
 import { saveAs } from 'file-saver/FileSaver'
-import b64toBlob  from 'b64-to-blob'
-import { deleteLocalImages, URLto64 } from '../../utils';
+import B64toBlob  from 'b64-to-blob'
+import { deleteLocalImages, URLtoB64 } from '../../utils';
  
 const FileDownload = props => {
   return (
@@ -96,7 +96,7 @@ const generateDocComponent = props => {
 }
 
 const downloadSingleSeg = (imgName, segment) => {
-  saveAs(b64toBlob(URLto64(segment.url), 'image/png'), `${imgName}-${segment.name}.png`)
+  saveAs(B64toBlob(URLtoB64(segment.url), 'image/png'), `${imgName}-${segment.name}.png`)
 }
 
 const downloadSegments = async (imgName, docSegments) => {

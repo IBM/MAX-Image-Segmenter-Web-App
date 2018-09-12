@@ -5,7 +5,7 @@ import AppHeader from './components/AppHeader'
 import FileDownload from './components/FileDownload'
 import ImageDisplay from './components/ImageDisplay'
 import Footer from './components/Footer'
-import { getAllDocs, cleanDocs, bulkSaveAttachments } from './utils';
+import { getAllDocs, cleanDocs, saveToPouch } from './utils';
 
 const initialState = {
   'modelType' : 'mobile',
@@ -52,8 +52,7 @@ export default class App extends Component {
     })
   }
 
-  addSegURL = (name, url) => {
-    //console.log(`name is getting put in doc as ${name}`)
+  addSegURL = async (name, url) => {
     this.setState({
       'image' : {
         ...this.state.image,
@@ -65,22 +64,19 @@ export default class App extends Component {
     })
     if (Object.keys(this.state.image.urls).length === Object.keys(this.state.image.foundSegments).length+1){
       //console.log('current image urls ' + Object.keys(this.state.image.urls))
-      //console.log('current foundsges ' + JSON.stringify(this.state.image.foundSegments))
-      this.saveToPouch(this.state.image)
-      this.setState({
-        'canvasReady' : true,
-        'selectedObject' : 'colormap'
-      })
+      //console.log('current foundsegs ' + JSON.stringify(this.state.image.foundSegments))
+      const { urls, name, width, height } = this.state.image
+      const pouchResponse = await saveToPouch({ urls, name, width, height })
+      console.log(`Saved image w/ MAX Model Data in PouchDB. id: ${pouchResponse.id}`)
+      this.reloadDisplay()
     }
   }
 
-  saveToPouch = async imageObj => {  
-    const bulkUploadJSON = await bulkSaveAttachments({ 
-      urls : imageObj.urls, 
-      name : imageObj.name, 
-      width: imageObj.width,
-      height : imageObj.height })
-    console.log(`bulk upload fired. id: ${bulkUploadJSON.id}`)
+  reloadDisplay = () => {
+    this.setState({
+      'canvasReady' : true,
+      'selectedObject' : 'colormap'
+    })
   }
 
   renderCanvas() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getPrediction, parseMAXData, OBJ_MAP, getColor, bulkSaveAttachments } from '../../utils'
+import { getPrediction, parseMAXData, OBJ_MAP, getColor } from '../../utils'
 import './UploadForm.css'
 
 const initialState = {
@@ -174,15 +174,6 @@ export default class UploadForm extends Component {
   setImageURL = (URLMap, segmentName, imageURL) => {
     URLMap[segmentName] = imageURL
     this.props.addSegURL(segmentName, imageURL)
-  }
-
-  bulkUpload = async imageObj => {  
-    const bulkUploadJSON = await bulkSaveAttachments({ 
-      urls : imageObj.urls, 
-      name : imageObj.name, 
-      width: imageObj.width,
-      height : imageObj.height })
-    console.log(`bulk upload fired. id: ${bulkUploadJSON.id}`)
   }
 
   render() {
