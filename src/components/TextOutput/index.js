@@ -17,10 +17,13 @@ const TextOutput = props => {
         </p>
         <p>
           { `Click the following to labels to view the MAX Image Segmenter ` }
-          <b className='maxLabel' onClick={ () => props.selectObject('colormap') }>
-            color map
+          <b 
+            className='maxLabel' 
+            onClick={ () => props.selectObject('colormap') }>
+              { `color map` }
           </b> 
-          {` or the objects:`}{Object.keys(props.segData.objectPixels).map(objType => getObjLabel(props, objType)) }.
+          { ` or the objects:` }
+          { Object.keys(props.segData.objectPixels).map(objType => getObjLabel(props, objType)) }.
         </p>
       </div>
     </div>
@@ -30,33 +33,26 @@ const TextOutput = props => {
 const getObjLabel = (props, objType) => {
   const pixelMap = props.segData.objectPixels 
   const objects = Object.keys(pixelMap)
-  let labelTail
-  objects.indexOf(objType) !== objects.length - 1 ? labelTail = `, ` : labelTail = ``
-
+  let labelText = objType + `, `
+  if (objects.indexOf(objType) === objects.length - 1) {
+    labelText = objType
+  }
   return (
-    <span 
+    <span
+      className='objLabel'
       key={ objType }  
       onClick={ () => props.selectObject(objType) }
-      style={ {
+      style={ { 
         'fontSize' : '1.3em',
         'display' : 'inline-block',
-        'cursor' : 'pointer'
-      } }
-    >
-      <span
-        className='objLabel'
-        style={ { 
-          'marginLeft' : '5px',
-          'display' : 'inline-block',
-          'textDecoration' : 'underline', 
-          'color' : 
-            objType === 'background' ? 
-              'inherit' : Object.keys(COLOR_MAP)[objects.indexOf(objType) - 1] 
-        } }
-      >
-        { `${objType}${labelTail}` }
-      </span>
-      
+        'cursor' : 'pointer',
+        'marginLeft' : '5px',
+        'textDecoration' : 'underline', 
+        'color' : 
+          objType === 'background' ? 
+            'inherit' : Object.keys(COLOR_MAP)[objects.indexOf(objType) - 1] 
+      } }>
+      { labelText }
     </span>
   )
 }
