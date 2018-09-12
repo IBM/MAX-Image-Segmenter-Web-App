@@ -178,7 +178,7 @@ export default class UploadForm extends Component {
 
   render() {
     return (
-       <div className="UploadForm">
+       <div className="uploadWrapper">
         <div className="uploadForm panel panel-default">
           <h3 className="text panel-heading">
             Upload an image to be processed:
@@ -196,7 +196,7 @@ export default class UploadForm extends Component {
               </label>
               <span>
                 <p>
-                  { this.state.image || `` }
+                  { this.state.image ? this.state.image.name : `` }
                 </p>
               </span>
               <input 

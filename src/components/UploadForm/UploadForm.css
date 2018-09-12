@@ -45,8 +45,15 @@ form > span > p {
   border-color: #26A8A2;
 }
 
-.uploadForm {
+.uploadWrapper {
+  display: flex;
+  align-content: center;
+  justify-content: center;
   margin: 2%;
+  text-align: center;
+}
+
+.uploadForm {
   max-width: 450px;
 }
 
