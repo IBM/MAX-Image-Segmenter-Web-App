@@ -5,7 +5,7 @@ import AppHeader from './components/AppHeader'
 import FileDownload from './components/FileDownload'
 import ImageDisplay from './components/ImageDisplay'
 import Footer from './components/Footer'
-import { getAllDocs, cleanDocs, saveToPouch } from './utils';
+import { getAllDocs, cleanDocs, saveToPouch } from './utils'
 
 const initialState = {
   'modelType' : 'mobile',
@@ -131,6 +131,6 @@ export default class App extends Component {
         />
         <Footer />
       </div>
-    );
+    )
   }
 }
