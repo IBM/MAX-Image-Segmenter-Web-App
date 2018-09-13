@@ -60,11 +60,14 @@ const getThumbSource = (hoverDoc, doc) => {
   }
 }
 
-const displaySelectControls = controlsDisplayed => {
-  if (controlsDisplayed) {
+const displaySelectControls = (props, doc) => {
+  if (props.selectedImage === doc.id) {
     return (
       <div className="controlPanel">
-        SELECTION CONTROLS
+        <a>delete </a>
+        <a onClick={ () => downloadSegments(doc) }>download </a>
+        <a>load#1 </a>
+        <a>load#2</a>
       </div>
     )
   }
@@ -88,8 +91,7 @@ const generateDocComponent = props => {
           className="savedImageThumb"
           onMouseEnter={ () => props.setHoverImage(doc.id) } 
           onMouseLeave={ () => props.setHoverImage('') } 
-          onClick={ /*() => downloadSegments(doc.id.split('-')[1], doc.segments)*/
-                    () => handleImageClick(props, doc) }>
+          onClick={ () => handleImageClick(props, doc) }>
             
             <p className="imageLabel top">
               <span className="imageTitle">
@@ -97,7 +99,7 @@ const generateDocComponent = props => {
               </span>
             </p>
 
-            { displaySelectControls(props.selectedImage === doc.id) }
+            { displaySelectControls(props, doc) }
 
             <img
               className="thumbImage"
