@@ -43,16 +43,18 @@ export const getAllDocs = () => {
   return pouchDB.allDocs({ include_docs: 'true', attachments: 'true' })
 }
 
-export const deleteLocalImages = async expandFunc => {
-  expandFunc()
+export const deleteAllImages = () => {
+  console.log(`bulk delete`)
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.destroy()
 }
 
 export const deleteSingleImage = image => {
   console.log(`delete ${ image.id }`)
-}
+  const pouchDB = new PouchDB('offLine', { auto_compaction: true })
+  return pouchDB.remove(image.id, image.rev) 
 
+}
 
 export const cleanDocs = docs => {
   return docs.rows.map(

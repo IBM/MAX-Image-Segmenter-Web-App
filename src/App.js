@@ -5,7 +5,7 @@ import AppHeader from './components/AppHeader'
 import FileGallery from './components/FileGallery'
 import ImageDisplay from './components/ImageDisplay'
 import Footer from './components/Footer'
-import { getAllDocs, cleanDocs, saveToPouch } from './utils'
+import { getAllDocs, cleanDocs, saveToPouch, deleteSingleImage, deleteAllImages, downloadSegments } from './utils'
 
 const initialState = {
   localFilesExpanded: false,
@@ -23,6 +23,12 @@ export default class App extends Component {
     this.state = initialState
   }
 
+  componentDidMount = async () => {
+    this.setState({
+      savedImages: cleanDocs(await getAllDocs())
+    })
+  }
+
   setPreviewImg = newImage => {
     this.setState({ 
       previewImg: newImage, 
@@ -34,14 +40,21 @@ export default class App extends Component {
   setImageData = newImage => {
     this.setState({ 
       image: newImage,
-      localFilesExpanded: false,
       imageLoaded: true  
     })
   }
 
-  setSelectedObject = objType => {
+  handleImageDelete = async image => {
+    console.log(await deleteSingleImage(image))
     this.setState({
-      selectedObject: objType
+      savedImages : cleanDocs(await getAllDocs())
+    })
+  }
+
+  handleBulkDelete = async () => {
+    await deleteAllImages()
+    this.setState({
+      savedImages: cleanDocs(await getAllDocs())
     })
   }
 
@@ -59,15 +72,12 @@ export default class App extends Component {
       const { urls, name, width, height } = this.state.image
       const pouchResponse = await saveToPouch({ urls, name, width, height })
       console.log(`Saved image w/ MAX Model Data in PouchDB. id: ${pouchResponse.id}`)
-      this.reloadDisplay()
+      this.setState({
+        canvasReady: true,
+        selectedObject: 'colormap',
+        savedImages: cleanDocs(await getAllDocs())
+      })
     }
-  }
-
-  reloadDisplay = () => {
-    this.setState({
-      canvasReady: true,
-      selectedObject: 'colormap'
-    })
   }
 
   renderCanvas() {
@@ -109,13 +119,17 @@ export default class App extends Component {
           savedImages={ this.state.savedImages }
           hoverImage={ this.state.hoverImage }
           selectedImage={ this.state.selectedImage }
-          setHoverImage={ hoverImageID => this.setState({ hoverImage : hoverImageID }) }
-          setSelectedImage={ selectImageID => this.setState({ selectedImage : selectImageID }) }
+          downloadSegments={ image => downloadSegments(image) }
+          deleteImage={ image => this.handleImageDelete(image) }
+          bulkDelete={ () => this.handleBulkDelete() } 
+          setHoverImage={ hoverImageID => 
+            this.setState({ hoverImage : hoverImageID }) 
+          }
+          setSelectedImage={ selectImageID => 
+            this.setState({ selectedImage : selectImageID }) 
+          }
           toggleExpand={ async () => 
-            this.setState({ 
-              localFilesExpanded: !this.state.localFilesExpanded, 
-              savedImages: cleanDocs(await getAllDocs())
-            }) 
+            this.setState({ localFilesExpanded: !this.state.localFilesExpanded }) 
           } />
         <Footer />
       </div>
