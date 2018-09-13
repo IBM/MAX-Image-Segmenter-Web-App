@@ -9,7 +9,7 @@ const FileGallery = props => {
       { props.expanded ? 
         <div className="galleryBox">
           <div className="imageGallery">
-            { generateDocComponent(props) }
+            { generateImageComponent(props) }
           </div>
           <div className="panel panel-default deleteBox">
             <div className="panel-heading">
@@ -32,40 +32,53 @@ const FileGallery = props => {
 }
 
 const getToggleText = props => {
-  let label = (
+  let imageLabel = (
     <p className="openLabel" onClick={ props.toggleExpand }>
       { `+ Click here to view your saved images in PouchDB.` }
     </p>
   )
   if (props.expanded) {
-    label = (
+    if (props.selectedImage) {
+      imageLabel = (
       <div>
         <p className="closeLabel" onClick={ props.toggleExpand }>
           { `- Click here to hide locally saved images.` }
         </p>
-        <p className="downloadLabel">
-          { `Click on an image to view avilable options.` }
+        <p className="imageSelectLabel">
+          { `Choose from the available options for this image, or choose another from the gallery.` }
         </p>
       </div>
-    )
+      )
+    } else {
+      imageLabel = (
+        <div>
+          <p className="closeLabel" onClick={ props.toggleExpand }>
+            { `- Click here to hide locally saved images.` }
+          </p>
+          <p className="imageSelectLabel">
+            { `Click on an image to view avilable options.` }
+          </p>
+        </div>
+      )
+    }
   }
-  return label
+  return imageLabel
 }
 
-const getThumbSource = (hoverDoc, doc) => {
-  if (hoverDoc === doc.id) {
-    return doc.segments.source.url
+const getThumbSource = (props, image) => {
+  if (props.hoverImage === image.id || props.selectedImage === image.id) {
+    return image.segments.source.url
   } else {
-    return doc.segments.colormap.url
+    return image.segments.colormap.url
   }
 }
 
-const displaySelectControls = (props, doc) => {
-  if (props.selectedImage === doc.id) {
+const displaySelectControls = (props, image) => {
+  if (props.selectedImage === image.id) {
     return (
       <div className="controlPanel">
         <a>delete </a>
-        <a onClick={ () => downloadSegments(doc) }>download </a>
+        <a onClick={ () => downloadSegments(image) }>download </a>
         <a>load#1 </a>
         <a>load#2</a>
       </div>
@@ -73,56 +86,58 @@ const displaySelectControls = (props, doc) => {
   }
 }
 
-const handleImageClick = (props, docID) => {
-  if (docID !== props.selectedImage) {
-    props.setSelectedImage(docID)
+const handleImageClick = (props, imageID) => {
+  if (imageID !== props.selectedImage) {
+    props.setSelectedImage(imageID)
   } else {
     props.setSelectedImage('')
   }
 }
 
-const applyImageClass = (props, docID) => {
-  if (docID === props.selectedImage) {
+const applyImageClass = (props, imageID) => {
+  if (imageID === props.selectedImage) {
     return `selectedImageThumb`
   } else {
     return `savedImageThumb`
   }
 }
 
-const generateDocComponent = props => {
-  // should check to see if the doc is currently selected,
-  // and if so, apply hover styles regardless of hover
-  
-  // also, should apply the onClick function to only certain elements, 
+const generateImageComponent = props => {
+
+  // should apply the onClick function to only certain elements, 
   // so clicking in the control panel won't close it
-  const docs = props.savedImages
-  return docs.map(
-    doc => {
+  const images = props.savedImages
+  return images.map(
+    image => {
       return (
         <div 
-          key={doc.id} 
-          className={ applyImageClass(props, doc.id) }
-          onMouseEnter={ () => props.setHoverImage(doc.id) } 
-          onMouseLeave={ () => props.setHoverImage('') } 
-          onClick={ () => handleImageClick(props, doc.id) }>
+          key={ image.id } 
+          className={ applyImageClass(props, image.id) }
+          onMouseEnter={ () => props.setHoverImage(image.id) } 
+          onMouseLeave={ () => props.setHoverImage('') }>
             
-            <p className="imageLabel top">
+            <p 
+              className="imageLabel top"
+              onClick={ () => handleImageClick(props, image.id) }>
               <span className="imageTitle">
-                { doc.id.split('-')[1] }
+                { image.id.split('-')[1] }
               </span>
             </p>
 
-            { displaySelectControls(props, doc) }
+            { displaySelectControls(props, image) }
 
             <img
               className="thumbImage"
-              src={ getThumbSource(props.hoverImage, doc) }
-              alt={ doc.id } 
+              src={ getThumbSource(props, image) }
+              alt={ image.id } 
+              onClick={ () => handleImageClick(props, image.id) }
               />
 
-            { doc.id !== props.selectedImage ?
-              <p className="imageLabel bottom">
-                { ` ${ Object.keys(doc.segments).length-2 } segments` }
+            { image.id !== props.selectedImage ?
+              <p 
+                className="imageLabel bottom"
+                onClick={ () => handleImageClick(props, image.id) }>
+                { ` ${ Object.keys(image.segments).length-2 } segments` }
               </p>
               :
               <span />

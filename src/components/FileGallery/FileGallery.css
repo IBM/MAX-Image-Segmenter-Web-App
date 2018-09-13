@@ -50,7 +50,7 @@
 }
 
 .savedImageThumb:hover > .imageLabel.top {
-  background-color: inherit; 
+  background-color: #0aa;
 }
 
 .savedImageThumb:hover > .imageLabel.bottom {
