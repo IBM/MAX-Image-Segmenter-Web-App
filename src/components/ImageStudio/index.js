@@ -21,7 +21,8 @@ const generateStudioImage = (image, num) => {
 const ImageStudio = props => {
 
   return (
-    <div className="imageStudioContainer">
+    <div className="panel panel-default imageStudioContainer">
+      <h2 className="studioTitle panel panel-heading">MAX Image Studio</h2>
       <div className="sourceImageContainer">
         { 
           props.images.one ? 

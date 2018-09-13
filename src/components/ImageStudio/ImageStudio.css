@@ -1,5 +1,4 @@
 .imageStudioContainer {
-  border: 1px solid red;
   max-width: 90%;
   margin: 0 auto 0 auto;
 }
@@ -9,20 +8,15 @@
   flex-flow: row wrap;
   align-items: center;
   justify-content: space-around;
-  margin: 0;
+  margin: 1%;
+}
+
+.studioTitle {
+  margin-top: 0;
 }
 
 .studioImage {
   max-width: 400px;
-}
-
-
-.studioImage.one {
-  
-}
-
-.studioImage.two {
-
 }
 
 .studioCanvas {
