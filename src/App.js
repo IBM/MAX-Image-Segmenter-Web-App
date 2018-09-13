@@ -9,8 +9,9 @@ import { getAllDocs, cleanDocs, saveToPouch } from './utils'
 
 const initialState = {
   localFilesExpanded: false,
-  savedDocs: [],
-  hoverDoc: '',
+  savedImages: [],
+  hoverImage: '',
+  selectedImage: '',
   imageLoaded: false,
   image: {},
   selectedObject: '',
@@ -114,13 +115,15 @@ export default class App extends Component {
         }
         <FileGallery 
           expanded={ this.state.localFilesExpanded }
-          savedDocs={ this.state.savedDocs }
-          hoverDoc={ this.state.hoverDoc }
-          setHoverDoc={ hoverDocID => this.setState({ hoverDoc : hoverDocID }) }
+          savedImages={ this.state.savedImages }
+          hoverImage={ this.state.hoverImage }
+          selectedImage={ this.state.selectedImage }
+          setHoverImage={ hoverImageID => this.setState({ hoverImage : hoverImageID }) }
+          setSelectedImage={ selectImageID => this.setState({ selectedImage : selectImageID }) }
           toggleExpand={ async () => 
             this.setState({ 
               localFilesExpanded: !this.state.localFilesExpanded, 
-              savedDocs: cleanDocs(await getAllDocs())
+              savedImages: cleanDocs(await getAllDocs())
             }) 
           } />
         <Footer />

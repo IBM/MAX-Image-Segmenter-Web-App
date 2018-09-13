@@ -1,6 +1,8 @@
 import {} from 'dotenv/config'
 import axios from 'axios'
 import PouchDB from 'pouchdb'
+import { saveAs } from 'file-saver/FileSaver'
+import B64toBlob  from 'b64-to-blob'
 
 const KUBE_MODEL_IP = process.env.REACT_APP_KUBE_IP || ''
 const KUBE_MODEL_PORT = process.env.REACT_APP_KUBE_MODEL_PORT || ''
@@ -138,5 +140,15 @@ export const cleanMAXResponse = (imgName, response) => {
       flatSegMap: flatSegMap,
       imageName: imgName
     }
+  }
+}
+
+const downloadSingleSeg = (imgName, segment) => {
+  saveAs(B64toBlob(URLtoB64(segment.url), 'image/png'), `${ imgName }-${ segment.name }.png`)
+}
+
+export const downloadSegments = async (imgName, docSegments) => {
+  for (let seg in docSegments) {
+    downloadSingleSeg(imgName, docSegments[seg])
   }
 }

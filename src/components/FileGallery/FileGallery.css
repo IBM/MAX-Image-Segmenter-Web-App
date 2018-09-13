@@ -6,11 +6,11 @@
   text-align: center;
 }
 
-.savedDocThumb {
+.savedImageThumb {
   color: black;
   background-color: #ddd;
   width: 250px;
-  height: 250px;
+  height: 280px;
   margin: 0 .5% 1% .5%;
   border-radius: 4px;
   display: flex;
@@ -20,25 +20,29 @@
   border: 1px solid #aaa;
 }
 
-.savedDocThumb:hover {
+.savedImageThumb:hover {
   background-color: #0bc6c0; 
 }
 
-.savedDocThumb:hover > .imageLabel.top {
+.savedImageThumb:hover > .imageLabel.top {
   background-color: #26A8A2; 
   font-weight: 900;
 }
 
-.savedDocThumb:hover > .imageLabel.bottom {
+.savedImageThumb:hover > .imageLabel.bottom {
   background-color: inherit; 
   color: #fff;
 }
 
-.thumbImg {
+.savedImageThumb > p {
+  margin: 0;
+}
+
+.thumbImage {
   display: block;
-  height: 68%;
+  height: 70%;
   width: auto;
-  margin: 0 5% 0 5%;
+  margin: 5%;
   border-radius: 3px;
 }
 
@@ -48,14 +52,12 @@
 }
 
 .imageLabel.bottom {
-  margin-top: 5%;
+  
 }
 
 .imageLabel.top {
   font-weight: bold;
-  padding: 2%;
-  vertical-align: center;
-  margin-bottom: 5%;
+  padding: 1%;
   background-color: #aaa;
 }
 
@@ -74,6 +76,7 @@
 }
 
 .closeLabel {
+  color: black;
   cursor: pointer;
   display: inline-block;
 }
@@ -98,3 +101,9 @@
   margin: 0 auto -1% auto;
   max-width: 70%;
 }
+
+div.controlPanel { 
+  color: red;
+  background-color: black;
+  padding: 3%;
+} 

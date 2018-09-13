@@ -1,8 +1,6 @@
 import './FileGallery.css'
 import React from 'react'
-import { saveAs } from 'file-saver/FileSaver'
-import B64toBlob  from 'b64-to-blob'
-import { deleteLocalImages, URLtoB64 } from '../../utils'
+import { deleteLocalImages, downloadSegments } from '../../utils'
  
 const FileGallery = props => {
   return (
@@ -36,18 +34,17 @@ const FileGallery = props => {
 const getToggleText = props => {
   let label = (
     <p className="openLabel" onClick={ props.toggleExpand }>
-      { `+ Click here to view locally cached images in PouchDB.` }
+      { `+ Click here to view your saved images in PouchDB.` }
     </p>
   )
   if (props.expanded) {
     label = (
       <div>
         <p className="closeLabel" onClick={ props.toggleExpand }>
-          { `- Click here to hide locally cached images.` }
+          { `- Click here to hide locally saved images.` }
         </p>
         <p className="downloadLabel">
-          { `Click on a cached image to download each of its segments as `
-            + `individual image files.` }
+          { `Click on an image to view avilable options.` }
         </p>
       </div>
     )
@@ -63,44 +60,65 @@ const getThumbSource = (hoverDoc, doc) => {
   }
 }
 
+const displaySelectControls = controlsDisplayed => {
+  if (controlsDisplayed) {
+    return (
+      <div className="controlPanel">
+        SELECTION CONTROLS
+      </div>
+    )
+  }
+}
+
+const handleImageClick = (props, doc) => {
+  if (doc.id !== props.selectedImage) {
+    props.setSelectedImage(doc.id)
+  } else {
+    props.setSelectedImage('')
+  }
+}
+
 const generateDocComponent = props => {
-  const docs = props.savedDocs
+  const docs = props.savedImages
   return docs.map(
     doc => {
       return (
         <div 
           key={doc.id} 
-          className="savedDocThumb"
-          onMouseEnter={ () => props.setHoverDoc(doc.id) } 
-          onMouseLeave={ () => props.setHoverDoc('') } 
-          onClick={ () => downloadSegments(doc.id.split('-')[1], doc.segments) }>
+          className="savedImageThumb"
+          onMouseEnter={ () => props.setHoverImage(doc.id) } 
+          onMouseLeave={ () => props.setHoverImage('') } 
+          onClick={ /*() => downloadSegments(doc.id.split('-')[1], doc.segments)*/
+                    () => handleImageClick(props, doc) }>
+            
             <p className="imageLabel top">
               <span className="imageTitle">
                 { doc.id.split('-')[1] }
               </span>
             </p>
+
+            { displaySelectControls(props.selectedImage === doc.id) }
+
             <img
-              className="thumbImg"
-              src={ getThumbSource(props.hoverDoc, doc) }
+              className="thumbImage"
+              src={ getThumbSource(props.hoverImage, doc) }
               alt={ doc.id } 
               />
-            <p className="imageLabel bottom">
-              { ` ${ Object.keys(doc.segments).length-2 } segments` }
-            </p>
+
+
+            { doc.id !== props.selectedImage ?
+              <p className="imageLabel bottom">
+                { ` ${ Object.keys(doc.segments).length-2 } segments` }
+              </p>
+              :
+              <span />
+            }
+
+
           </div>
       )
     }
   )
-}
-
-const downloadSingleSeg = (imgName, segment) => {
-  saveAs(B64toBlob(URLtoB64(segment.url), 'image/png'), `${ imgName }-${ segment.name }.png`)
-}
-
-const downloadSegments = async (imgName, docSegments) => {
-  for (let seg in docSegments) {
-    downloadSingleSeg(imgName, docSegments[seg])
-  }
 }
 
 export default FileGallery
