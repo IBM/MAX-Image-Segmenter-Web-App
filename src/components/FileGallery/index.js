@@ -1,6 +1,6 @@
 import './FileGallery.css'
 import React from 'react'
- 
+
 const FileGallery = props => {
   return (
     <div className="fileGalleryContainer" >
@@ -76,7 +76,7 @@ const displaySelectControls = (props, image) => {
   if (props.selectedImage === image.id) {
     return (
       <div className="controlPanel">
-        <a onClick={ () => props.deleteImage(image) /*() => deleteImageFromPouch(image)*/ }>
+        <a onClick={ () => props.deleteImage(image) }>
           delete 
         </a>
         <a onClick={ () => props.downloadSegments(image) }>
@@ -110,9 +110,6 @@ const applyImageClass = (props, imageID) => {
 }
 
 const generateImageComponent = props => {
-
-  // should apply the onClick function to only certain elements, 
-  // so clicking in the control panel won't close it
   const images = props.savedImages
   return images.map(
     image => {
@@ -149,8 +146,6 @@ const generateImageComponent = props => {
               :
               <span />
             }
-
-
           </div>
       )
     }

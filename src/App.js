@@ -14,7 +14,7 @@ const initialState = {
   selectedImage: '',
   imageLoaded: false,
   image: {},
-  selectedObject: '',
+  selectedObject: ''
 }
 
 export default class App extends Component {
@@ -122,11 +122,11 @@ export default class App extends Component {
           downloadSegments={ image => downloadSegments(image) }
           deleteImage={ image => this.handleImageDelete(image) }
           bulkDelete={ () => this.handleBulkDelete() } 
-          setHoverImage={ hoverImageID => 
-            this.setState({ hoverImage : hoverImageID }) 
+          setHoverImage={ imageID => 
+            this.setState({ hoverImage : imageID }) 
           }
-          setSelectedImage={ selectImageID => 
-            this.setState({ selectedImage : selectImageID }) 
+          setSelectedImage={ imageID => 
+            this.setState({ selectedImage : imageID }) 
           }
           toggleExpand={ async () => 
             this.setState({ localFilesExpanded: !this.state.localFilesExpanded }) 
