@@ -6,15 +6,17 @@ import FileGallery from './components/FileGallery'
 import ImageDisplay from './components/ImageDisplay'
 import Footer from './components/Footer'
 import { getAllDocs, cleanDocs, saveToPouch, deleteSingleImage, deleteAllImages, downloadSegments } from './utils'
+import ImageStudio from './components/ImageStudio'
 
 const initialState = {
+  imageLoaded: false,
+  image: {},
+  selectedObject: '',
   localFilesExpanded: false,
   savedImages: [],
   hoverImage: '',
   selectedImage: '',
-  imageLoaded: false,
-  image: {},
-  selectedObject: ''
+  studio: {}
 }
 
 export default class App extends Component {
@@ -112,7 +114,7 @@ export default class App extends Component {
           this.state.previewImg || this.state.canvasReady ?
             this.renderCanvas()
           :
-          <p />
+            <span />
         }
         <FileGallery 
           expanded={ this.state.localFilesExpanded }
@@ -130,7 +132,22 @@ export default class App extends Component {
           }
           toggleExpand={ async () => 
             this.setState({ localFilesExpanded: !this.state.localFilesExpanded }) 
-          } />
+          }
+          loadIntoStudio={ (image, slotNum) =>
+            this.setState({ 
+              studio: {
+                ...this.state.studio,
+                [slotNum]: image
+              }  
+            }) } />
+
+          { 
+            Object.keys(this.state.studio).length !== 0 ?
+              <ImageStudio 
+                images={ this.state.studio } />
+          :
+              <span />
+          }
         <Footer />
       </div>
     )

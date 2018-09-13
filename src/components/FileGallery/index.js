@@ -1,5 +1,6 @@
 import './FileGallery.css'
 import React from 'react'
+import { getFormattedName } from '../../utils'
 
 const FileGallery = props => {
   return (
@@ -82,10 +83,10 @@ const displaySelectControls = (props, image) => {
         <a onClick={ () => props.downloadSegments(image) }>
           download 
         </a>
-        <a>
+        <a onClick={ () => props.loadIntoStudio(image, 'one') }>
           load#1 
         </a>
-        <a>
+        <a onClick={ () => props.loadIntoStudio(image, 'two') }>
           load#2
         </a>
       </div>
@@ -124,7 +125,7 @@ const generateImageComponent = props => {
               className="imageLabel top"
               onClick={ () => handleImageClick(props, image.id) }>
               <span className="imageTitle">
-                { image.id.split('-')[1] }
+                { getFormattedName(image) }
               </span>
             </p>
 

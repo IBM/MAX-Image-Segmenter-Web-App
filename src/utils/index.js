@@ -38,6 +38,10 @@ export const B64toURL = base64 => `data:image/png;base64,${base64}`
 
 export const URLtoB64 = dataURL => dataURL.split(',')[1]
 
+export const getFormattedName = image => {
+  return image.id.split('-')[1]
+}
+
 export const getAllDocs = () => {
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.allDocs({ include_docs: 'true', attachments: 'true' })

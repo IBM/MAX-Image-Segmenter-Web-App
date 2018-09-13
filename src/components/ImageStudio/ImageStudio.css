@@ -1,0 +1,36 @@
+.imageStudioContainer {
+  border: 1px solid red;
+  max-width: 90%;
+  margin: 0 auto 0 auto;
+}
+
+.sourceImageContainer {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0;
+}
+
+.studioImage {
+  max-width: 400px;
+}
+
+
+.studioImage.one {
+  
+}
+
+.studioImage.two {
+
+}
+
+.studioCanvas {
+  background-color: #666;
+  color: red;
+  margin: 1%;
+  padding: 1%;
+  display: inline-block;
+  width: 98%;
+  height: 513px;
+}
