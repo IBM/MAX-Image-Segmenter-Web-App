@@ -1,6 +1,6 @@
 import './FileGallery.css'
 import React from 'react'
-import { deleteLocalImages, downloadSegments } from '../../utils'
+import { deleteSingleImage, deleteLocalImages, downloadSegments } from '../../utils'
  
 const FileGallery = props => {
   return (
@@ -77,10 +77,18 @@ const displaySelectControls = (props, image) => {
   if (props.selectedImage === image.id) {
     return (
       <div className="controlPanel">
-        <a>delete </a>
-        <a onClick={ () => downloadSegments(image) }>download </a>
-        <a>load#1 </a>
-        <a>load#2</a>
+        <a onClick={ () => deleteSingleImage(image) /*() => deleteImageFromPouch(image)*/ }>
+          delete 
+        </a>
+        <a onClick={ () => downloadSegments(image) }>
+          download 
+        </a>
+        <a>
+          load#1 
+        </a>
+        <a>
+          load#2
+        </a>
       </div>
     )
   }

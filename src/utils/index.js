@@ -49,6 +49,11 @@ export const deleteLocalImages = async expandFunc => {
   return pouchDB.destroy()
 }
 
+export const deleteSingleImage = image => {
+  console.log(`delete ${ image.id }`)
+}
+
+
 export const cleanDocs = docs => {
   return docs.rows.map(
     doc=> {

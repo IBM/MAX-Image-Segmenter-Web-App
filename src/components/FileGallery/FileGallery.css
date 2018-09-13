@@ -31,7 +31,7 @@
   cursor: pointer;
   overflow: hidden;
   flex-flow: column;
-  border: 1px solid #aaa;
+  border: 1px solid #5fbfbb;
   color: #fff;
 }
 
@@ -41,6 +41,10 @@
 
 .selectedImageThumb > .imageLabel.bottom {
   background-color: inherit; 
+}
+
+.selectedImageThumb > .thumbImage {
+  margin-top: 0; 
 }
 
 .savedImageThumb:hover {
@@ -134,4 +138,6 @@
 
 .controlPanel a {
   color: white;
+  border-radius: 3px;
+  padding-bottom: 2%;
 }
