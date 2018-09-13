@@ -1,4 +1,4 @@
-.fileDownloadContainer {
+.fileGalleryContainer {
   color: #666;
 }
 
@@ -36,7 +36,7 @@
 
 .thumbImg {
   display: block;
-  height: 65%;
+  height: 68%;
   width: auto;
   margin: 0 5% 0 5%;
   border-radius: 3px;

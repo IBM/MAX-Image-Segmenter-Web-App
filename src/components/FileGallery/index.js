@@ -1,12 +1,12 @@
-import './FileDownload.css'
+import './FileGallery.css'
 import React from 'react'
 import { saveAs } from 'file-saver/FileSaver'
 import B64toBlob  from 'b64-to-blob'
 import { deleteLocalImages, URLtoB64 } from '../../utils'
  
-const FileDownload = props => {
+const FileGallery = props => {
   return (
-    <div className="fileDownloadContainer" >
+    <div className="fileGalleryContainer" >
       { getToggleText(props) }
       { props.expanded ? 
         <div className="galleryBox">
@@ -81,8 +81,9 @@ const generateDocComponent = props => {
             </p>
             <img
               className="thumbImg"
-              src={ getThumbSource(props.hoverDoc, doc) } 
-              alt={ doc.id } />
+              src={ getThumbSource(props.hoverDoc, doc) }
+              alt={ doc.id } 
+              />
             <p className="imageLabel bottom">
               { ` ${ Object.keys(doc.segments).length-2 } segments` }
             </p>
@@ -102,4 +103,4 @@ const downloadSegments = async (imgName, docSegments) => {
   }
 }
 
-export default FileDownload
+export default FileGallery

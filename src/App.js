@@ -2,7 +2,7 @@ import './App.css'
 import React, { Component } from 'react'
 import UploadForm from './components/UploadForm'
 import AppHeader from './components/AppHeader'
-import FileDownload from './components/FileDownload'
+import FileGallery from './components/FileGallery'
 import ImageDisplay from './components/ImageDisplay'
 import Footer from './components/Footer'
 import { getAllDocs, cleanDocs, saveToPouch } from './utils'
@@ -112,7 +112,7 @@ export default class App extends Component {
           :
           <p />
         }
-        <FileDownload 
+        <FileGallery 
           expanded={ this.state.localFilesExpanded }
           savedDocs={ this.state.savedDocs }
           hoverDoc={ this.state.hoverDoc }
