@@ -23,14 +23,6 @@ export default class App extends Component {
     this.state = initialState
   }
 
-  resetLoadState = () => {
-    this.setState({ 
-      imageLoaded: false, 
-      canvasReady: false,
-      localFilesExpanded: false 
-    })
-  }
-
   setPreviewImg = newImage => {
     this.setState({ 
       previewImg: newImage, 
@@ -101,7 +93,6 @@ export default class App extends Component {
         <UploadForm 
           toggleFunc={ this.handleModelToggle }
           modelType={ this.state.modelType }
-          resetLoadState={ () => this.forceUpdate() }
           setAppImageData={ this.setImageData }
           imageLoaded={ this.state.canvasReady }
           addSegURL={ this.addSegURL }
