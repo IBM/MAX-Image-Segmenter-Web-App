@@ -73,25 +73,38 @@ const displaySelectControls = (props, doc) => {
   }
 }
 
-const handleImageClick = (props, doc) => {
-  if (doc.id !== props.selectedImage) {
-    props.setSelectedImage(doc.id)
+const handleImageClick = (props, docID) => {
+  if (docID !== props.selectedImage) {
+    props.setSelectedImage(docID)
   } else {
     props.setSelectedImage('')
   }
 }
 
+const applyImageClass = (props, docID) => {
+  if (docID === props.selectedImage) {
+    return `selectedImageThumb`
+  } else {
+    return `savedImageThumb`
+  }
+}
+
 const generateDocComponent = props => {
+  // should check to see if the doc is currently selected,
+  // and if so, apply hover styles regardless of hover
+  
+  // also, should apply the onClick function to only certain elements, 
+  // so clicking in the control panel won't close it
   const docs = props.savedImages
   return docs.map(
     doc => {
       return (
         <div 
           key={doc.id} 
-          className="savedImageThumb"
+          className={ applyImageClass(props, doc.id) }
           onMouseEnter={ () => props.setHoverImage(doc.id) } 
           onMouseLeave={ () => props.setHoverImage('') } 
-          onClick={ () => handleImageClick(props, doc) }>
+          onClick={ () => handleImageClick(props, doc.id) }>
             
             <p className="imageLabel top">
               <span className="imageTitle">
@@ -106,7 +119,6 @@ const generateDocComponent = props => {
               src={ getThumbSource(props.hoverImage, doc) }
               alt={ doc.id } 
               />
-
 
             { doc.id !== props.selectedImage ?
               <p className="imageLabel bottom">

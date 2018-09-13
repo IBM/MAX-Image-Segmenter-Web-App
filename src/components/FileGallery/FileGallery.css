@@ -20,14 +20,37 @@
   border: 1px solid #aaa;
 }
 
+.selectedImageThumb {
+  border-color: #5fbfbb;
+  background-color: darkturquoise; 
+  width: 250px;
+  height: 280px;
+  margin: 0 .5% 1% .5%;
+  border-radius: 4px;
+  display: flex;
+  cursor: pointer;
+  overflow: hidden;
+  flex-flow: column;
+  border: 1px solid #aaa;
+  color: #fff;
+}
+
+.selectedImageThumb > .imageLabel.top {
+  background-color: #0aa; 
+}
+
+.selectedImageThumb > .imageLabel.bottom {
+  background-color: inherit; 
+}
+
 .savedImageThumb:hover {
   background-color: darkturquoise; 
   border-color: #5fbfbb;
+  color: #fff;
 }
 
 .savedImageThumb:hover > .imageLabel.top {
-  background-color: #0aa; 
-  font-weight: 900;
+  background-color: inherit; 
 }
 
 .savedImageThumb:hover > .imageLabel.bottom {
@@ -49,15 +72,12 @@
 .imageLabel {
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.imageLabel.bottom {
-  
+  margin: 0;
 }
 
 .imageLabel.top {
   font-weight: bold;
-  padding: 1%;
+  padding: 2%;
   background-color: #aaa;
 }
 
@@ -110,7 +130,6 @@
   flex-flow: row nowrap;
   align-content: center;
   justify-content: space-around;
-
 } 
 
 .controlPanel a {
