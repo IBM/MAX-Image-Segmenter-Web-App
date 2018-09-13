@@ -4,7 +4,7 @@ import { getFormattedName } from '../../utils'
 
 const FileGallery = props => {
   return (
-    <div className="fileGalleryContainer" >
+    <div className="panel panel-default fileGalleryContainer" >
       { getToggleText(props) }
       { props.expanded ? 
         <div className="galleryBox">
@@ -13,9 +13,9 @@ const FileGallery = props => {
           </div>
           <div className="panel panel-default deleteBox">
             <div className="panel-heading">
-              <p>
+              <span>
                 { `Click the button below to ERASE all images from local storage.` }
-              </p>
+              </span>
             </div>
             <button 
               className="btn btn-danger deleteBtn"
@@ -25,7 +25,7 @@ const FileGallery = props => {
           </div>
         </div>
             : 
-        <p /> 
+        <span /> 
       }
     </div>
   )
@@ -33,15 +33,17 @@ const FileGallery = props => {
 
 const getToggleText = props => {
   let imageLabel = (
-    <p className="openLabel" onClick={ props.toggleExpand }>
+    <p className="panel panel-heading openLabel" onClick={ props.toggleExpand }>
       { `+ Click here to view your saved images in PouchDB.` }
     </p>
   )
   if (props.expanded) {
     if (props.selectedImage) {
       imageLabel = (
-      <div>
-        <p className="closeLabel" onClick={ props.toggleExpand }>
+      <div 
+        className="closePanel panel panel-heading"
+        onClick={ props.toggleExpand }>
+        <p className="closeLabel">
           { `- Click here to hide locally saved images.` }
         </p>
         <p className="imageSelectLabel">
@@ -51,8 +53,10 @@ const getToggleText = props => {
       )
     } else {
       imageLabel = (
-        <div>
-          <p className="closeLabel" onClick={ props.toggleExpand }>
+        <div 
+          className="closePanel panel panel-heading"
+          onClick={ props.toggleExpand }>
+          <p className="closeLabel">
             { `- Click here to hide locally saved images.` }
           </p>
           <p className="imageSelectLabel">
@@ -121,13 +125,13 @@ const generateImageComponent = props => {
           onMouseEnter={ () => props.setHoverImage(image.id) } 
           onMouseLeave={ () => props.setHoverImage('') }>
             
-            <p 
+            <span 
               className="imageLabel top"
               onClick={ () => handleImageClick(props, image.id) }>
               <span className="imageTitle">
                 { getFormattedName(image) }
               </span>
-            </p>
+            </span>
 
             { displaySelectControls(props, image) }
 
@@ -139,11 +143,11 @@ const generateImageComponent = props => {
               />
 
             { image.id !== props.selectedImage ?
-              <p 
+              <span 
                 className="imageLabel bottom"
                 onClick={ () => handleImageClick(props, image.id) }>
                 { ` ${ Object.keys(image.segments).length-2 } segments` }
-              </p>
+              </span>
               :
               <span />
             }

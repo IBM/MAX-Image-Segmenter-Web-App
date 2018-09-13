@@ -1,5 +1,30 @@
 .fileGalleryContainer {
   color: #666;
+  display: inline-block;
+}
+
+.fileGalleryContainer > span {
+  display: table;
+}
+
+.fileGalleryContainer > .openLabel {
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0;
+}
+
+.closePanel {
+  cursor: pointer;
+}
+
+.closeLabel {
+  color: black;
+  margin: 0 0 1% 0;
+}
+
+.imageSelectLabel {
+  margin: 0;
 }
 
 .galleryBox {
@@ -93,18 +118,6 @@
   font-size: .5em;
 }
 
-.openLabel {
-  color: black;
-  cursor: pointer;
-  display: inline-block;
-}
-
-.closeLabel {
-  color: black;
-  cursor: pointer;
-  display: inline-block;
-}
-
 .deleteBox {
   color: black;
   font-size: .9em;
@@ -123,7 +136,7 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto -1% auto;
-  max-width: 80%;
+  max-width: 85%;
 }
 
 .controlPanel { 
