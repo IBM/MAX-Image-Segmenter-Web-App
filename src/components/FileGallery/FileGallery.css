@@ -21,11 +21,12 @@
 }
 
 .savedImageThumb:hover {
-  background-color: #5ccac6; 
+  background-color: darkturquoise; 
+  border-color: #5fbfbb;
 }
 
 .savedImageThumb:hover > .imageLabel.top {
-  background-color: rgb(0, 165, 165); 
+  background-color: #0aa; 
   font-weight: 900;
 }
 

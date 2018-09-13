@@ -34,15 +34,15 @@ form > span > p {
 }
 
 .formBtn {
-  background-color: #0bc6c0;
+  background-color: darkturquoise;
   cursor: pointer;
   float: left;
   border-color: #5FBFBB;
 }
 
 .formBtn:hover {
-  background-color: #26A8A2;
-  border-color: #26A8A2;
+  background-color: #0aa;
+  border-color: #0aa;
 }
 
 .uploadWrapper {
