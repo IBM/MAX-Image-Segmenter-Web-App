@@ -79,11 +79,11 @@ export const cleanDocs = docs => {
     doc=> {
       const segList = Object.keys(doc.doc._attachments)
       let segObject = {}
-      for (let seg in segList) {
-        segObject[segList[seg]] = { 
-          name: segList[seg],
-          hasData: doc.doc._attachments[segList[seg]] && true,
-          url: B64toURL(doc.doc._attachments[segList[seg]].data)
+      for (let seg of segList) {
+        segObject[seg] = { 
+          name: seg,
+          hasData: doc.doc._attachments[seg] && true,
+          url: B64toURL(doc.doc._attachments[seg].data)
         }
       }
       return {
@@ -104,12 +104,12 @@ export const saveToPouch = uploadData => {
   // build attachments object
   let attachments = {}
   const segmentList = Object.keys(urls)
-  for (let seg in segmentList) {
+  for (let seg of segmentList) {
     attachments = {
       ...attachments,
-      [segmentList[seg]]: {
+      [seg]: {
         content_type: 'image/png',
-        data: URLtoB64(urls[segmentList[seg]])
+        data: URLtoB64(urls[seg])
       }
     }
   }
@@ -173,7 +173,7 @@ const downloadSingleSeg = (imgName, segment) => {
 }
 
 export const downloadSegments = async ({ id, segments }) => {
-  for (let seg in segments) {
-    downloadSingleSeg(id.split('-')[1], segments[seg])
+  for (let seg of segments) {
+    downloadSingleSeg(id.split('-')[1], seg)
   }
 }

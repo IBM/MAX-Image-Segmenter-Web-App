@@ -67,8 +67,8 @@ export default class UploadForm extends Component {
   mapNeededURLs = async imageObj => {
       const neededSegments = imageObj.foundSegments
       let URLMap = {}
-      for (let name in neededSegments) {
-        URLMap[neededSegments[name]] = await this.invisibleSegment(neededSegments[name], imageObj)
+      for (let name of neededSegments) {
+        URLMap[name] = await this.invisibleSegment(name, imageObj)
       }
       console.log(`URLMAP: ${Object.keys(URLMap)}`)
       return URLMap
