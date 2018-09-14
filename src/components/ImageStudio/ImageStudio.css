@@ -22,7 +22,7 @@
 
 .studioImage {
   max-width: 513px;
-  max-height: 623px;
+  height: auto;
   margin: auto;
   padding-bottom: 1%;
 }
