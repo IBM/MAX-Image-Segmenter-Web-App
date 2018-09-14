@@ -55,7 +55,7 @@ export default class ImageStudio extends Component {
       const source = sources[src]
       //console.log(`source image: ${source}`)
       if (isNonEmpty(source.selected)) {
-        images.push(source.segments[source.selected].url)
+        images.push({...source.segments[source.selected]})
         labels.push(source.selected)
       } 
       /*
@@ -73,40 +73,49 @@ export default class ImageStudio extends Component {
   drawStudioCanvas = (imageSources) => {
     // 'load' images first, before drawing them
     const images = this.loadImages({ ...imageSources })
-
+    console.log(images)
     const canvas = this.studioRef
     const ctx = canvas.getContext('2d')
-    let studioImg = []
-    studioImg[0] = new Image()
+
 
     //const image = imageSources[img]
     //console.log(`loading ${img} from ${Object.keys(imageSources)}`)
     
     
     if (isNonEmpty(images[0])) { 
+      let studioImg = []
+      studioImg[0] = new Image()
+      studioImg[1] = new Image()
+      console.log(`seg detected `)
       studioImg[0].onload = () => {
 
         const { scaledWidth, scaledHeight } = getScaledSize({
-          height: studioImg.naturalHeight, 
-          width: studioImg.naturalWidth
+          height: studioImg[0].naturalHeight, 
+          width: studioImg[0].naturalWidth
         })
-        studioImg.width = scaledWidth
-        studioImg.height = scaledHeight
+        studioImg[0].width = scaledWidth
+        studioImg[0].height = scaledHeight
         canvas.width = scaledWidth 
         canvas.height = scaledHeight
-        ctx.drawImage(studioImg, 0, 0, scaledWidth, scaledHeight)
-        if (isNonEmpty(images[1]) && isNonEmpty(images[1].selected)) {
-          studioImg[1] = new Image()
-          studioImg[1].src = images[1].images[1].segments[images[1].selected].url
-          studioImg[1].onload = this.onload
+        
+        ctx.drawImage(studioImg[0], 0, 0, scaledWidth, scaledHeight)
+        if (isNonEmpty(images[1])) {
+          console.log(`detecting second layer to draw..`)
+          studioImg[1].onload = () => {
+            studioImg[1].width = studioImg[1].naturalWidth
+            studioImg[1].height = studioImg[1].naturalHeight
+            ctx.drawImage(studioImg[1], 0, 0, studioImg[1].naturalWidth, studioImg[1].naturalHeight)
+          }
+          studioImg[1].src = images[1].url
+          ctx.drawImage(studioImg[1], 0, 0, scaledWidth, scaledHeight)
         }
         
 
       }
       
-      if (isNonEmpty(images[0].selected)) {
-        studioImg[0].src = images[0].segments[images[0].selected].url
-        console.log(`loaded selected object (outer): ${images[0].selected}`)
+      if (isNonEmpty(images[0])) {
+        studioImg[0].src = images[0].url
+        console.log(`loaded selected object (outer)`)
       } 
     }
 
