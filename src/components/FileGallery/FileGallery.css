@@ -37,7 +37,7 @@
   width: 250px;
   height: 280px;
   margin: 0 .5% 1% .5%;
-  border-radius: 4px;
+  border-radius: 8px;
   display: flex;
   cursor: pointer;
   overflow: hidden;
@@ -51,7 +51,7 @@
   width: 250px;
   height: 280px;
   margin: 0 .5% 1% .5%;
-  border-radius: 4px;
+  border-radius: 8px;
   display: flex;
   cursor: pointer;
   overflow: hidden;
@@ -95,7 +95,7 @@
   height: 70%;
   width: auto;
   margin: 5%;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .imageLabel {
