@@ -23,7 +23,7 @@
 .studioImage {
   max-width: 513px;
   height: auto;
-  margin: auto;
+  margin: auto auto 1% auto;
   padding-bottom: 1%;
 }
 
@@ -68,8 +68,18 @@
 }
 
 .studioObjBtnActive {
-  background-color: darkturquoise;
   color: white;
+  border: 2px solid #0aa;
+  outline-color: #0aa;
+  background-color: #0aa;
+  margin: 1% 0 1% 0;
+}
+
+.studioObjBtnActive:focus {
+  color: white;
+  border: 2px solid #0aa;
+  outline-color: #0aa;
+  background-color: #0aa;
 }
 
 .studioCanvas {

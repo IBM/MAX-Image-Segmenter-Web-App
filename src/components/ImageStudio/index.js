@@ -2,7 +2,8 @@ import './ImageStudio.css'
 import React from 'react'
 import { getFormattedName } from '../../utils'
 
-const generateStudioImage = (image, num) => {
+const generateStudioImage = (props, num) => {
+  const image = props.images[num]
   return (
     <div className={`panel panel-default studioImage ${ num }`}>
       <h3 className='studioImageTitle'>
@@ -15,9 +16,15 @@ const generateStudioImage = (image, num) => {
       />
       <div className="ObjBtnContainer">
         { Object.keys(image.segments).map(seg => {
+          let buttonStyle = `studioObjBtn`
+          if (image.selected === seg) {
+            buttonStyle = `studioObjBtnActive`
+          }
           return (
-            <button className="studioObjBtn btn btn-default">
-            {seg}
+            <button 
+              className={`${buttonStyle} btn`}
+              onClick={ () => props.setStudioSegment({num, seg})}>
+              {seg}
             </button>
           ) }) 
         }
@@ -35,14 +42,14 @@ const ImageStudio = props => {
       <div className="sourceImageContainer">
         { 
           props.images.one ? 
-            generateStudioImage(props.images.one, 'one')
+            generateStudioImage(props, 'one')
           : 
             <span /> 
         }
 
         { 
           props.images.two ? 
-            generateStudioImage(props.images.two, 'two')
+            generateStudioImage(props, 'two')
           : 
             <span /> 
         }

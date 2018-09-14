@@ -148,7 +148,18 @@ export default class App extends Component {
           { 
             Object.keys(this.state.studio).length !== 0 ?
               <ImageStudio 
-                images={ this.state.studio } />
+                images={ this.state.studio } 
+                setStudioSegment={ ({ num, seg }) => {
+                  this.setState({
+                    studio: {
+                      ...this.state.studio,
+                      [num]: {
+                        ...this.state.studio[num],
+                        selected: seg
+                      }
+                    }
+                  })
+                } } />
           :
               <span />
           }
