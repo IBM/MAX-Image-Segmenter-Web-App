@@ -176,7 +176,8 @@ const downloadSingleSeg = (imgName, segment) => {
 }
 
 export const downloadSegments = async ({ id, segments }) => {
-  for (let seg of segments) {
-    downloadSingleSeg(id.split('-')[1], seg)
+  for (let seg in segments) {
+    const segment = segments[seg]
+    downloadSingleSeg(id.split('-')[1], segment)
   }
 }

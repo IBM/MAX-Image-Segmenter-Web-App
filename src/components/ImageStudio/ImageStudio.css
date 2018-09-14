@@ -36,23 +36,27 @@
 
 .studioImageThumb {
   max-width: 100%;
-  margin-top: auto;
-  border-bottom: 2px solid #ddd;
+  margin: auto 0 auto 0;
+  
 }
 
 .ObjBtnContainer {
   display: flex;
   flex-flow: row wrap;
+  align-content: center;
   justify-content: space-evenly;
-  margin: 0 auto -1% auto;
-  padding: 5% 1% 5% 1%;
+  border-top: 2px solid #ddd;
+  margin: 0 0 -2% 0;
+  padding: 7% 2% 7% 2%;
+  width: 100%;
+  height: 20%;
 }
 
 .studioObjBtn {
   color: darkturquoise;
   border: 2px solid darkturquoise;
   outline-color: darkturquoise;
-  margin: 1% 0 1% 0;
+  margin: auto auto 2% auto;
 }
 
 .studioObjBtn:hover {
@@ -60,6 +64,7 @@
   outline-color: #0aa;
   border-color: #0aa;
   background-color: white;
+  margin: auto auto 2% auto;
 }
 
 .btn.btn-default.studioObjBtn:active {
@@ -67,6 +72,7 @@
   border-color: #0aa;
   outline-color: #0aa;
   background-color: #0aa;
+  margin: auto auto 2% auto;
 }
 
 .btn.btn-default.studioObjBtn:focus {
@@ -74,6 +80,7 @@
   outline-color: #0aa;
   border-color: #0aa;
   background-color: white;
+  margin: auto auto 2% auto;
 }
 
 .studioObjBtnActive {
@@ -81,7 +88,7 @@
   border: 2px solid darkturquoise;
   outline-color: darkturquoise;
   background-color: darkturquoise;
-  margin: 1% 0 1% 0;
+  margin: auto auto 2% auto;
 }
 
 .studioObjBtnActive:focus {
