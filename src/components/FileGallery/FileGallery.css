@@ -109,7 +109,7 @@
 }
 
 .imageTitle {
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 .segList {
@@ -121,7 +121,8 @@
   font-size: .9em;
   border-radius: 4px;
   margin: 2% auto 5% auto;
-  max-width: 50%;
+  max-width: 400px;
+  width: 60%;
 }
 
 .deleteBtn {
