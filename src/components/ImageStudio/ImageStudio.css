@@ -6,17 +6,70 @@
 .sourceImageContainer {
   display: flex;
   flex-flow: row wrap;
-  align-items: center;
+  align-content: center;
   justify-content: space-around;
   margin: 1%;
+  min-height: 600px;
 }
 
 .studioTitle {
   margin-top: 0;
 }
 
+.studioImageTitle {
+  text-transform: uppercase;
+}
+
 .studioImage {
-  max-width: 400px;
+  max-width: 513px;
+  max-height: 623px;
+  margin: auto;
+  padding-bottom: 1%;
+}
+
+.studioImageThumb {
+  max-width: 100%;
+}
+
+.ObjBtnContainer {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: left;
+  justify-content: space-evenly;
+  margin: 0 auto -1% auto;
+}
+
+.studioObjBtn {
+  color: darkturquoise;
+  border: 2px solid darkturquoise;
+  outline-color: darkturquoise;
+  margin: 1% 0 1% 0;
+}
+
+.studioObjBtn:hover {
+  color: #0aa;
+  outline-color: #0aa;
+  border-color: #0aa;
+  background-color: white;
+}
+
+.btn.btn-default.studioObjBtn:active {
+  color: white;
+  border-color: #0aa;
+  outline-color: #0aa;
+  background-color: #0aa;
+}
+
+.btn.btn-default.studioObjBtn:focus {
+  color: #0aa;
+  outline-color: #0aa;
+  border-color: #0aa;
+  background-color: white;
+}
+
+.studioObjBtnActive {
+  background-color: darkturquoise;
+  color: white;
 }
 
 .studioCanvas {
