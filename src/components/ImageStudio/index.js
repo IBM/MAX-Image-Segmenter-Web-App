@@ -50,14 +50,14 @@ export default class ImageStudio extends Component {
 
   loadImages = (sources) => {
     let images = []
-    for (let source in sources) {
-      console.log(source)
+    let labels = []
+    for (let src in sources) {
+      const source = sources[src]
+      //console.log(`source image: ${source}`)
       if (isNonEmpty(source.selected)) {
-        for (let seg of source.selected) {
-          console.log(`loading ${seg} from ${source}`)
-          images.push([source].segments[seg].url)
-        }  
-      }
+        images.push(source.segments[source.selected].url)
+        labels.push(source.selected)
+      } 
       /*
       for (let seg of source.selected) {
         console.log(`loading ${seg} from ${source}`)
@@ -65,42 +65,52 @@ export default class ImageStudio extends Component {
       }
       */
     }
-    console.log(images)
-    // draw them here?
+    console.log(`total num of images: ${images.length}`)
+    console.log(`concurrently loading: ${labels}`)
+    return images
   }
   
   drawStudioCanvas = (imageSources) => {
     // 'load' images first, before drawing them
-    
+    const images = this.loadImages({ ...imageSources })
 
     const canvas = this.studioRef
     const ctx = canvas.getContext('2d')
-    let studioImg = new Image()
+    let studioImg = []
+    studioImg[0] = new Image()
 
-    for (let img in imageSources) {
-      const image = imageSources[img]
-      console.log(Object.keys(image))
-      
-      //this.loadImages({ image })
-      if (isNonEmpty(image)) { 
-        studioImg.onload = () => {
-          console.log(`LOADED studio image: ${image.selected}`)
-          const { scaledWidth, scaledHeight } = getScaledSize({
-            height: studioImg.naturalHeight, 
-            width: studioImg.naturalWidth
-          })
-          studioImg.width = scaledWidth
-          studioImg.height = scaledHeight
-          canvas.width = scaledWidth 
-          canvas.height = scaledHeight
-          ctx.drawImage(studioImg, 0, 0, scaledWidth, scaledHeight)
+    //const image = imageSources[img]
+    //console.log(`loading ${img} from ${Object.keys(imageSources)}`)
+    
+    
+    if (isNonEmpty(images[0])) { 
+      studioImg[0].onload = () => {
+
+        const { scaledWidth, scaledHeight } = getScaledSize({
+          height: studioImg.naturalHeight, 
+          width: studioImg.naturalWidth
+        })
+        studioImg.width = scaledWidth
+        studioImg.height = scaledHeight
+        canvas.width = scaledWidth 
+        canvas.height = scaledHeight
+        ctx.drawImage(studioImg, 0, 0, scaledWidth, scaledHeight)
+        if (isNonEmpty(images[1]) && isNonEmpty(images[1].selected)) {
+          studioImg[1] = new Image()
+          studioImg[1].src = images[1].images[1].segments[images[1].selected].url
+          studioImg[1].onload = this.onload
         }
         
-        if (isNonEmpty(image.segments[image.selected]))
-          studioImg.src = image.segments[image.selected].url
-        
+
       }
+      
+      if (isNonEmpty(images[0].selected)) {
+        studioImg[0].src = images[0].segments[images[0].selected].url
+        console.log(`loaded selected object (outer): ${images[0].selected}`)
+      } 
     }
+
+
 
     /*
     if (isNonEmpty(one)) { 
