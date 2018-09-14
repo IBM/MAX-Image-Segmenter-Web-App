@@ -18,6 +18,10 @@
 
 .studioImageTitle {
   text-transform: uppercase;
+  background-color: darkturquoise;
+  color: white;
+  margin: 0;
+  padding: 2%;
 }
 
 .studioImage {
@@ -29,6 +33,7 @@
 
 .studioImageThumb {
   max-width: 100%;
+  border-bottom: 1px solid #ddd;
 }
 
 .ObjBtnContainer {
@@ -47,7 +52,7 @@
 }
 
 .studioObjBtn:hover {
-  color: #0aa;
+  color: darkturquoise;
   outline-color: #0aa;
   border-color: #0aa;
   background-color: white;
@@ -69,9 +74,9 @@
 
 .studioObjBtnActive {
   color: white;
-  border: 2px solid #0aa;
-  outline-color: #0aa;
-  background-color: #0aa;
+  border: 2px solid darkturquoise;
+  outline-color: darkturquoise;
+  background-color: darkturquoise;
   margin: 1% 0 1% 0;
 }
 
@@ -79,7 +84,7 @@
   color: white;
   border: 2px solid #0aa;
   outline-color: #0aa;
-  background-color: #0aa;
+  background-color: darkturquoise;
 }
 
 .studioCanvas {
