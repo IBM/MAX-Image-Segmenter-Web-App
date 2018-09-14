@@ -30,6 +30,7 @@ export const COLOR_MAP = {
   yellow: [255, 255, 0],
   gray: [192, 192, 192]
 }
+
 export const COLOR_LIST = Object.values(COLOR_MAP)
 
 export const getColor = pixel => COLOR_LIST[pixel - 1]
@@ -75,7 +76,6 @@ export const deleteSingleImage = image => {
   console.log(`delete ${ image.id }`)
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.remove(image.id, image.rev) 
-
 }
 
 export const cleanDocs = docs => {
@@ -105,7 +105,6 @@ export const saveToPouch = uploadData => {
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   const { urls, name, width, height } = uploadData
   const id = `${String(Date.now()).substring(6)}-${name.split('.')[0]}`
-  // build attachments object
   let attachments = {}
   const segmentList = Object.keys(urls)
   for (let seg of segmentList) {
