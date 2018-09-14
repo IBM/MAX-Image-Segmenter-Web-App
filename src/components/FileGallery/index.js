@@ -4,9 +4,10 @@ import { getFormattedName } from '../../utils'
 
 const FileGallery = props => {
   return (
-    <div className="panel panel-default fileGalleryContainer" >
-      { getToggleText(props) }
+    <div>
       { props.expanded ? 
+      <div className="panel panel-default fileGalleryContainer">
+        { getToggleText(props) }
         <div className="galleryBox">
           <div className="imageGallery">
             { generateImageComponent(props) }
@@ -24,8 +25,11 @@ const FileGallery = props => {
             </button>
           </div>
         </div>
-            : 
-        <span /> 
+        </div>
+      : 
+        <div className="panel-default openLabelContainer">
+        { getToggleText(props) }
+        </div>
       }
     </div>
   )

@@ -9,7 +9,11 @@
   display: table;
 }
 
-.fileGalleryContainer > .openLabel {
+.fileGalleryContainer > .closePanel {
+  border-top: 0;
+}
+
+.openLabelContainer {
   cursor: pointer;
   display: inline-block;
   margin: 0;

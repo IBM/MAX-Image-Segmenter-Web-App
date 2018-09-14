@@ -28,10 +28,15 @@
   max-width: 513px;
   height: auto;
   margin: 2% 0 1% 0;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  vertical-align: bottom;
 }
 
 .studioImageThumb {
   max-width: 100%;
+  margin-top: auto;
   border-bottom: 2px solid #ddd;
 }
 
@@ -39,7 +44,7 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
-  margin: auto auto -1% auto;
+  margin: 0 auto -1% auto;
   padding: 5% 1% 5% 1%;
 }
 
