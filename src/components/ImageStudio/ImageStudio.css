@@ -27,21 +27,20 @@
 .studioImage {
   max-width: 513px;
   height: auto;
-  margin: auto auto 1% auto;
-  padding-bottom: 1%;
+  margin: 2% 0 1% 0;
 }
 
 .studioImageThumb {
   max-width: 100%;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 2px solid #ddd;
 }
 
 .ObjBtnContainer {
   display: flex;
   flex-flow: row wrap;
-  align-content: left;
   justify-content: space-evenly;
-  margin: 0 auto -1% auto;
+  margin: auto auto -1% auto;
+  padding: 5% 1% 5% 1%;
 }
 
 .studioObjBtn {

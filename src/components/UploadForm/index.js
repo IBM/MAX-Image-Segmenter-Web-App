@@ -178,7 +178,7 @@ export default class UploadForm extends Component {
 
               <label className="submitLabel" htmlFor="submitter">
                 <span className="btn btn-primary formBtn submitBtn">
-                  Send To MAX
+                  Send To MAX Model
                 </span>
               </label>
               <input 

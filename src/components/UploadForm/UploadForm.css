@@ -49,8 +49,9 @@ form > span > p {
 }
 
 .uploadForm {
-  margin: 5% 2% 5% 2%;
+  margin: 2% auto 2% auto;
   min-width: 25%;
+  max-width: 440px;
 }
 
 .text {
