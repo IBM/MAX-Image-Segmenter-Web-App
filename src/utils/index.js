@@ -42,6 +42,20 @@ export const getFormattedName = image => {
   return image.id.split('-')[1]
 }
 
+export const getScaledSize = ({ height, width }) => {
+  if (width > height) {
+    return {
+      scaledWidth: MAX_SIZE,
+      scaledHeight: Math.round((height / width) * MAX_SIZE)
+    }
+  } else {
+    return {
+      scaledWidth: Math.round((width / height) * MAX_SIZE),
+      scaledHeight: MAX_SIZE
+    }
+  }
+}
+
 export const getAllDocs = () => {
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.allDocs({ include_docs: 'true', attachments: 'true' })

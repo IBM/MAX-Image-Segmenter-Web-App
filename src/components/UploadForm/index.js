@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, MAX_SIZE } from '../../utils'
+import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, MAX_SIZE, getScaledSize } from '../../utils'
 import './UploadForm.css'
 
 const initialState = {
@@ -22,19 +22,10 @@ export default class UploadForm extends Component {
     const ctx = canvas.getContext('2d')  
     let scaledImage = new Image()
     scaledImage.onload = async () => {
-      // scaling image.. put in function for reuse
-      let scaledWidth = scaledImage.naturalWidth
-      let scaledHeight = scaledImage.naturalHeight
-      let ratio
-      if (scaledWidth > scaledHeight) {
-        ratio = scaledHeight / scaledWidth
-        scaledWidth = MAX_SIZE
-        scaledHeight = Math.round(scaledWidth * ratio)
-      } else {
-        ratio = scaledWidth / scaledHeight
-        scaledHeight = MAX_SIZE
-        scaledWidth = Math.round(scaledHeight * ratio)
-      }
+      const { scaledWidth, scaledHeight } = getScaledSize({
+        height: scaledImage.naturalHeight, 
+        width: scaledImage.naturalWidth
+      })
       scaledImage.width = scaledWidth
       scaledImage.height = scaledHeight
       canvas.width = scaledWidth 
@@ -91,18 +82,10 @@ export default class UploadForm extends Component {
       let imageURL
       img.onload = () => {
         const flatSegMap = imageObj.response.flatSegMap
-        let scaledWidth = img.naturalWidth
-        let scaledHeight = img.naturalHeight
-        let ratio
-        if (scaledWidth > scaledHeight) {
-          ratio = scaledHeight / scaledWidth
-          scaledWidth = MAX_SIZE
-          scaledHeight = Math.round(scaledWidth * ratio)
-        } else {
-          ratio = scaledWidth / scaledHeight
-          scaledHeight = MAX_SIZE
-          scaledWidth = Math.round(scaledHeight * ratio)
-        }
+        const { scaledWidth, scaledHeight } = getScaledSize({
+          height: img.naturalHeight, 
+          width: img.naturalWidth
+        })
         img.width = scaledWidth
         img.height = scaledHeight
         canvas.width = scaledWidth 

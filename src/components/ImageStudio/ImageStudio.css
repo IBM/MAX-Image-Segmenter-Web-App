@@ -92,11 +92,10 @@
 }
 
 .studioCanvas {
-  background-color: #666;
-  color: red;
+  border-color: red;
   margin: 1%;
   padding: 1%;
   display: inline-block;
-  width: 98%;
-  height: 513px;
+  max-width: 513px;
+  auto: 513px;
 }
