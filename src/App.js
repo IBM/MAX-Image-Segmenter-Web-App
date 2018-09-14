@@ -5,7 +5,7 @@ import AppHeader from './components/AppHeader'
 import FileGallery from './components/FileGallery'
 import ImageDisplay from './components/ImageDisplay'
 import Footer from './components/Footer'
-import { getAllDocs, cleanDocs, saveToPouch, deleteSingleImage, deleteAllImages, downloadSegments } from './utils'
+import { isNonEmpty, getAllDocs, cleanDocs, saveToPouch, deleteSingleImage, deleteAllImages, downloadSegments } from './utils'
 import ImageStudio from './components/ImageStudio'
 
 const initialState = {
@@ -146,7 +146,7 @@ export default class App extends Component {
             }) } />
 
           { 
-            Object.keys(this.state.studio).length !== 0 ?
+            isNonEmpty(this.state.studio) ?
               <ImageStudio 
                 images={ this.state.studio } 
                 setStudioSegment={ ({ num, seg }) => {

@@ -1,6 +1,6 @@
 import './ImageStudio.css'
 import React from 'react'
-import { getFormattedName } from '../../utils'
+import { getFormattedName, isNonEmpty } from '../../utils'
 
 const generateStudioImage = (props, num) => {
   const image = props.images[num]
@@ -24,7 +24,7 @@ const generateStudioImage = (props, num) => {
             <button 
               key={seg}
               className={`${buttonStyle} btn`}
-              onClick={ () => props.setStudioSegment({num, seg})}>
+              onClick={ () => handleObjectClick(props, {num, seg})}>
               {seg}
             </button>
           ) }) 
@@ -32,6 +32,28 @@ const generateStudioImage = (props, num) => {
       </div>
     </div> 
   )
+}
+
+const handleObjectClick = (props, {num, seg}) => {
+  if (seg !== props.images[num].selected) {
+    props.setStudioSegment({num, seg})
+  } else {
+    props.setStudioSegment({num, seg: ''})
+  }
+}
+
+const renderStudioCanvas = props => {
+  if (isNonEmpty(props.images.one) && isNonEmpty(props.images.one.segments)) {
+    return(
+      <canvas className="panel panel-default studioCanvas" />
+    )
+  } else {
+    return (
+      <span />
+    )
+  }
+  
+  
 }
 
 const ImageStudio = props => {
@@ -53,9 +75,10 @@ const ImageStudio = props => {
             <span /> 
         }
       </div>
-      <canvas className="panel panel-default studioCanvas">
-        big ol canvas
-      </canvas>
+
+      {/* check if there are selections populated in the studio props */ }
+      {/* check if there are selections populated in the studio props */ }
+      { renderStudioCanvas(props) }
     </div>
   )
 }

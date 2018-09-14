@@ -97,5 +97,5 @@
   padding: 1%;
   display: inline-block;
   max-width: 513px;
-  auto: 513px;
+  height: auto;
 }

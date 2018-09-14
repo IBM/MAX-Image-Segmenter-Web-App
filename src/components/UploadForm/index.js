@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, MAX_SIZE, getScaledSize } from '../../utils'
+import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, getScaledSize } from '../../utils'
 import './UploadForm.css'
 
 const initialState = {

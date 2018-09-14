@@ -56,6 +56,10 @@ export const getScaledSize = ({ height, width }) => {
   }
 }
 
+export const isNonEmpty = obj => {
+  return obj && Object.keys(obj).length !== 0
+}
+
 export const getAllDocs = () => {
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.allDocs({ include_docs: 'true', attachments: 'true' })
