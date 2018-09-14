@@ -86,7 +86,11 @@ export default class App extends Component {
     if (this.state.canvasReady) {
       return (
         <ImageDisplay 
-        setSelectedObject={ this.setSelectedObject }
+        setSelectedObject={ object => {
+          this.setState({
+            selectedObject : object
+          })
+        } }
         selectedObject={ this.state.selectedObject }
         image={ this.state.image } />
       )
