@@ -1,4 +1,6 @@
 # MAX Image Segmenter: Magic Cropping Tool Web App
+### development version
+#### testing with drag-n-drop features
 
 ## Step 1: Start the MAX Image Segmenter Model API Server
 
