@@ -152,7 +152,7 @@ export default class UploadForm extends Component {
        <div className="uploadWrapper">
         <div className="uploadForm panel panel-default">
           <h3 className="text panel-heading">
-            Upload an image to be processed:
+            Select an image to begin:
           </h3>  
           <div className="formWrapper">
             <form 
@@ -162,7 +162,7 @@ export default class UploadForm extends Component {
               
               <label className="pickerLabel" htmlFor="filePicker">
                 <span className="btn btn-primary formBtn filePickerBtn">
-                  Choose File
+                  Choose Image
                 </span>
               </label>
               <span>
@@ -178,7 +178,7 @@ export default class UploadForm extends Component {
 
               <label className="submitLabel" htmlFor="submitter">
                 <span className="btn btn-primary formBtn submitBtn">
-                  Submit
+                  Send To MAX
                 </span>
               </label>
               <input 

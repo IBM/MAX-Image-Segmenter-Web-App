@@ -22,6 +22,7 @@ const generateStudioImage = (props, num) => {
           }
           return (
             <button 
+              key={seg}
               className={`${buttonStyle} btn`}
               onClick={ () => props.setStudioSegment({num, seg})}>
               {seg}
@@ -33,9 +34,7 @@ const generateStudioImage = (props, num) => {
   )
 }
 
-
 const ImageStudio = props => {
-
   return (
     <div className="panel panel-default imageStudioContainer">
       <h2 className="studioTitle panel panel-heading">MAX Image Studio</h2>
@@ -54,9 +53,9 @@ const ImageStudio = props => {
             <span /> 
         }
       </div>
-      <div className="panel panel-default studioCanvas">
+      <canvas className="panel panel-default studioCanvas">
         big ol canvas
-      </div>
+      </canvas>
     </div>
   )
 }
