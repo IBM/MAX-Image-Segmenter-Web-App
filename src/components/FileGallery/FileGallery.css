@@ -157,5 +157,7 @@
 .controlPanel a {
   color: white;
   border-radius: 3px;
-  padding-bottom: 2%;
+  padding: 1%;
+  border: 1px solid white;
+  border-radius: 6px;
 }
