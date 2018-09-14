@@ -89,7 +89,7 @@ export default class ImageStudio extends Component {
       console.log(`seg detected `)
       studioImg[0].onload = () => {
 
-        const { scaledWidth, scaledHeight } = getScaledSize({
+        let { scaledWidth, scaledHeight } = getScaledSize({
           height: studioImg[0].naturalHeight, 
           width: studioImg[0].naturalWidth
         })
@@ -102,9 +102,13 @@ export default class ImageStudio extends Component {
         if (isNonEmpty(images[1])) {
           console.log(`detecting second layer to draw..`)
           studioImg[1].onload = () => {
-            studioImg[1].width = studioImg[1].naturalWidth
-            studioImg[1].height = studioImg[1].naturalHeight
-            ctx.drawImage(studioImg[1], 0, 0, studioImg[1].naturalWidth, studioImg[1].naturalHeight)
+            let { scaledWidth, scaledHeight } = getScaledSize({
+              height: studioImg[1].naturalHeight, 
+              width: studioImg[1].naturalWidth
+            })
+            studioImg[1].width = scaledWidth
+            studioImg[1].height = scaledHeight
+            ctx.drawImage(studioImg[1], 0, 0, scaledWidth, scaledHeight)
           }
           studioImg[1].src = images[1].url
           ctx.drawImage(studioImg[1], 0, 0, scaledWidth, scaledHeight)
@@ -169,6 +173,8 @@ export default class ImageStudio extends Component {
       
       // in here, we have at least one segment to put in the canvas
       this.drawStudioCanvas(props.images)
+
+      
     }
   }
 
