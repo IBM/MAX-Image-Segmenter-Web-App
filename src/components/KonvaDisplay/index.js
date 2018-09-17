@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import KonvaImg from '../KonvaImg'
 import { Stage, Layer } from 'react-konva'
+import './KonvaDisplay.css'
 
 export default class KonvaDisplay extends Component {
   initialState = {
@@ -62,9 +63,10 @@ export default class KonvaDisplay extends Component {
             justifyContent: 'center'
           }}>
           <Stage
-              ref={ref => this.stageRef = ref }
-              height={513}
-              width={513}>
+            className="panel panel-default konvaDisplay"
+            ref={ref => this.stageRef = ref }
+            height={513}
+            width={513}>
               <Layer>
                 <KonvaImg
 
@@ -84,6 +86,7 @@ export default class KonvaDisplay extends Component {
             </Stage>
         </div>
         <button
+          className="btn studioObjBtnActive DLbtn"
           onClick={ () => this.downloadStage() }>
           Download
         </button>

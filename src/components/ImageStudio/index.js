@@ -188,14 +188,14 @@ export default class ImageStudio extends Component {
             this.props.images.one ? 
               this.generateStudioImage(this.props, 'one')
             : 
-              <span /> 
+              null
           }
 
           { 
             this.props.images.two ? 
               this.generateStudioImage(this.props, 'two')
             : 
-              <span /> 
+              null
           }
         </div>
         {
