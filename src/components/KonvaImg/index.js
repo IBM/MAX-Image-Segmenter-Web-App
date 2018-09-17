@@ -20,7 +20,8 @@ export default class KonvaImg extends Component {
 		this.state = {
 			'image': null,
 			'error': false,
-			'loaded': false
+			'loaded': false,
+			'hover': false
 		}
 	}
 
@@ -122,7 +123,16 @@ export default class KonvaImg extends Component {
 		const imageDims = image ? {'width': image.width, 'height': image.height} : selfDims
 		const pos = {'x': this.props.x || 0, 'y': this.props.y || 0}
 		return (
-      <Image 
+			<Image 
+				onMouseOver={() => this.setState({
+					hover: true
+				})}
+				onMouseLeave={() => this.setState({
+					hover: false
+				})}
+				stroke={'#0aa'}
+				strokeWidth={7}
+				strokeEnabled={this.state.hover}
         image={this.state.image} 
         x={pos.x} 
         y={pos.y} 
