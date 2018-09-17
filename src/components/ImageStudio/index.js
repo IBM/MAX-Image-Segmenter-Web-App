@@ -1,5 +1,6 @@
 import './ImageStudio.css'
 import React, { Component } from 'react'
+import KonvaDisplay from '../KonvaDisplay'
 import { getFormattedName, isNonEmpty, getScaledSize } from '../../utils'
 
 export default class ImageStudio extends Component {
@@ -197,10 +198,23 @@ export default class ImageStudio extends Component {
               <span /> 
           }
         </div>
+        {
+          /*
         <canvas 
           ref={ studioRef => this.studioRef = studioRef }
           className="panel panel-default studioCanvas" />
-        { this.renderStudioCanvas(this.props) }
+         this.renderStudioCanvas(this.props) 
+         */
+        }
+
+          { this.props.images.one && this.props.images.two && this.props.images.one.selected && this.props.images.two.selected ? 
+            <KonvaDisplay 
+              imageURL1={this.props.images.one.segments[this.props.images.one.selected].url}
+              imageURL2={this.props.images.two.segments[this.props.images.two.selected].url} />
+          :
+            null
+          }
+
       </div>
     )
   }
