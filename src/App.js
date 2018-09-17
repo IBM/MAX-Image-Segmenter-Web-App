@@ -161,19 +161,7 @@ export default class App extends Component {
                   })
                 } } />
           :
-            <ImageStudio 
-            images={ this.state.studio } 
-            setStudioSegment={ ({ num, seg }) => {
-              this.setState({
-                studio: {
-                  ...this.state.studio,
-                  [num]: {
-                    ...this.state.studio[num],
-                    selected: seg
-                  }
-                }
-              })
-            } } />
+            null
           }
         <Footer />
       </div>

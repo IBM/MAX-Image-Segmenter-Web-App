@@ -5,12 +5,12 @@ import { Stage, Layer } from 'react-konva'
 export default class KonvaDisplay extends Component {
   initialState = {
     image1: {
-      xPos: 250,
-      yPos: 250
+      xPos: 0,
+      yPos: 0
     },
     image2: {
-      xPos: 250,
-      yPos: 250
+      xPos: 0,
+      yPos: 0
     }
   }
 
@@ -38,7 +38,7 @@ export default class KonvaDisplay extends Component {
   }
 
   downloadURI(uri, name) {
-    var link = document.createElement("a");
+    let link = document.createElement("a");
     link.download = name;
     link.href = uri;
     document.body.appendChild(link);
@@ -47,8 +47,8 @@ export default class KonvaDisplay extends Component {
 }
 
   downloadStage = () => {  
-    var dataURL = this.stageRef._stage.toDataURL()
-    this.downloadURI(dataURL, 'stage.png');
+    const dataURL = this.stageRef._stage.toDataURL()
+    this.downloadURI(dataURL, 'MAX-Studio.png');
   }
 
   render() {
@@ -67,16 +67,14 @@ export default class KonvaDisplay extends Component {
               width={513}>
               <Layer>
                 <KonvaImg
-                  height={500}
-                  width={300}
+
                   src={this.props.imageURL1}
                   x={this.state.image1.xPos}
                   y={this.state.image1.yPos}
                   draggable
                   onDragEnd={this.handleDragEndOne} />    
                 <KonvaImg
-                  height={500}
-                  width={500}
+ 
                   src={this.props.imageURL2}
                   x={this.state.image2.xPos}
                   y={this.state.image2.yPos}

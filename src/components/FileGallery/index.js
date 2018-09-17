@@ -92,10 +92,10 @@ const displaySelectControls = (props, image) => {
           download 
         </a>
         <a onClick={ () => props.loadIntoStudio(image, 'one') }>
-          load#1 
+          load BG 
         </a>
         <a onClick={ () => props.loadIntoStudio(image, 'two') }>
-          load#2
+          load FG
         </a>
       </div>
     )
