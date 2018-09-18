@@ -131,7 +131,7 @@ export default class KonvaImg extends Component {
 					hover: false
 				})}
 				stroke={'#0aa'}
-				strokeWidth={7}
+				strokeWidth={6}
 				strokeEnabled={this.state.hover}
         image={this.state.image} 
         x={pos.x} 
