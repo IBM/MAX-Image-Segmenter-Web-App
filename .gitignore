@@ -1,11 +1,5 @@
 # dependencies
-/actions/node_modules
 /node_modules
-/static
-
-# testing
-/coverage
-/images
 
 # production
 /build
@@ -19,13 +13,9 @@
 .env.production.local
 whisk.env
 db_env
-single-pod-deployment.yaml
+.vscode
 
 # logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# legacy manifest + deployment files
-/actions
-/kube_files

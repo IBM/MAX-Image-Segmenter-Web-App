@@ -1,0 +1,5 @@
+@font-face { 
+  font-family: IBMPlexSans;
+  src: url('IBMPlex-Sans-Regular.ttf') format('ttf'),
+       url('IBMPlexSans-Regular.woff') format('woff');
+}

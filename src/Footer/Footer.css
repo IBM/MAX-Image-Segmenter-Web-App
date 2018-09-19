@@ -1,0 +1,37 @@
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+footer {
+  color: #f5f5f5;
+  background-color: #0aa;
+  text-align: center;
+}
+
+.maxMsg {
+  padding: .5%;
+}
+
+.footerLinks {
+  display: flex;
+  flex-flow: row;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.footerLinks > span {
+  padding: 0 .5% 0 .5%;
+}
+
+.footerLink {
+  color: cyan;
+}
+
+.footerLink:hover {
+  color: blue;
+}

@@ -1,0 +1,10 @@
+.textBox {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-content: center;
+  font-size: 1.25em;
+  min-width: 96%;
+  margin: 2% auto 0 auto;
+  height: 120px;
+}

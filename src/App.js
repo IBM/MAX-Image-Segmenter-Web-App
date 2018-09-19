@@ -106,7 +106,6 @@ export default class App extends Component {
 
   uploadModeToggle = imageID => {
     const newSetting = !this.state.uploadMode
-    console.log(`current: ${this.state.uploadMode} newSetting: ${newSetting}`)
     if (newSetting === false) {
       this.setState(this.initialState)
     } else {

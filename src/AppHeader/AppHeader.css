@@ -1,0 +1,25 @@
+.titleBanner {
+  text-align: center;
+  background-color: #ddd;
+}
+
+div.appHeader.row {
+  padding: 0;
+}
+
+.titleBanner span {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 2.75em;
+  margin-top: 3.5%;
+}
+
+.logoImg {
+  width: 40%;
+  max-width: 180px;
+  margin-right: 2%;
+}
+
+hr {
+  margin: 0;
+}

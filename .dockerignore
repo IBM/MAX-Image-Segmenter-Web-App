@@ -1,6 +1,2 @@
 node_modules
-screenshots
-sampleImages
-whisk.env
-.env
-static
+.vscode
