@@ -1,6 +1,8 @@
 import {} from 'dotenv/config'
 import axios from 'axios'
 import PouchDB from 'pouchdb'
+import { saveAs } from 'file-saver/FileSaver'
+import B64toBlob  from 'b64-to-blob'
 
 const KUBE_MODEL_IP = process.env.REACT_APP_KUBE_IP || ''
 const KUBE_MODEL_PORT = process.env.REACT_APP_KUBE_MODEL_PORT || ''
@@ -28,6 +30,7 @@ export const COLOR_MAP = {
   yellow: [255, 255, 0],
   gray: [192, 192, 192]
 }
+
 export const COLOR_LIST = Object.values(COLOR_MAP)
 
 export const getColor = pixel => COLOR_LIST[pixel - 1]
@@ -36,15 +39,43 @@ export const B64toURL = base64 => `data:image/png;base64,${base64}`
 
 export const URLtoB64 = dataURL => dataURL.split(',')[1]
 
+export const getFormattedName = image => {
+  return image.id.split('-')[1] || image.id
+}
+
+export const getScaledSize = ({ height, width }) => {
+  if (width > height) {
+    return {
+      scaledWidth: MAX_SIZE,
+      scaledHeight: Math.round((height / width) * MAX_SIZE)
+    }
+  } else {
+    return {
+      scaledWidth: Math.round((width / height) * MAX_SIZE),
+      scaledHeight: MAX_SIZE
+    }
+  }
+}
+
+export const isNonEmpty = obj => {
+  return obj && Object.keys(obj).length !== 0
+}
+
 export const getAllDocs = () => {
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.allDocs({ include_docs: 'true', attachments: 'true' })
 }
 
-export const deleteLocalImages = async expandFunc => {
-  expandFunc()
+export const deleteAllImages = () => {
+  console.log(`bulk delete`)
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.destroy()
+}
+
+export const deleteSingleImage = image => {
+  console.log(`delete ${ image.id }`)
+  const pouchDB = new PouchDB('offLine', { auto_compaction: true })
+  return pouchDB.remove(image.id, image.rev) 
 }
 
 export const cleanDocs = docs => {
@@ -52,11 +83,11 @@ export const cleanDocs = docs => {
     doc=> {
       const segList = Object.keys(doc.doc._attachments)
       let segObject = {}
-      for (let seg in segList) {
-        segObject[segList[seg]] = { 
-          name: segList[seg],
-          hasData: doc.doc._attachments[segList[seg]] && true,
-          url: B64toURL(doc.doc._attachments[segList[seg]].data)
+      for (let seg of segList) {
+        segObject[seg] = { 
+          name: seg,
+          hasData: doc.doc._attachments[seg] && true,
+          url: B64toURL(doc.doc._attachments[seg].data)
         }
       }
       return {
@@ -74,15 +105,14 @@ export const saveToPouch = uploadData => {
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   const { urls, name, width, height } = uploadData
   const id = `${String(Date.now()).substring(6)}-${name.split('.')[0]}`
-  // build attachments object
   let attachments = {}
   const segmentList = Object.keys(urls)
-  for (let seg in segmentList) {
+  for (let seg of segmentList) {
     attachments = {
       ...attachments,
-      [segmentList[seg]]: {
+      [seg]: {
         content_type: 'image/png',
-        data: URLtoB64(urls[segmentList[seg]])
+        data: URLtoB64(urls[seg])
       }
     }
   }
@@ -138,5 +168,16 @@ export const cleanMAXResponse = (imgName, response) => {
       flatSegMap: flatSegMap,
       imageName: imgName
     }
+  }
+}
+
+const downloadSingleSeg = (imgName, segment) => {
+  saveAs(B64toBlob(URLtoB64(segment.url), 'image/png'), `${ imgName }-${ segment.name }.png`)
+}
+
+export const downloadSegments = async ({ id, segments }) => {
+  for (let seg in segments) {
+    const segment = segments[seg]
+    downloadSingleSeg(id.split('-')[1], segment)
   }
 }

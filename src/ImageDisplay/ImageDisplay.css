@@ -28,13 +28,17 @@
 }
 
 .mainDisplay {
-  margin: 1%;
+  margin: 1% auto 1% auto;
   padding: 1%;
   display: inline-block;
-  max-width: 98%
+  width: 530px;
+  height: 530px;
+  display: flex;
+  flex-flow: column;
+  vertical-align: middle;
+  justify-content: center;
 }
 
 .mainDisplay > * {
-  max-width: 100%;
-  height: auto;
+  margin: 0;
 }

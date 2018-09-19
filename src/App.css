@@ -1,3 +1,289 @@
-.App {
+html > body > #root > div {
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: IBMPlexSans;
+}
+
+.appHeader {
+  background-color: #ddd;
+  padding: 1.5%;
+}
+
+.gridLayout {
+  background-color: #f5f5f5;
+}
+
+.uploadWrapper {
   text-align: center;
+  margin: 0;
+}
+
+.sideCol {
+  margin-top: 1%;
+}
+
+.konvaMain {
+  padding: 1%;
+  border: 0 solid red; 
+  margin: 0 !important;
+  background-color: #f5f5f5;
+  box-shadow: none !important;
+}
+
+.centerCol.empty {
+  min-height: 400px;
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  justify-content: center;
+  padding: 0 !important;
+}
+
+.centerCol {
+  min-height: 650px;
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  justify-content: center;
+  padding: 0 !important;
+}
+
+.konvajs-content {
+  margin: auto !important;
+  border: 1px solid #ddd !important;
+  background-color: #fff;
+}
+
+.konvajs-content > canvas {
+  height: 513px !important;
+  width: 513px !important;
+}
+
+.caroCard {
+  padding: 20px;
+  margin: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  justify-content: center;
+}
+
+.caroCardItem {
+  border: 1px solid greenyellow;
+  width: auto;
+  max-width: 20%;
+  max-height: 150px;
+  margin: 0;
+}
+
+.controlBarContainer {
+  display: flex;
+  flex-flow: row;
+  align-content: center;
+  justify-content: space-evenly;
+  background-color: #0aa;
+  max-height: 80px;
+}
+
+.loadedImageThumb {
+  margin: 0 auto 0 auto;
+  max-height: 250px;
+  max-width: 250px;
+}
+
+.loadedImageLabel {
+  margin: 0 !important;
+}
+
+.loadedImageWrapper {
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  justify-content: baseline;
+  max-height: 50%;
+  background-color: white;
+}
+
+.segmentListContainer {
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.segmentListContainer > span {
+  margin: auto;
+}
+
+.imageSelectLabel {
+  margin: 0;
+}
+
+.savedImageThumb {
+  color: black;
+  background-color: #eee;
+  width: 250px;
+  height: 280px;
+  margin: auto .5% auto .5%;
+  border-radius: 8px;
+  display: flex;
+  cursor: pointer;
+  overflow: hidden;
+  flex-flow: column;
+  border: 1px solid #aaa;
+}
+
+.selectedImageThumb {
+  border-color: #5fbfbb;
+  background-color: darkturquoise; 
+  width: 250px;
+  height: 280px;
+  margin: auto .5% auto .5%;
+  border-radius: 8px;
+  display: flex;
+  cursor: pointer;
+  overflow: hidden;
+  flex-flow: column;
+  border: 1px solid #5fbfbb;
+  color: #fff;
+}
+
+.selectedImageThumb > .imageLabel.top {
+  background-color: #0aa; 
+}
+
+.selectedImageThumb > .imageLabel.bottom {
+  background-color: inherit; 
+}
+
+.selectedImageThumb > .thumbCircle,
+.selectedImageThumb > .thumbCircle > h1,
+.selectedImageThumb:hover > .thumbCircle,
+.selectedImageThumb:hover > .thumbCircle > h1 {
+  background-color: #0aa;
+  color: white;
+}
+
+.selectedImageThumb > .thumbImage {
+  margin-top: 0; 
+}
+
+.savedImageThumb:hover {
+  background-color: darkturquoise; 
+  border-color: #5fbfbb;
+  color: #fff;
+}
+
+.savedImageThumb:hover > .imageLabel.top {
+  background-color: #0aa;
+}
+
+.savedImageThumb:hover > .thumbCircle,
+.savedImageThumb:hover > .thumbCircle > h1 {
+  background-color: #0aa;
+  color: darkturquoise;
+}
+
+.savedImageThumb:hover > .imageLabel.bottom {
+  background-color: inherit; 
+}
+
+.savedImageThumb > p {
+  margin: 0;
+}
+
+.thumbImage {
+  display: block;
+  height: 70%;
+  width: auto;
+  margin: 5%;
+  border-radius: 4px;
+}
+
+.imageLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.imageLabel.top {
+  font-weight: bold;
+  padding: 2%;
+  background-color: #aaa;
+}
+
+.imageLabel.bottom {
+  text-align: center;
+}
+
+.imageTitle {
+  text-transform: uppercase;
+}
+
+.segList {
+  font-size: .5em;
+}
+
+.deleteBox {
+  color: black;
+  font-size: .9em;
+  border-radius: 4px;
+  margin: 2% auto 5% auto;
+  max-width: 400px;
+  width: 60%;
+}
+
+.deleteBtn {
+  margin: 2%;
+}
+
+.imageGallery {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto -1% auto;
+  max-width: 85%;
+}
+
+.controlPanel { 
+  color: white;
+  background-color: darkturquoise;
+  padding: 3%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  justify-content: space-around;
+} 
+
+.controlPanel a {
+  color: white;
+  border-radius: 3px;
+  padding: 1%;
+  border: 1px solid white;
+  border-radius: 6px;
+}
+
+.thumbCircle {
+  display: flex;
+  flex-flow: column;
+  align-content: baseline;
+  justify-content: center;
+  margin: auto;
+  background-color: darkturquoise;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px; 
+}
+
+.thumbCircle > h1 {
+  color: #0aa;
+  margin: auto;
+  font-size: 1000%;
+}
+
+.studioObjBtnActive.DLbtn {
+  border: 2px solid #0aa;
 }
