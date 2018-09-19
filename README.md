@@ -1,6 +1,4 @@
-# MAX Image Segmenter: Magic Cropping Tool Web App
-### development version
-#### testing with drag-n-drop features
+# MAX Image Segmenter Web App: Magic Cropping Tool
 
 ## Step 1: Start the MAX Image Segmenter Model API Server
 
@@ -26,20 +24,16 @@ Leave this terminal open, with the model server running, and continue with the f
 * Rename the environment file with `mv sample.env .env` (and populate any blank values if running with a MAX model deployed to K8s)
 * Start the app with `npm start`
 
-Open your browser and navigate to `http://localhost:4444` to run the app, 
+Open your browser and navigate to `http://localhost:3000` to run the app, 
 or `http://localhost:5000` to view the MAX model's API documentation.
 
-### Option 2: Build/Run each container individually with Docker
+### Option 2: Build/Run with Docker
 
-* First, run the latest version of the MAX Image Segmenter API server with the command  
-`docker run -it -p 5000:5000 kastentx/cors-dualmode-imgseg`  
+* Simply run the Magic Cropping Tool container with the command  
+`docker run -it -p 3000:3000 kastentx/img-upload-app`   
 _(development-use image)_
 
-* Then, run the Magic Cropping Tool frontend app with the command  
-`docker run -it -p 4444:4444 kastentx/img-upload-app`   
-_(development-use image)_
-
-Open your browser and navigate to `http://localhost:4444` to run the app, 
+Open your browser and navigate to `http://localhost:3000` to run the app, 
 or `http://localhost:5000` to view the MAX model's API documentation.
 
 #### To Stop
@@ -61,7 +55,7 @@ If you receive errors about ports being in use, check to make sure nothing else 
 * Then, in the same directory as this file you've just downloaded, use the following command to build and run the containers with [docker-compose](https://docs.docker.com/compose/).
 `docker-compose up -d --build`
 
-Open your browser and navigate to `http://localhost:4444` to run the app, 
+Open your browser and navigate to `http://localhost:3000` to run the app, 
 or `http://localhost:5000` to view the MAX model's API documentation.
 
 ### To Stop
@@ -74,18 +68,14 @@ This command will stop both the front-end app and the Model's API service.
 If you receive an error about duplicate containers or container names already being in use, or you just want to get rid of all saved containers use the command:
 `docker rm $(docker ps -aq)`
 
-## Alternative Install Option: Run Web App Using Model Running on Kubernetes Cluster
-
-_this option currently still in development_  
-
 <hr>
 <div style="text-align: center">
 <b>DEMO VIDEO</b> <br>  
 <i>in development</i>
 
 #### Main App UI
-![App UI](./screenshots/controls.png)
+_this screen shot is still in development_ 
 
 #### Sample Output
-![Sample Output](./screenshots/output.png)
+_this screen shot is still in development_ 
 </div>
