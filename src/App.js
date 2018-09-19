@@ -1,34 +1,64 @@
 import './App.css'
 import React, { Component } from 'react'
-import UploadForm from './components/UploadForm'
-import AppHeader from './components/AppHeader'
-import FileGallery from './components/FileGallery'
-import ImageDisplay from './components/ImageDisplay'
-import Footer from './components/Footer'
-import { isNonEmpty, getAllDocs, cleanDocs, saveToPouch, deleteSingleImage, deleteAllImages, downloadSegments } from './utils'
-import ImageStudio from './components/ImageStudio'
-
-const initialState = {
-  imageLoaded: false,
-  image: {},
-  selectedObject: '',
-  localFilesExpanded: false,
-  savedImages: [],
-  hoverImage: '',
-  selectedImage: '',
-  studio: {}
-}
+import { cleanDocs, getAllDocs, saveToPouch, deleteSingleImage, deleteAllImages, isNonEmpty } from './utils'
+import { Grid, Row, Col } from 'react-bootstrap'
+import AppHeader from './AppHeader'
+import UploadForm from './UploadForm'
+import KonvaDisplay from './KonvaDisplay'
+import ImageDisplay from './ImageDisplay'
+import LoadedImage from './LoadedImage'
+import Carousel from './Carousel'
+import Footer from './Footer'
 
 export default class App extends Component {
+  initialState = {
+    uploadMode: false,
+    imageLoaded: false,
+    image: {},
+    previewImg: {},
+    selectedObject: 'colormap',
+    localFilesExpanded: false,
+    savedImages: [],
+    hoverImage: '',
+    selectedImage: '',
+    studio: {}
+  }
+
   constructor(props) {
     super(props)
-    this.state = initialState
+    this.canvasRef = React.createRef()
+    this.state = this.initialState
   }
 
   componentDidMount = async () => {
     this.setState({
       savedImages: cleanDocs(await getAllDocs())
     })
+  }
+
+
+  // 'uploadForm' methods here
+  addSegURL = async (name, url) => {
+    this.setState({
+      image: {
+        ...this.state.image,
+        urls: { 
+          ...this.state.image.urls,
+          [name]: url
+        }
+      }
+    })
+    if (Object.keys(this.state.image.urls).length === Object.keys(this.state.image.foundSegments).length+1) {
+      const { urls, name, width, height } = this.state.image
+      const pouchResponse = await saveToPouch({ urls, name, width, height })
+      console.log(`Saved image w/ MAX Model Data in PouchDB. id: ${pouchResponse.id}`)
+      this.setState({
+        canvasReady: true,
+        selectedObject: 'colormap',
+        savedImages: cleanDocs(await getAllDocs()),
+        uploadMode: false
+      })
+    }
   }
 
   setPreviewImg = newImage => {
@@ -60,111 +90,186 @@ export default class App extends Component {
     })
   }
 
-  addSegURL = async (name, url) => {
-    this.setState({
-      image: {
-        ...this.state.image,
-        urls: { 
-          ...this.state.image.urls,
-          [name]: url
-        }
-      }
-    })
-    if (Object.keys(this.state.image.urls).length === Object.keys(this.state.image.foundSegments).length+1) {
-      const { urls, name, width, height } = this.state.image
-      const pouchResponse = await saveToPouch({ urls, name, width, height })
-      console.log(`Saved image w/ MAX Model Data in PouchDB. id: ${pouchResponse.id}`)
-      this.setState({
-        canvasReady: true,
-        selectedObject: 'colormap',
-        savedImages: cleanDocs(await getAllDocs())
+  handleImageSelect = imageID => {
+    if (imageID === 'CLICK TO ADD AN IMAGE') {
+      this.uploadModeToggle(imageID)
+    } else {
+      this.setState({ 
+        ...this.state,
+        selectedImage : imageID,
+        image: {},
+        previewImg: {},
+        uploadMode: false 
       })
     }
   }
 
-  renderCanvas() {
-    if (this.state.canvasReady) {
+  uploadModeToggle = imageID => {
+    const newSetting = !this.state.uploadMode
+    console.log(`current: ${this.state.uploadMode} newSetting: ${newSetting}`)
+    if (newSetting === false) {
+      this.setState(this.initialState)
+    } else {
+      this.setState({ 
+        selectedImage : imageID,
+        uploadMode: true,
+        studio: {} 
+      })
+    }
+    
+  }
+
+  renderMainColumn() {
+    if (this.state.uploadMode) { 
       return (
-        <ImageDisplay 
-        setSelectedObject={ object => {
-          this.setState({
-            selectedObject : object
-          })
-        } }
-        selectedObject={ this.state.selectedObject }
-        image={ this.state.image } />
+        <div className="uploadWrapper">
+          <canvas 
+            ref={ this.canvasRef }
+            style={ { display: 'none' } }>
+          </canvas>    
+          { isNonEmpty(this.state.previewImg) ? 
+            <ImageDisplay 
+              previewImg={ this.state.previewImg } />
+          :
+            <UploadForm 
+              canvas={ this.canvasRef.current }
+              setAppImageData={ this.setImageData }
+              imageLoaded={ this.state.canvasReady }
+              addSegURL={ this.addSegURL }
+              imageName={ this.state.image.name }
+              setAppPreviewImg={ this.setPreviewImg } />
+          }
+        </div>
+
       )
-    } else if (this.state.previewImg) {
+    } else if (isNonEmpty(this.state.image)) {
       return (
-        <ImageDisplay
-          previewImg={ this.state.previewImg } />
+        <div className="uploadWrapper">
+          <ImageDisplay 
+            image={ this.state.image } 
+            selectedObject={ this.state.selectedObject }
+            setSelectedObject={ object => {
+              this.setState({
+                selectedObject : object
+              })
+            } } />
+        </div>
+      )
+    } else if (this.studioReady()) {
+      console.log('konva ready')
+      return (
+        <KonvaDisplay 
+          BG={ this.state.studio.one } 
+          front={ this.state.studio.two } />
       )
     }
   }
 
+  studioReady = () => {
+    return (
+      (isNonEmpty(this.state.studio.one) && isNonEmpty(this.state.studio.two)) &&
+      (isNonEmpty(this.state.studio.one.selected) && isNonEmpty(this.state.studio.two.selected))
+    )
+  }
+
+  handleStudioSegmentSelect = (slotNum, segment) => {
+    this.setState({
+      studio: {
+        ...this.state.studio,
+        [slotNum]: {
+          ...this.state.studio[slotNum],
+          selected: segment
+        }
+      }
+    })
+  }
+
   render() {
     return (
-      <div className="App">
-        <AppHeader />
-        <UploadForm 
-          toggleFunc={ this.handleModelToggle }
-          modelType={ this.state.modelType }
-          setAppImageData={ this.setImageData }
-          imageLoaded={ this.state.canvasReady }
-          addSegURL={ this.addSegURL }
-          imageName={ this.state.image.name }
-          setAppPreviewImg={ this.setPreviewImg } />
-        {
-          this.state.previewImg || this.state.canvasReady ?
-            this.renderCanvas()
-          :
-            <span />
-        }
-        <FileGallery 
-          expanded={ this.state.localFilesExpanded }
-          savedImages={ this.state.savedImages }
-          hoverImage={ this.state.hoverImage }
-          selectedImage={ this.state.selectedImage }
-          downloadSegments={ image => downloadSegments(image) }
-          deleteImage={ image => this.handleImageDelete(image) }
-          bulkDelete={ () => this.handleBulkDelete() } 
-          setHoverImage={ imageID => 
-            this.setState({ hoverImage : imageID }) 
-          }
-          setSelectedImage={ imageID => 
-            this.setState({ selectedImage : imageID }) 
-          }
-          toggleExpand={ async () => 
-            this.setState({ localFilesExpanded: !this.state.localFilesExpanded }) 
-          }
-          loadIntoStudio={ (image, slotNum) =>
-            this.setState({ 
-              studio: {
-                ...this.state.studio,
-                [slotNum]: image
-              }  
-            }) } />
+        <Grid className="gridLayout" fluid={ true }>
+          <Row className='appHeader'>
+            <AppHeader />
+          </Row>
 
-          { 
-            isNonEmpty(this.state.studio) ?
-              <ImageStudio 
-                images={ this.state.studio } 
-                setStudioSegment={ ({ num, seg }) => {
-                  this.setState({
-                    studio: {
-                      ...this.state.studio,
-                      [num]: {
-                        ...this.state.studio[num],
-                        selected: seg
-                      }
-                    }
-                  })
-                } } />
-          :
-            null
-          }
-        <Footer />
-      </div>
+          <Row className="mainContent">
+            <Col 
+              className="sideCol"
+              xs={ 12 } 
+              md={ 3 }>
+              { isNonEmpty(this.state.studio.one) ?
+                <div>
+                  <LoadedImage 
+                    label={ `Background` }
+                    image={ this.state.studio.one } 
+                    segSelect={ seg => this.handleStudioSegmentSelect('one', seg) } /> 
+                </div>
+              :
+                null
+              }
+            </Col>
+
+            <Col 
+              className={isNonEmpty(this.state.studio) || this.state.uploadMode || isNonEmpty(this.state.previewImg) ? "centerCol" : "centerCol.empty"}
+              xs={ 12 }
+              md={ 6 }>   
+                { this.renderMainColumn() }
+            </Col>
+
+            <Col 
+              className="sideCol"
+              xs={ 12 }
+              md={ 3 }>
+              { isNonEmpty(this.state.studio.two) ?
+                <div>
+                  <LoadedImage 
+                    label={ `Front Layer` }
+                    image={ this.state.studio.two } 
+                    segSelect={ seg => this.handleStudioSegmentSelect('two', seg) } /> 
+                </div>
+              :
+                null
+              }
+            </Col>
+          </Row>
+
+          { /*
+            <Row className="controlBar">
+              <ControlBar />
+            </Row>
+          */ }
+
+          <Row className="carousel">
+            <Carousel
+              images={ this.state.savedImages }
+              hoverImage={ this.state.hoverImage }
+              selectedImage={ this.state.selectedImage }
+              deleteImage={ image => this.handleImageDelete(image) }
+              bulkDelete={ () => this.handleBulkDelete() } 
+              setUploadMode={ () => this.handleUploadToggle() }
+              setHoverImage={ imageID => 
+                this.setState({ hoverImage : imageID }) 
+              }
+              setSelectedImage={ imageID => this.handleImageSelect(imageID) }
+              loadIntoStudio={ (image, slotNum) =>
+                this.setState({ 
+                  studio: {
+                    ...this.state.studio,
+                    [slotNum]: image
+                  }  
+                }) } />
+          </Row>
+
+          <Row className="footer">
+            <Footer />
+          </Row>
+        </Grid> 
     )
   }
 }
+
+/*
+          <button
+              onClick={ () => this.downloadStage() }>
+              Download
+          </button>
+*/

@@ -1,21 +1,19 @@
 {
-  "name": "MAX-ImgSeg-Magic-Cropping-Tool",
+  "name": "konva-test",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "ajv": "^6.5.3",
     "axios": "^0.18.0",
     "b64-to-blob": "^1.2.19",
     "dotenv": "^6.0.0",
     "file-saver": "^1.3.8",
     "konva": "^2.3.0",
-    "npm": "^6.4.1",
     "pouchdb": "^7.0.0",
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0",
+    "react": "^16.5.1",
+    "react-bootstrap": "^0.32.4",
+    "react-dom": "^16.5.1",
     "react-konva": "^1.7.15",
-    "react-scripts": "1.1.5",
-    "update": "^0.7.4"
+    "react-scripts": "1.1.5"
   },
   "scripts": {
     "start": "react-scripts start",

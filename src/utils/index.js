@@ -40,7 +40,7 @@ export const B64toURL = base64 => `data:image/png;base64,${base64}`
 export const URLtoB64 = dataURL => dataURL.split(',')[1]
 
 export const getFormattedName = image => {
-  return image.id.split('-')[1]
+  return image.id.split('-')[1] || image.id
 }
 
 export const getScaledSize = ({ height, width }) => {
