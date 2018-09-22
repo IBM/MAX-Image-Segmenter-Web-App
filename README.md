@@ -73,9 +73,15 @@ If you receive an error about duplicate containers or container names already be
 <b>DEMO VIDEO</b> <br>  
 <i>in development</i>
 
-#### Main App UI
-_this screen shot is still in development_ 
+#### Uploading Images
+![upload](./screenshots/upload.png)
 
-#### Sample Output
-_this screen shot is still in development_ 
+#### MAX Image Segmenter Response
+![upload](./screenshots/max-response.png)
+
+#### Loading Images into the Studio
+![upload](./screenshots/loading-images.png)
+
+#### Creating Images with Saved Objects in Studio
+![upload](./screenshots/studio.png)
 </div>
