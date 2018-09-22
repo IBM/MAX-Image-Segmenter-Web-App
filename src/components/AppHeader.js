@@ -1,6 +1,6 @@
-import './AppHeader.css'
+import '../styles/AppHeader.css'
 import React from 'react'
-import logo from './codait-logo.png'
+import logo from '../codait-logo.png'
 
 const AppHeader = props => { 
   return (

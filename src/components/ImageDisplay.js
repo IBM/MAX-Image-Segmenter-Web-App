@@ -1,4 +1,4 @@
-import './ImageDisplay.css'
+import '../styles/ImageDisplay.css'
 import React from 'react'
 import { isNonEmpty } from '../utils'
 

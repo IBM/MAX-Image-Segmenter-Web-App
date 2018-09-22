@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, getScaledSize } from '../utils'
-import './UploadForm.css'
+import '../styles/UploadForm.css'
 
 const initialState = {
   isLoading: false

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Carousel } from 'react-bootstrap'
 import CarouselThumb from './CarouselThumb'
-import { isNonEmpty } from './utils'
+import { isNonEmpty } from '../utils'
 
 const NewCarousel = props => {
   return (

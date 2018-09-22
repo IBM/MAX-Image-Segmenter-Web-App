@@ -1,5 +1,5 @@
 import React from 'react'
-import { getFormattedName } from './utils' 
+import { getFormattedName } from '../utils' 
 
 const CarouselThumb = props => {
   const image = props.image

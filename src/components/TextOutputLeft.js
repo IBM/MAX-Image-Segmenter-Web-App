@@ -1,4 +1,4 @@
-import './TextOutput.css'
+import '../styles/TextOutput.css'
 import React from 'react'
 
 const TextOutputLeft = props => {

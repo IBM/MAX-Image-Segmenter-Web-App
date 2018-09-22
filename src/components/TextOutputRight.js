@@ -1,6 +1,6 @@
-import './TextOutput.css'
+import '../styles/TextOutput.css'
 import React from 'react'
-import { COLOR_MAP, downloadSegments, URLtoB64 } from './utils'
+import { COLOR_MAP, downloadSegments } from '../utils'
 
 const TextOutputRight = props => {
   return (
