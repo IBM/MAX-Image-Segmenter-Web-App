@@ -56,7 +56,7 @@ const getCarouselPages = props => {
     loadIntoStudio,
     images
   } = props
-  const imageThumbs = images.concat(deleteAllImagesThumb())
+  const imageThumbs = numImages > 1 ? images.concat(deleteAllImagesThumb()) : images
   let pages = []
 
   if (numImages !== 0) {
