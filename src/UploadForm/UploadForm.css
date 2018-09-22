@@ -1,3 +1,10 @@
+.formWrapper {
+  display: flex;
+  flex-flow: row;
+  align-content: center;
+  justify-content: center;
+}
+
 form {
   margin: 0;
   padding: 5%;
@@ -31,16 +38,24 @@ form > span > p {
   margin: 0 5% 0 5%;
 }
 
+form > label {
+  margin: 2%;
+}
+
 .formBtn {
   background-color: darkturquoise;
   cursor: pointer;
   border-color: #5FBFBB;
-  margin: 2%;
+  margin: 2% !important;
 }
 
 .formBtn:hover {
   background-color: #0aa;
   border-color: #0aa;
+}
+
+.uploadFormWrapper {
+  width: 45vh;
 }
 
 .uploadWrapper {
@@ -49,8 +64,6 @@ form > span > p {
 
 .uploadForm {
   margin: 2% auto 2% auto;
-  min-width: 25%;
-  max-width: 440px;
 }
 
 .text {
@@ -68,8 +81,4 @@ form > span > p {
 
 #filePicker {
   display: none;
-}
-
-#filePickerBtn {
-  padding: 0 25%;
 }

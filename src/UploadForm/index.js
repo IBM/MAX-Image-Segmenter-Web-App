@@ -129,45 +129,45 @@ export default class UploadForm extends Component {
 
   render() {
     return (
-       <div className="uploadWrapper">
-        <div className="uploadForm panel panel-default">
-          <h3 className="text panel-heading">
-            Select an image to begin:
-          </h3>  
-          <div className="formWrapper">
-            <form 
-              method="post" 
-              encType="multipart/form-data" 
-              onSubmit={ this.receiveUpload }>
-              
-              <label className="pickerLabel" htmlFor="filePicker">
-                <span className="btn btn-primary formBtn filePickerBtn">
-                  Choose Image
-                </span>
-              </label>
-              <span>
-                <p>
-                  { this.state.imageName }
-                </p>
+      <div className="uploadFormWrapper">
+      <div className="uploadForm panel panel-default">
+        <h3 className="text panel-heading">
+          Select an image to begin:
+        </h3>  
+        <div className="formWrapper">
+          <form 
+            method="post" 
+            encType="multipart/form-data" 
+            onSubmit={ this.receiveUpload }>
+            
+            <label className="pickerLabel" htmlFor="filePicker">
+              <span className="btn btn-primary formBtn filePickerBtn">
+                Choose Image
               </span>
-              <input 
-                id="filePicker" 
-                ref={ this.uploadRef } 
-                type="file" 
-                accept="image/*" />
+            </label>
+            <span>
+              <p>
+                { this.state.imageName }
+              </p>
+            </span>
+            <input 
+              id="filePicker" 
+              ref={ this.uploadRef } 
+              type="file" 
+              accept="image/*" />
 
-              <label className="submitLabel" htmlFor="submitter">
-                <span className="btn btn-primary formBtn submitBtn">
-                  Send To MAX Model
-                </span>
-              </label>
-              <input 
-                id="submitter" 
-                type="submit" 
-                value="Upload" />
-            </form>
-          </div>
+            <label className="submitLabel" htmlFor="submitter">
+              <span className="btn btn-primary formBtn submitBtn">
+                Send To MAX Model
+              </span>
+            </label>
+            <input 
+              id="submitter" 
+              type="submit" 
+              value="Upload" />
+          </form>
         </div>
+      </div>
       </div>
     )
   }

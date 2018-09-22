@@ -19,6 +19,13 @@ export default class KonvaDisplay extends Component {
     this.state = this.initialState
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(`componentWillReceiveProps!`)
+    console.log(`current props ${Object.keys(this.props)}`)
+    console.log(`nextProps ${nextProps}`)
+
+  }
+
   handleDragEndOne = e => {
     this.setState({
       image1: {
@@ -56,12 +63,12 @@ export default class KonvaDisplay extends Component {
     let frontImage = this.props.front
     
     return (
-      <div className="uploadWrapper">
+      <div>
         <Stage
-          className="konvaMain panel panel-default"
+          className="konvaMain"
           ref={ref => this.stageRef = ref }
-          height={515}
-          width={515}>
+          height={ 513 }
+          width={ 513 }>
           <Layer>
             <Img
               src={ BGImage.selected ? BGImage.segments[BGImage.selected].url : BGImage.segments.source.url }
@@ -86,3 +93,12 @@ export default class KonvaDisplay extends Component {
     )
   }
 }
+
+
+/*
+        <button
+          className="btn studioObjBtnActive DLbtn"
+          onClick={ () => this.downloadStage() }>
+          Download
+        </button>
+*/

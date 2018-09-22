@@ -4,14 +4,11 @@ import logo from './codait-logo.png'
 
 const AppHeader = props => { 
   return (
-    <div>
-      <div className="titleBanner">
+    <div className="titleBanner">
       <img className="logoImg" src={ logo } alt="logo" />
-        <span>
-         <u><b>MAX</b> Image Segmenter</u> -  Magic Cropping Tool
-        </span>
-      </div>
-      <hr/>
+      <span className="titleText">
+        <u><b>MAX</b> Image Segmenter</u> -  Magic Cropping Tool
+      </span>
     </div>
   )
 }

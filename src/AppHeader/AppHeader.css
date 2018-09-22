@@ -3,23 +3,17 @@
   background-color: #ddd;
 }
 
-div.appHeader.row {
+div.stickyHead.row {
   padding: 0;
 }
 
-.titleBanner span {
-  display: inline-block;
-  vertical-align: top;
-  font-size: 2.75em;
-  margin-top: 3.5%;
-}
-
 .logoImg {
-  width: 40%;
-  max-width: 180px;
-  margin-right: 2%;
+  height: 12vh;
+  margin: 1% 0 1% 0;
 }
 
-hr {
-  margin: 0;
+.titleText {
+  display: inline-block;
+  font-size: 2.75em;
+  margin: 2%;
 }

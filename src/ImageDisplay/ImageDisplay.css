@@ -21,24 +21,14 @@
   transform: scale(1.05);
 }
 
-.textBox {
-  padding: .5%;
-  margin: 30px auto 20px auto;
-  max-width: 80%;
-}
-
 .mainDisplay {
   margin: 1% auto 1% auto;
   padding: 1%;
   display: inline-block;
-  width: 530px;
-  height: 530px;
+  max-width: 100%;
+  height: 42vh;
   display: flex;
   flex-flow: column;
   vertical-align: middle;
   justify-content: center;
-}
-
-.mainDisplay > * {
-  margin: 0;
 }

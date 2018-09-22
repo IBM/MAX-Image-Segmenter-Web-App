@@ -1,8 +1,8 @@
 import './TextOutput.css'
 import React from 'react'
-import { COLOR_MAP } from '../utils'
+import { COLOR_MAP, downloadSegments, URLtoB64 } from './utils'
 
-const TextOutput = props => {
+const TextOutputRight = props => {
   return (
     <div className ="textBox panel panel-default">
       <p>
@@ -12,23 +12,30 @@ const TextOutput = props => {
            object segments: (Click to view) ` 
         }
       </p>
-      <p>
+      <p className="outputSegText">
         { props.image.foundSegments.sort().filter(name=> name!=='colormap').map(objType => getObjLabel(props, objType)) }.
       </p>
-
-      <p> 
-        {`Click `} <a className="maxLabel" onClick={ () => props.selectObject('source') }>{` here `}</a> {`to view the original ${props.image.name}, or `} 
-        <a 
-          className='maxLabel' 
-          onClick={ () => props.selectObject('colormap') }>
-            { ` here ` }
-        </a>
-        { `to view the MAX-generated colormap` }  
-      {/* ` was resized to ${ props.image.width }x${ props.image.height }.`*/}
-      </p>
-
+      <span 
+        key='download'
+        className="download outputDLButton"
+        onClick={ () => downloadSegments(freshSegments(props.image)) }>
+        Download all Object Segments
+      </span>
     </div>
   )
+}
+
+const freshSegments = image => {
+  const segments = Object.keys(image.urls)
+  return {
+    id: `0-${image.name.split('.')[0]}`,
+    segments: segments.map( seg => {
+      return {
+        name: seg, 
+        url: image.urls[seg]
+      }
+    })
+  }
 }
 
 const getObjLabel = (props, objType) => {
@@ -41,7 +48,7 @@ const getObjLabel = (props, objType) => {
     <span
       className='objLabel'
       key={ objType }  
-      onClick={ () => props.selectObject(objType) }
+      onClick={ () => props.setSelectedObject(objType) }
       style={ { 
         'fontSize' : '1.3em',
         'display' : 'inline-block',
@@ -57,4 +64,4 @@ const getObjLabel = (props, objType) => {
   )
 }
 
-export default TextOutput
+export default TextOutputRight

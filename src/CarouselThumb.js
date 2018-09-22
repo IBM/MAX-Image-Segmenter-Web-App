@@ -24,7 +24,40 @@ const CarouselThumb = props => {
           <div
             className="thumbCircle"
             alt={ image.id }>
-            <h1>{`+`}</h1>
+            <p>{`+`}</p>
+          </div>
+
+          { image.id !== thumbProps.selectedImage ?
+            <span 
+              className="imageLabel bottom">
+              { ` ` }
+            </span>
+            :
+            null
+          }
+      </div>
+    )
+  } else if (image.id === 'ERASE ALL IMAGES') {
+    return (
+      <div 
+        key={ image.id } 
+        className={ applyImageClass(thumbProps, image.id) }
+        onMouseEnter={ () => thumbProps.setHoverImage(image.id) } 
+        onMouseLeave={ () => thumbProps.setHoverImage('') }
+        onClick={ () => handleImageClick(thumbProps, image.id) }>
+          
+          <span 
+            className="imageLabel top"
+            >
+            <span className="imageTitle">
+              { getFormattedName(image) }
+            </span>
+          </span>
+   
+          <div
+            className="thumbCircle eraser"
+            alt={ image.id }>
+            <p>{`-`}</p>
           </div>
 
           { image.id !== thumbProps.selectedImage ?
@@ -89,16 +122,13 @@ const displaySelectControls = (props, image) => {
     return (
       <div className="controlPanel">
         <a onClick={ () => props.deleteImage(image) }>
-          delete 
-        </a>
-        <a onClick={ () => console.log(`props.downloadSegments(image)`) }>
-          download 
+          Delete 
         </a>
         <a onClick={ () => props.loadIntoStudio(image, 'one') }>
-          load BG 
+          Load BG 
         </a>
         <a onClick={ () => props.loadIntoStudio(image, 'two') }>
-          load FG
+          Load Front
         </a>
       </div>
     )
@@ -114,7 +144,9 @@ const handleImageClick = (props, imageID) => {
 }
 
 const applyImageClass = (props, imageID) => {
-  if (imageID === props.selectedImage) {
+  if (imageID !== 'CLICK TO ADD AN IMAGE' && imageID === props.selectedImage) {
+    return `selectedImageThumb`
+  } else if (imageID === 'CLICK TO ADD AN IMAGE' && props.uploadMode) { 
     return `selectedImageThumb`
   } else {
     return `savedImageThumb`

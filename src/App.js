@@ -6,8 +6,10 @@ import AppHeader from './AppHeader'
 import UploadForm from './UploadForm'
 import KonvaDisplay from './KonvaDisplay'
 import ImageDisplay from './ImageDisplay'
+import TextOutputLeft from './TextOutputLeft'
+import TextOutputRight from './TextOutputRight'
 import LoadedImage from './LoadedImage'
-import Carousel from './Carousel'
+import NewCarousel from './NewCarousel'
 import Footer from './Footer'
 
 export default class App extends Component {
@@ -17,7 +19,6 @@ export default class App extends Component {
     image: {},
     previewImg: {},
     selectedObject: 'colormap',
-    localFilesExpanded: false,
     savedImages: [],
     hoverImage: '',
     selectedImage: '',
@@ -79,20 +80,20 @@ export default class App extends Component {
   handleImageDelete = async image => {
     console.log(await deleteSingleImage(image))
     this.setState({
-      savedImages : cleanDocs(await getAllDocs())
+      savedImages : this.state.savedImages.filter(doc => doc.id !== image.id)
     })
   }
 
   handleBulkDelete = async () => {
     await deleteAllImages()
-    this.setState({
-      savedImages: cleanDocs(await getAllDocs())
-    })
+    this.setState(this.initialState)
   }
 
   handleImageSelect = imageID => {
     if (imageID === 'CLICK TO ADD AN IMAGE') {
       this.uploadModeToggle(imageID)
+    } else if (imageID === 'ERASE ALL IMAGES') {
+      this.handleBulkDelete()
     } else {
       this.setState({ 
         ...this.state,
@@ -107,12 +108,15 @@ export default class App extends Component {
   uploadModeToggle = imageID => {
     const newSetting = !this.state.uploadMode
     if (newSetting === false) {
-      this.setState(this.initialState)
+      this.setState({
+        ...this.initialState,
+        savedImages: this.state.savedImages
+      })
     } else {
       this.setState({ 
-        selectedImage : imageID,
+        ...this.initialState,
+        savedImages: this.state.savedImages,
         uploadMode: true,
-        studio: {} 
       })
     }
     
@@ -121,12 +125,13 @@ export default class App extends Component {
   renderMainColumn() {
     if (this.state.uploadMode) { 
       return (
-        <div className="uploadWrapper">
+        <span>
           <canvas 
             ref={ this.canvasRef }
             style={ { display: 'none' } }>
           </canvas>    
-          { isNonEmpty(this.state.previewImg) ? 
+          { 
+            isNonEmpty(this.state.previewImg) ? 
             <ImageDisplay 
               previewImg={ this.state.previewImg } />
           :
@@ -138,12 +143,11 @@ export default class App extends Component {
               imageName={ this.state.image.name }
               setAppPreviewImg={ this.setPreviewImg } />
           }
-        </div>
+        </span>
 
       )
     } else if (isNonEmpty(this.state.image)) {
       return (
-        <div className="uploadWrapper">
           <ImageDisplay 
             image={ this.state.image } 
             selectedObject={ this.state.selectedObject }
@@ -152,7 +156,6 @@ export default class App extends Component {
                 selectedObject : object
               })
             } } />
-        </div>
       )
     } else if (this.studioReady()) {
       console.log('konva ready')
@@ -172,76 +175,116 @@ export default class App extends Component {
   }
 
   handleStudioSegmentSelect = (slotNum, segment) => {
-    this.setState({
-      studio: {
-        ...this.state.studio,
-        [slotNum]: {
-          ...this.state.studio[slotNum],
-          selected: segment
+    if (this.state.studio[slotNum].selected === segment) {
+      console.log(`matching`)
+      this.setState({
+        studio: {
+          ...this.state.studio,
+          [slotNum]: {
+            ...this.state.studio[slotNum],
+            selected: null
+          }
         }
-      }
-    })
+      })
+    } else {
+      this.setState({
+        studio: {
+          ...this.state.studio,
+          [slotNum]: {
+            ...this.state.studio[slotNum],
+            selected: segment
+          }
+        }
+      })
+    }
   }
 
   render() {
     return (
-        <Grid className="gridLayout" fluid={ true }>
-          <Row className='appHeader'>
-            <AppHeader />
-          </Row>
-
+      <Grid className="gridLayout" fluid={ true }>
+        <Row className='stickyHead'>
+          <AppHeader />
+        </Row>
+        <div className="appContent">
           <Row className="mainContent">
             <Col 
               className="sideCol"
-              xs={ 12 } 
-              md={ 3 }>
-              { isNonEmpty(this.state.studio.one) ?
-                <div>
-                  <LoadedImage 
-                    label={ `Background` }
-                    image={ this.state.studio.one } 
-                    segSelect={ seg => this.handleStudioSegmentSelect('one', seg) } /> 
+              xs={ 3 }>
+              { 
+                isNonEmpty(this.state.studio.one) ?
+                  <div>
+                    <LoadedImage 
+                      label={ `Background` }
+                      image={ this.state.studio.one } 
+                      segSelect={ seg => this.handleStudioSegmentSelect('one', seg) } /> 
+                  </div>
+                :
+                  null
+              }
+              {
+                !this.state.uploadMode && isNonEmpty(this.state.image) ?
+                <div className="uploadWrapper">
+                  <TextOutputLeft 
+                    image={ this.state.image }
+                    segData={ this.state.image.response } 
+                    setSelectedObject={ object => {
+                      this.setState({
+                        selectedObject : object
+                      })
+                    } } />
                 </div>
-              :
-                null
+                :
+                  null
               }
             </Col>
 
             <Col 
-              className={isNonEmpty(this.state.studio) || this.state.uploadMode || isNonEmpty(this.state.previewImg) ? "centerCol" : "centerCol.empty"}
-              xs={ 12 }
-              md={ 6 }>   
+              className={ isNonEmpty(this.state.studio) || this.state.uploadMode || isNonEmpty(this.state.previewImg) ? "centerCol" : "centerCol.empty" }
+              xs={ 6 }>   
+              <div className="uploadWrapper">
                 { this.renderMainColumn() }
+              </div>
             </Col>
 
             <Col 
               className="sideCol"
-              xs={ 12 }
-              md={ 3 }>
-              { isNonEmpty(this.state.studio.two) ?
-                <div>
-                  <LoadedImage 
-                    label={ `Front Layer` }
-                    image={ this.state.studio.two } 
-                    segSelect={ seg => this.handleStudioSegmentSelect('two', seg) } /> 
+              xs={ 3 }>
+              { 
+                isNonEmpty(this.state.studio.two) ?
+                  <div>
+                    <LoadedImage 
+                      label={ `Front Layer` }
+                      image={ this.state.studio.two } 
+                      segSelect={ seg => this.handleStudioSegmentSelect('two', seg) } /> 
+                  </div>
+                :
+                  null
+              }
+              {
+                !this.state.uploadMode && isNonEmpty(this.state.image) ?
+                <div className="uploadWrapper">
+                  <TextOutputRight 
+                    image={ this.state.image }
+                    segData={ this.state.image.response }
+                    setSelectedObject={ object => {
+                      this.setState({
+                        selectedObject : object
+                      })
+                    } } />
                 </div>
-              :
-                null
+                :
+                  null
               }
             </Col>
           </Row>
-
-          { /*
-            <Row className="controlBar">
-              <ControlBar />
-            </Row>
-          */ }
-
+        </div>
+        <div className="stickyFoot">
           <Row className="carousel">
-            <Carousel
+            <NewCarousel
               images={ this.state.savedImages }
               hoverImage={ this.state.hoverImage }
               selectedImage={ this.state.selectedImage }
+              uploadMode={ this.state.uploadMode }
               deleteImage={ image => this.handleImageDelete(image) }
               bulkDelete={ () => this.handleBulkDelete() } 
               setUploadMode={ () => this.handleUploadToggle() }
@@ -261,7 +304,8 @@ export default class App extends Component {
           <Row className="footer">
             <Footer />
           </Row>
-        </Grid> 
+        </div>
+    </Grid> 
     )
   }
 }

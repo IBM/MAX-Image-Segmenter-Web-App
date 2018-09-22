@@ -1,0 +1,47 @@
+.textBox {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-content: space-between;
+  font-size: 1.25em;
+  height: 42vh;
+  padding: 1%;
+}
+.textBox > p {
+  margin: 0;
+}
+
+.objLabel {
+  margin-bottom: 1%;
+}
+
+.outputSegText {
+  padding-top: 10%;
+  padding-bottom: 5%;
+}
+
+.outputStudioText {
+  padding-top: 15%;
+}
+
+.outputDLButton {
+  width: 50%;
+  text-transform: capitalize;
+  background-color: seagreen;
+  color: #f5f5f5;
+  border: 2px solid green; 
+  border-radius: 6px;
+  padding: 1%;
+  cursor: pointer;
+  margin: 2% auto 0 auto;
+}
+
+.outputDLButton:hover {
+  text-transform: capitalize;
+  background-color: green;
+  color: #f5f5f5;
+  border: 2px solid green; 
+  border-radius: 6px;
+  padding: 1%;
+  cursor: pointer;
+}

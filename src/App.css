@@ -1,14 +1,28 @@
 html > body > #root > div {
   min-height: 100vh;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   margin: 0;
   font-family: IBMPlexSans;
 }
 
-.appHeader {
+.appContent {
+  flex: 1 0 auto;
+  width: 100%;
+  height: 52vh;
+}
+
+.stickyFoot {
+  flex: none;
+  height: 33vh;
+}
+
+.stickyHead {
+  flex: none;
   background-color: #ddd;
   padding: 1.5%;
+  height: 15vh;
 }
 
 .gridLayout {
@@ -16,33 +30,21 @@ html > body > #root > div {
 }
 
 .uploadWrapper {
+  margin: auto;
   text-align: center;
-  margin: 0;
 }
 
 .sideCol {
+  height: 100%;
   margin-top: 1%;
-}
-
-.konvaMain {
-  padding: 1%;
-  border: 0 solid red; 
-  margin: 0 !important;
-  background-color: #f5f5f5;
-  box-shadow: none !important;
-}
-
-.centerCol.empty {
-  min-height: 400px;
   display: flex;
-  flex-flow: column;
+  flex-flow: row;
   align-content: center;
   justify-content: center;
-  padding: 0 !important;
 }
 
 .centerCol {
-  min-height: 650px;
+  height: 100%;
   display: flex;
   flex-flow: column;
   align-content: center;
@@ -50,32 +52,14 @@ html > body > #root > div {
   padding: 0 !important;
 }
 
-.konvajs-content {
-  margin: auto !important;
-  border: 1px solid #ddd !important;
-  background-color: #fff;
-}
-
-.konvajs-content > canvas {
-  height: 513px !important;
-  width: 513px !important;
-}
-
 .caroCard {
+  height: 25vh;
   padding: 20px;
   margin: 0;
   display: flex;
   flex-flow: row nowrap;
   align-content: center;
   justify-content: center;
-}
-
-.caroCardItem {
-  border: 1px solid greenyellow;
-  width: auto;
-  max-width: 20%;
-  max-height: 150px;
-  margin: 0;
 }
 
 .controlBarContainer {
@@ -88,33 +72,69 @@ html > body > #root > div {
 }
 
 .loadedImageThumb {
-  margin: 0 auto 0 auto;
-  max-height: 250px;
-  max-width: 250px;
+  margin: 0 auto 4% auto;
+  max-height: 22vh;
+  width: auto;
 }
 
 .loadedImageLabel {
-  margin: 0 !important;
+  background-color: #ddd !important;
+}
+h3.loadedImageLabel {
+  margin: 0;
+  background-color: #ddd;
 }
 
 .loadedImageWrapper {
   display: flex;
   flex-flow: column;
   align-content: center;
-  justify-content: baseline;
-  max-height: 50%;
-  background-color: white;
+  justify-content: center;
+  background-color: #eee;
 }
 
-.segmentListContainer {
+.segmentList {
+  background-color: #eee;
   display: flex;
   flex-flow: column;
-  align-content: center;
+  align-content: flex-start;
   justify-content: center;
+  margin: 2% auto 5% auto;
+  width: 22vh;
+  overflow: hidden;
+  
 }
 
-.segmentListContainer > span {
+.segmentListScroll {
+  background-color: #eee;
+  display: flex;
+  flex-flow: column;
+  align-content: flex-start;
+  justify-content: start;
+  margin: 2% auto 5% auto;
+  width: 22vh;
+  height: 28vh;
+}
+
+
+.segmentListScrollLong {
+  background-color: #eee;
+  display: flex;
+  flex-flow: column;
+  align-content: flex-start;
+  justify-content: start;
+  margin: 2% auto 5% auto;
+  width: 22vh;
+  height: 40vh;
+}
+
+.imagePanel {
+  text-align: center;
   margin: auto;
+  background-color: #eee;
+  height: 45vh;
+  width: 30vh;
+  overflow: hidden;
 }
 
 .imageSelectLabel {
@@ -124,8 +144,8 @@ html > body > #root > div {
 .savedImageThumb {
   color: black;
   background-color: #eee;
-  width: 250px;
-  height: 280px;
+  width: 22vh;
+  height: 22vh;
   margin: auto .5% auto .5%;
   border-radius: 8px;
   display: flex;
@@ -138,8 +158,8 @@ html > body > #root > div {
 .selectedImageThumb {
   border-color: #5fbfbb;
   background-color: darkturquoise; 
-  width: 250px;
-  height: 280px;
+  width: 22vh;
+  height: 22vh;
   margin: auto .5% auto .5%;
   border-radius: 8px;
   display: flex;
@@ -154,15 +174,12 @@ html > body > #root > div {
   background-color: #0aa; 
 }
 
-.selectedImageThumb > .imageLabel.bottom {
-  background-color: inherit; 
-}
-
 .selectedImageThumb > .thumbCircle,
-.selectedImageThumb > .thumbCircle > h1,
-.selectedImageThumb:hover > .thumbCircle,
-.selectedImageThumb:hover > .thumbCircle > h1 {
+.selectedImageThumb:hover > .thumbCircle {
   background-color: #0aa;
+}
+.selectedImageThumb > .thumbCircle > p,
+.selectedImageThumb:hover > .thumbCircle > p {
   color: white;
 }
 
@@ -180,29 +197,34 @@ html > body > #root > div {
   background-color: #0aa;
 }
 
-.savedImageThumb:hover > .thumbCircle,
-.savedImageThumb:hover > .thumbCircle > h1 {
+.savedImageThumb:hover > .thumbCircle {
   background-color: #0aa;
+}
+.savedImageThumb:hover > .thumbCircle > p {
   color: darkturquoise;
+}
+
+.savedImageThumb:hover > .thumbCircle.eraser {
+  background-color: darkred;
+}
+.savedImageThumb:hover > .thumbCircle.eraser > p {
+  color: #0aa;
 }
 
 .savedImageThumb:hover > .imageLabel.bottom {
   background-color: inherit; 
 }
 
-.savedImageThumb > p {
-  margin: 0;
-}
-
 .thumbImage {
   display: block;
-  height: 70%;
+  max-height: 65%;
   width: auto;
   margin: 5%;
   border-radius: 4px;
 }
 
 .imageLabel {
+  text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
@@ -212,40 +234,11 @@ html > body > #root > div {
   font-weight: bold;
   padding: 2%;
   background-color: #aaa;
-}
-
-.imageLabel.bottom {
-  text-align: center;
-}
-
-.imageTitle {
   text-transform: uppercase;
 }
 
 .segList {
   font-size: .5em;
-}
-
-.deleteBox {
-  color: black;
-  font-size: .9em;
-  border-radius: 4px;
-  margin: 2% auto 5% auto;
-  max-width: 400px;
-  width: 60%;
-}
-
-.deleteBtn {
-  margin: 2%;
-}
-
-.imageGallery {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto -1% auto;
-  max-width: 85%;
 }
 
 .controlPanel { 
@@ -265,6 +258,22 @@ html > body > #root > div {
   border: 1px solid white;
   border-radius: 6px;
 }
+.controlPanel a:hover {
+  background-color: #0aa;
+  color: white;
+  border-radius: 3px;
+  padding: 1%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+.controlPanel a:focus {
+  background-color: #0aa;
+  color: #ddd;
+  border-radius: 3px;
+  padding: 1%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
 
 .thumbCircle {
   display: flex;
@@ -272,18 +281,100 @@ html > body > #root > div {
   align-content: baseline;
   justify-content: center;
   margin: auto;
-  background-color: darkturquoise;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px; 
+  background-color: #777;
+  border-radius: 25%;
+  width: 17vh;
+  height: 17vh; 
 }
-
-.thumbCircle > h1 {
+.thumbCircle > p {
   color: #0aa;
   margin: auto;
   font-size: 1000%;
 }
+.thumbCircle.eraser {
+  border-radius: 50%;
+  background-color: #777;
+}
+
+.thumbCircle.eraser > p {
+  color: darkred;
+}
+
 
 .studioObjBtnActive.DLbtn {
+  margin: .5% 0 0 0 !important;
+  color: white;
+  background-color: darkturquoise;
   border: 2px solid #0aa;
+  margin: 2% 0 2% 0;
+}
+.studioObjBtnActive.DLbtn:hover {
+  background-color: #0aa;
+}
+
+.studioSegLabel {
+  text-transform: capitalize;
+  background-color: white;
+  color: darkturquoise;
+  border: 2px solid darkturquoise; 
+  border-radius: 6px;
+  padding: 1%;
+  cursor: pointer;
+}
+.studioSegLabel:hover {
+  border: 2px solid darkcyan; 
+}
+.studioSegLabel + .studioSegLabel {
+  margin-top: 2%;
+}
+
+.studioSegLabel.selected {
+  border: 2px solid darkcyan; 
+  background-color: darkturquoise;
+  color: white;
+}
+.studioSegLabel.selected:hover {
+  border: 2px solid darkturquoise; 
+  color: darkcyan;
+}
+
+.downloadSegLabel {
+  text-transform: capitalize;
+  background-color: seagreen;
+  color: #f5f5f5;
+  border: 2px solid green; 
+  border-radius: 6px;
+  padding: 1%;
+  cursor: pointer;
+  margin-top: 3%;
+}
+
+.downloadSegLabel:hover {
+  text-transform: capitalize;
+  background-color: green;
+  color: #f5f5f5;
+  border: 2px solid green; 
+  border-radius: 6px;
+  padding: 1%;
+  cursor: pointer;
+  margin-top: 3%;
+}
+
+.konvaMain {
+  min-width: 45vh !important;
+  height: 45vh !important;
+}
+
+.konvaMain > .konvajs-content {
+  width: auto !important;
+  height: 100% !important;
+}
+.konvaMain > .konvajs-content > canvas {
+  background-color: white !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.mainContent {
+  height: 100%;
 }
