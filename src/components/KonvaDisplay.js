@@ -23,10 +23,12 @@ export default class KonvaDisplay extends Component {
   componentWillReceiveProps(nextProps) {
     // detection of new props here may allow multiple 
     // image segments to be added to one canvas
-    
-    // console.log(`componentWillReceiveProps!`)
-    // console.log(`current props ${Object.keys(this.props)}`)
-    // console.log(`nextProps ${nextProps}`)
+    this.forceUpdate()
+    console.log(`componentWillReceiveProps!`)
+    console.log(`current props-bg ${JSON.stringify(this.props.BG.selected)}`)
+    console.log(`current props-front ${JSON.stringify(this.props.front.selected)}`)
+    console.log(`nextProps-bg ${JSON.stringify(nextProps.BG.selected)}`)
+    console.log(`nextProps-front ${JSON.stringify(nextProps.front.selected)}`)
   }
 
   handleDragEndOne = e => {
@@ -48,7 +50,7 @@ export default class KonvaDisplay extends Component {
   }
 
   downloadURI(uri, name) {
-    var link = document.createElement("a")
+    let link = document.createElement("a")
     link.download = name
     link.href = uri
     document.body.appendChild(link)
@@ -57,13 +59,25 @@ export default class KonvaDisplay extends Component {
 }
 
   downloadStage = () => {  
-    var dataURL = this.stageRef._stage.toDataURL()
+    const dataURL = this.stageRef._stage.toDataURL()
     this.downloadURI(dataURL, 'MAX-Studio.png')
   }
 
+  renderFrontLayer = (frontImage, selected) => {
+    return (
+      <Img
+        src={ frontImage.selected ? frontImage.segments[selected.front].url : frontImage.segments.source.url }
+        x={ this.state.image2.xPos }
+        y={ this.state.image2.yPos }
+        draggable={ true }
+        onDragEnd={ this.handleDragEndTwo } />
+      )
+  }
+
   render() {
-    let BGImage = this.props.BG
-    let frontImage = this.props.front
+    const BGImage = this.props.BG
+    const frontImage = this.props.front
+    const selected = this.props.selected
     
     return (
       <div>
@@ -74,17 +88,12 @@ export default class KonvaDisplay extends Component {
           width={ 513 }>
           <Layer>
             <Img
-              src={ BGImage.selected ? BGImage.segments[BGImage.selected].url : BGImage.segments.source.url }
+              src={ BGImage.selected ? BGImage.segments[selected.BG].url : BGImage.segments.source.url }
               x={ this.state.image1.xPos }
               y={ this.state.image1.yPos }
-              draggable
+              draggable={ true }
               onDragEnd={ this.handleDragEndOne } />    
-            <Img
-              src={ frontImage.selected ? frontImage.segments[frontImage.selected].url : frontImage.segments.source.url }
-              x={ this.state.image2.xPos }
-              y={ this.state.image2.yPos }
-              draggable
-              onDragEnd={ this.handleDragEndTwo } />            
+            { this.renderFrontLayer(frontImage, selected) }
           </Layer>
         </Stage>
         <button

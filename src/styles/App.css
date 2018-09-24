@@ -10,12 +10,12 @@ html > body > #root > div {
 .appContent {
   flex: 1 0 auto;
   width: 100%;
-  height: 52vh;
+  height: 53vh;
 }
 
 .stickyFoot {
   flex: none;
-  height: 33vh;
+  height: 32vh;
 }
 
 .stickyHead {

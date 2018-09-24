@@ -103,6 +103,11 @@ class Img extends Component {
 		this.loadImg(this.props.src)
 	}
 
+	componentWillReceiveProps = () => {
+		this.loadImg(this.props.src)
+		this.forceUpdate()
+	}
+
 	render = () => {
 		let selfDims = { width: this.props.width, height: this.props.height },
 			image = this.state.image,

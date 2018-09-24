@@ -17,7 +17,7 @@ const Footer = () => {
           <div>
             Created at the 
             <a
-              className="footerLink" 
+              className="maxLink" 
               href="https://developer.ibm.com/code/open/centers/codait/">
                 {` IBM Center for Open-Source Data & AI Technologies.`}
             </a>
@@ -25,7 +25,7 @@ const Footer = () => {
           <div>
             Source code available on 
             <a
-              className="footerLink" 
+              className="maxLink" 
               href="https://github.com/IBM/MAX-Image-Segmenter-Web-App">
                 {` GitHub.`}
             </a>

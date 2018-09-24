@@ -138,7 +138,6 @@ export default class App extends Component {
               } />
           }
         </span>
-
       )
     } else if (isNonEmpty(this.state.image)) {
       return (
@@ -155,6 +154,10 @@ export default class App extends Component {
       return (
         <KonvaDisplay 
           BG={ this.state.studio.one } 
+          selected={ {
+            BG: this.state.studio.one.selected,
+            front: this.state.studio.two.selected
+          } }
           front={ this.state.studio.two } />
       )
     }

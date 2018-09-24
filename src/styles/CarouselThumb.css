@@ -128,8 +128,8 @@
   margin: auto;
   background-color: #777;
   border-radius: 25%;
-  width: 17vh;
-  height: 17vh; 
+  width: 80%;
+  height: 80%; 
 }
 .thumbCircle > p {
   color: #0aa;

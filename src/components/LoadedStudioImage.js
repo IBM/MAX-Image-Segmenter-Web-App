@@ -10,19 +10,20 @@ const LoadedStudioImage = props => {
 
   return (
     <div className="panel panel-default imagePanel">
-      <h3 className="text loadedImageLabel">{ label }</h3>
+      <h3 className="text loadedImageLabel">
+        { label }
+      </h3>
       <div className="loadedImageWrapper">
         <img
           alt={ label } 
           className="loadedImageThumb"
           src={ selected ? image.segments[selected].url : source.url } />
       </div>
-      <div style={ 
-        { maxHeight: '23vh', overflowY: overflowStyle } }>
-      <ImageSegmentList 
-          selected={ selected }
-          selectSeg={ segSelect }
-          image={ image } />
+      <div style={ { maxHeight: '23vh', overflowY: overflowStyle } }>
+        <ImageSegmentList 
+            selected={ selected }
+            selectSeg={ segSelect }
+            image={ image } />
       </div>
     </div>
   )
