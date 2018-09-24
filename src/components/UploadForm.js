@@ -16,49 +16,52 @@ export default class UploadForm extends Component {
   receiveUpload = e => {
     e.preventDefault()
     const fileObj = this.uploadRef.current.files[0]
-    const imageURL = window.URL.createObjectURL(fileObj)
-    const canvas = this.props.canvas
-    const ctx = canvas.getContext('2d')  
-    let scaledImage = new Image()
-    scaledImage.onload = async () => {
-      const { scaledWidth, scaledHeight } = getScaledSize({
-        height: scaledImage.naturalHeight, 
-        width: scaledImage.naturalWidth
-      })
-      scaledImage.width = scaledWidth
-      scaledImage.height = scaledHeight
-      canvas.width = scaledWidth 
-      canvas.height = scaledHeight
-      ctx.drawImage(scaledImage, 0, 0, scaledWidth, scaledHeight)
-      const newImage = {
-        name: fileObj.name,
-        type: fileObj.type,
-        height: scaledHeight,
-        width: scaledWidth,
-        urls: { 
-          source: canvas.toDataURL() 
+    console.log(fileObj ? 'file' : 'nofile')
+    if (fileObj) {
+      const imageURL = window.URL.createObjectURL(fileObj)
+      const canvas = this.props.canvas
+      const ctx = canvas.getContext('2d')  
+      let scaledImage = new Image()
+      scaledImage.onload = async () => {
+        const { scaledWidth, scaledHeight } = getScaledSize({
+          height: scaledImage.naturalHeight, 
+          width: scaledImage.naturalWidth
+        })
+        scaledImage.width = scaledWidth
+        scaledImage.height = scaledHeight
+        canvas.width = scaledWidth 
+        canvas.height = scaledHeight
+        ctx.drawImage(scaledImage, 0, 0, scaledWidth, scaledHeight)
+        const newImage = {
+          name: fileObj.name,
+          type: fileObj.type,
+          height: scaledHeight,
+          width: scaledWidth,
+          urls: { 
+            source: canvas.toDataURL() 
+          }
         }
-      }
-      this.setState({
-        isLoading: true,
-        imageName: fileObj.name
-      })
-      this.props.setAppPreviewImg(newImage)
-      try {
-        console.log('sending to MAX...')
-        const MAXData = cleanMAXResponse(newImage.name, await getPrediction(fileObj))
-        const MAXImage = { 
-          ...newImage, 
-          foundSegments: MAXData.foundSegments 
-        }
-        this.mapNeededURLs({ ...newImage, ...MAXData })
-        this.props.setAppImageData(MAXImage)
+        this.setState({
+          isLoading: true,
+          imageName: fileObj.name
+        })
+        this.props.setAppPreviewImg(newImage)
+        try {
+          console.log('sending to MAX...')
+          const MAXData = cleanMAXResponse(newImage.name, await getPrediction(fileObj))
+          const MAXImage = { 
+            ...newImage, 
+            foundSegments: MAXData.foundSegments 
+          }
+          this.mapNeededURLs({ ...newImage, ...MAXData })
+          this.props.setAppImageData(MAXImage)
 
-      } catch (e) {
-        console.error('error saving MAX Image data in parent state')
-      }       
+        } catch (e) {
+          console.error('error saving MAX Image data in parent state')
+        }       
+      }
+      scaledImage.src = imageURL
     }
-    scaledImage.src = imageURL
   }
 
   mapNeededURLs = async imageObj => {
