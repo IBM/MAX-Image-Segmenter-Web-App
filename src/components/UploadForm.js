@@ -67,7 +67,6 @@ export default class UploadForm extends Component {
       for (let name of neededSegments) {
         URLMap[name] = await this.invisibleSegment(name, imageObj)
       }
-      console.log(`URLMAP: ${Object.keys(URLMap)}`)
       return URLMap
   }
 
@@ -93,7 +92,6 @@ export default class UploadForm extends Component {
         const data = imageData.data
 
         if (segmentName === 'colormap') {
-          console.log(`building ${ segmentName }`)
           for (let i = 0; i < data.length; i += 4) {
             const segMapPixel = flatSegMap[i / 4]
             let objColor = [0, 0, 0]
@@ -116,7 +114,6 @@ export default class UploadForm extends Component {
         ctx.putImageData(imageData, 0, 0)      
         imageURL = canvas.toDataURL()
         this.props.addSegURL(segmentName, imageURL)
-        console.log(`invisible ${ segmentName } saved`)
         resolve(imageURL)
       }
       try {

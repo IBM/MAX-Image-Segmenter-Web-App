@@ -73,7 +73,6 @@ export const deleteAllImages = () => {
 }
 
 export const deleteSingleImage = image => {
-  console.log(`delete ${ image.id }`)
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.remove(image.id, image.rev) 
 }
