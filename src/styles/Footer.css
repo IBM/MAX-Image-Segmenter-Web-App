@@ -19,20 +19,17 @@ footer {
 }
 
 .footerLinks {
+  margin: 0 .5% 0 .5%;
   display: flex;
   flex-flow: row;
   align-content: center;
   justify-content: space-between;
 }
 
-.footerLinks > span {
-  padding: 0 .5% 0 .5%;
-}
-
-.footerLink {
+.maxLink {
   color: cyan;
 }
 
-.footerLink:hover {
+.maxLink:hover {
   color: blue;
 }

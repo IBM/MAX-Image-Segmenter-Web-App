@@ -1,0 +1,30 @@
+.imagePanel {
+  text-align: center;
+  margin: auto;
+  background-color: #eee;
+  height: 47vh;
+  width: 30vh;
+  overflow: hidden;
+}
+
+.loadedImageLabel {
+  background-color: #ddd !important;
+}
+h3.loadedImageLabel {
+  margin: 0;
+  background-color: #ddd;
+}
+
+.loadedImageWrapper {
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  justify-content: center;
+  background-color: #eee;
+}
+
+.loadedImageThumb {
+  margin: 0 auto 4% auto;
+  max-height: 22vh;
+  width: auto;
+}

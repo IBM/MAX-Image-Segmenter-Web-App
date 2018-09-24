@@ -1,16 +1,15 @@
-import './styles/App.css'
 import React, { Component } from 'react'
-import { cleanDocs, getAllDocs, saveToPouch, deleteSingleImage, deleteAllImages, isNonEmpty } from './utils'
 import { Grid, Row, Col } from 'react-bootstrap'
 import AppHeader from './components/AppHeader'
-import UploadForm from './components/UploadForm.js'
-import KonvaDisplay from './components/KonvaDisplay.js'
+import UploadForm from './components/UploadForm'
+import KonvaDisplay from './components/KonvaDisplay'
 import ImageDisplay from './components/ImageDisplay'
-import TextOutputLeft from './components/TextOutputLeft'
-import TextOutputRight from './components/TextOutputRight'
-import LoadedImage from './components/LoadedImage.js'
-import NewCarousel from './components/NewCarousel.js'
+import TextOutput from './components/TextOutput'
+import LoadedStudioImage from './components/LoadedStudioImage'
+import ImageCarousel from './components/ImageCarousel'
 import Footer from './components/Footer'
+import { cleanDocs, getAllDocs, saveToPouch, deleteSingleImage, deleteAllImages, isNonEmpty } from './utils'
+import './styles/App.css'
 
 export default class App extends Component {
   initialState = {
@@ -37,8 +36,6 @@ export default class App extends Component {
     })
   }
 
-
-  // 'uploadForm' methods here
   addSegURL = async (name, url) => {
     this.setState({
       image: {
@@ -60,6 +57,7 @@ export default class App extends Component {
         uploadMode: false
       })
     }
+    return null
   }
 
   setPreviewImg = newImage => {
@@ -119,7 +117,6 @@ export default class App extends Component {
         uploadMode: true,
       })
     }
-    
   }
 
   renderMainColumn() {
@@ -201,7 +198,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <Grid className="gridLayout" fluid={ true }>
+      <Grid fluid={ true }>
         <Row className='stickyHead'>
           <AppHeader />
         </Row>
@@ -213,7 +210,7 @@ export default class App extends Component {
               { 
                 isNonEmpty(this.state.studio.one) ?
                   <div>
-                    <LoadedImage 
+                    <LoadedStudioImage 
                       label={ `Background` }
                       image={ this.state.studio.one } 
                       segSelect={ seg => this.handleStudioSegmentSelect('one', seg) } /> 
@@ -224,7 +221,8 @@ export default class App extends Component {
               {
                 !this.state.uploadMode && isNonEmpty(this.state.image) ?
                 <div className="uploadWrapper">
-                  <TextOutputLeft 
+                  <TextOutput
+                    side={ `left` }
                     image={ this.state.image }
                     segData={ this.state.image.response } 
                     setSelectedObject={ object => {
@@ -252,7 +250,7 @@ export default class App extends Component {
               { 
                 isNonEmpty(this.state.studio.two) ?
                   <div>
-                    <LoadedImage 
+                    <LoadedStudioImage 
                       label={ `Front Layer` }
                       image={ this.state.studio.two } 
                       segSelect={ seg => this.handleStudioSegmentSelect('two', seg) } /> 
@@ -263,7 +261,8 @@ export default class App extends Component {
               {
                 !this.state.uploadMode && isNonEmpty(this.state.image) ?
                 <div className="uploadWrapper">
-                  <TextOutputRight 
+                  <TextOutput
+                    side={ `right` }
                     image={ this.state.image }
                     segData={ this.state.image.response }
                     setSelectedObject={ object => {
@@ -280,7 +279,7 @@ export default class App extends Component {
         </div>
         <div className="stickyFoot">
           <Row className="carousel">
-            <NewCarousel
+            <ImageCarousel
               images={ this.state.savedImages }
               hoverImage={ this.state.hoverImage }
               selectedImage={ this.state.selectedImage }
@@ -309,10 +308,3 @@ export default class App extends Component {
     )
   }
 }
-
-/*
-          <button
-              onClick={ () => this.downloadStage() }>
-              Download
-          </button>
-*/

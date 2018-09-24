@@ -8,7 +8,7 @@ const Footer = () => {
           Start building your own Machine Learning powered apps 
           with open-souce models from the 
           <a 
-            className="footerLink" 
+            className="maxLink" 
             href="https://developer.ibm.com/code/exchanges/models/">
               {` Model Asset eXchange.`}
           </a>
@@ -26,7 +26,7 @@ const Footer = () => {
             Source code available on 
             <a
               className="footerLink" 
-              href="https://github.com/IBM/MAX-ImgSeg-Magic-Cropping-Tool">
+              href="https://github.com/IBM/MAX-Image-Segmenter-Web-App">
                 {` GitHub.`}
             </a>
           </div>            

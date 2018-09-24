@@ -1,7 +1,8 @@
 import React from 'react'
 import ImageSegmentList from './ImageSegmentList'
+import '../styles/LoadedStudioImage.css'
 
-const LoadedImage = props => {
+const LoadedStudioImage = props => {
   const { image, label, segSelect } = props
   const selected = image.selected
   const source = image.segments.source
@@ -27,4 +28,4 @@ const LoadedImage = props => {
   )
 }
 
-export default LoadedImage
+export default LoadedStudioImage

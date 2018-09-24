@@ -2,8 +2,9 @@ import React from 'react'
 import { Carousel } from 'react-bootstrap'
 import CarouselThumb from './CarouselThumb'
 import { isNonEmpty } from '../utils'
+import '../styles/ImageCarousel.css'
 
-const NewCarousel = props => {
+const ImageCarousel = props => {
   return (
   <Carousel
     interval={ null }>
@@ -12,36 +13,7 @@ const NewCarousel = props => {
   )
 }
 
-const addImageThumb = () => ({
-  id: `CLICK TO ADD AN IMAGE`,
-  segments: { 
-    source: { 
-      url: `x`
-    },
-    colormap: {
-      url: 'z'
-    } 
-  }
-})
-
-const deleteAllImagesThumb = () => ({
-  id: `ERASE ALL IMAGES`,
-  segments: { 
-    source: { 
-      url: `x`
-    },
-    colormap: {
-      url: 'z'
-    } 
-  }
-})
-
-const getCarouselPageItems = (imageThumbs, pageNum, numPages) => {
-  const startPos = pageNum * 3
-  const endPos = startPos + 3
-  let pageImages = [addImageThumb()].concat(imageThumbs.slice(startPos, endPos))
-  return pageImages
-}
+export default ImageCarousel
 
 const getCarouselPages = props => {
   const numImages = isNonEmpty(props.images) ? props.images.length : 0
@@ -113,4 +85,33 @@ const getCarouselPages = props => {
   return pages
 }
 
-export default NewCarousel
+const addImageThumb = () => ({
+  id: `CLICK TO ADD AN IMAGE`,
+  segments: { 
+    source: { 
+      url: `x`
+    },
+    colormap: {
+      url: 'z'
+    } 
+  }
+})
+
+const deleteAllImagesThumb = () => ({
+  id: `ERASE ALL IMAGES`,
+  segments: { 
+    source: { 
+      url: `x`
+    },
+    colormap: {
+      url: 'z'
+    } 
+  }
+})
+
+const getCarouselPageItems = (imageThumbs, pageNum, numPages) => {
+  const startPos = pageNum * 3
+  const endPos = startPos + 3
+  let pageImages = [addImageThumb()].concat(imageThumbs.slice(startPos, endPos))
+  return pageImages
+}

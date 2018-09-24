@@ -1,26 +1,3 @@
-.objLabel {
-  transition: transform .15s cubic-bezier(0.5, 0, 0.5, 0.2);
-  transform-origin: 50% 80%;
-}
-
-.maxLabel {
-  margin : 0;
-  display : inline-block;
-  font-size : 1.25em;
-  cursor: pointer;
-  text-decoration: underline;
-  transition: transform .15s cubic-bezier(0.5, 0, 0.5, 0.2);
-  transform-origin: 50% 80%;
-}
-
-.objLabel:hover {
-  transform: scale(1.1);
-}
-
-.maxLabel:hover {
-  transform: scale(1.05);
-}
-
 .mainDisplay {
   margin: 1% auto 1% auto;
   padding: 1%;

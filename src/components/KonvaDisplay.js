@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Stage, Layer } from 'react-konva'
 import Img from './Img'
+import '../styles/KonvaDisplay.css'
 
 export default class KonvaDisplay extends Component {
   initialState = {
@@ -20,10 +21,12 @@ export default class KonvaDisplay extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(`componentWillReceiveProps!`)
-    console.log(`current props ${Object.keys(this.props)}`)
-    console.log(`nextProps ${nextProps}`)
-
+    // detection of new props here may allow multiple 
+    // image segments to be added to one canvas
+    
+    // console.log(`componentWillReceiveProps!`)
+    // console.log(`current props ${Object.keys(this.props)}`)
+    // console.log(`nextProps ${nextProps}`)
   }
 
   handleDragEndOne = e => {
@@ -85,7 +88,7 @@ export default class KonvaDisplay extends Component {
           </Layer>
         </Stage>
         <button
-          className="btn studioObjBtnActive DLbtn"
+          className="btn konvaDL"
           onClick={ () => this.downloadStage() }>
           Download
         </button>
@@ -93,12 +96,3 @@ export default class KonvaDisplay extends Component {
     )
   }
 }
-
-
-/*
-        <button
-          className="btn studioObjBtnActive DLbtn"
-          onClick={ () => this.downloadStage() }>
-          Download
-        </button>
-*/

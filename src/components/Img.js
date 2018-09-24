@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {Image} from 'react-konva'
+import React, { Component } from 'react'
+import { Image } from 'react-konva'
 
 
 var imgCache = {
@@ -65,21 +65,21 @@ class Img extends Component {
 			//console.log("set handlers")
 			img.loadFns.push(() => {
 				img.loaded = true
-				this.setState({loaded: true, image: img})
+				this.setState({ loaded: true, image: img })
 				//console.log("Image loaded", src)
 			})
 
 			img.errorFns.push(() => {
 				img.error = true
-				this.setState({error: true, image: brokenImage})
+				this.setState({ error: true, image: brokenImage })
 				//console.log('Error loading image', src, this.state)
 			})
 
 		} else if (img.error) {
-			this.setState({error: true, image: brokenImage})
+			this.setState({ error: true, image: brokenImage })
 			//console.log('Error previously loading image', src)
 		} else {
-			this.setState({loaded: true, image: img})
+			this.setState({ loaded: true, image: img })
 			//console.log("Image pre-loaded", src)
 		}
 
@@ -92,14 +92,14 @@ class Img extends Component {
 
 	fillRect = (p, c) => {
 		return (c.width / c.height) < (p.width / p.height)
-			? {width: p.width, height: c.height * (p.width / c.width)}
-			: {height: p.height, width: c.width * (p.height / c.height)}
+			? { width: p.width, height: c.height * (p.width / c.width) }
+			: { height: p.height, width: c.width * (p.height / c.height) }
 	}
 
 	fitRect = (p, c) => {
 		return (c.width / c.height) > (p.width / p.height)
-			? {width: p.width, height: c.height * (p.width / c.width)}
-			: {height: p.height, width: c.width * (p.height / c.height)}
+			? { width: p.width, height: c.height * (p.width / c.width) }
+			: { height: p.height, width: c.width * (p.height / c.height) }
 	}
 
 	getDims = (space, parent, child) => {
@@ -119,29 +119,29 @@ class Img extends Component {
 
 	render = () => {
 		//console.log("render", this.props)
-		var selfDims = {width: this.props.width, height: this.props.height},
+		var selfDims = { width: this.props.width, height: this.props.height },
 			image = this.state.image,
-			imageDims = image ? {width: image.width, height: image.height} : selfDims,
-			pos = {x: this.props.x || 0, y: this.props.y || 0}
+			imageDims = image ? { width: image.width, height: image.height } : selfDims,
+			pos = { x: this.props.x || 0, y: this.props.y || 0 }
 
 		return (
 			<Image 
-				stroke={'#0aa'}
-				strokeWidth={6}
-				strokeEnabled={this.state.hover}
-        image={this.state.image} 
-        x={pos.x} 
-        y={pos.y} 
-        width={imageDims.width} 
-        height={imageDims.height}
-        draggable={this.props.draggable}
-        onDragEnd={this.props.onDragEnd}
-				onMouseOver={() => this.setState({
+				stroke={ '#0aa' }
+				strokeWidth={ 6 }
+				strokeEnabled={ this.state.hover }
+        image={ this.state.image } 
+        x={ pos.x } 
+        y={ pos.y } 
+        width={ imageDims.width } 
+        height={ imageDims.height }
+        draggable={ this.props.draggable }
+        onDragEnd={ this.props.onDragEnd }
+				onMouseOver={ () => this.setState({
 					hover: true
 				})}
-				onMouseLeave={() => this.setState({
+				onMouseLeave={ () => this.setState({
 					hover: false
-				})} />
+				}) } />
 		)
 	}
 }

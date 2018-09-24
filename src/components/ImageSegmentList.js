@@ -1,5 +1,6 @@
 import React from 'react'
 import { downloadSegments } from '../utils'
+import '../styles/ImageSegmentList.css'
 
 const ImageSegmentList = props => {
   let scrollClass

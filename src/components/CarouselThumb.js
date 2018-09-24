@@ -1,5 +1,6 @@
 import React from 'react'
 import { getFormattedName } from '../utils' 
+import '../styles/CarouselThumb.css'
 
 const CarouselThumb = props => {
   const image = props.image
@@ -12,7 +13,6 @@ const CarouselThumb = props => {
         onMouseEnter={ () => thumbProps.setHoverImage(image.id) } 
         onMouseLeave={ () => thumbProps.setHoverImage('') }
         onClick={ () => handleImageClick(thumbProps, image.id) }>
-          
           <span 
             className="imageLabel top"
             >
@@ -20,13 +20,11 @@ const CarouselThumb = props => {
               { getFormattedName(image) }
             </span>
           </span>
-   
           <div
             className="thumbCircle"
             alt={ image.id }>
             <p>{`+`}</p>
           </div>
-
           { image.id !== thumbProps.selectedImage ?
             <span 
               className="imageLabel bottom">
@@ -45,7 +43,6 @@ const CarouselThumb = props => {
         onMouseEnter={ () => thumbProps.setHoverImage(image.id) } 
         onMouseLeave={ () => thumbProps.setHoverImage('') }
         onClick={ () => handleImageClick(thumbProps, image.id) }>
-          
           <span 
             className="imageLabel top"
             >
@@ -53,13 +50,11 @@ const CarouselThumb = props => {
               { getFormattedName(image) }
             </span>
           </span>
-   
           <div
             className="thumbCircle eraser"
             alt={ image.id }>
             <p>{`-`}</p>
           </div>
-
           { image.id !== thumbProps.selectedImage ?
             <span 
               className="imageLabel bottom">
@@ -77,7 +72,6 @@ const CarouselThumb = props => {
         className={ applyImageClass(thumbProps, image.id) }
         onMouseEnter={ () => thumbProps.setHoverImage(image.id) } 
         onMouseLeave={ () => thumbProps.setHoverImage('') }>
-
           <span 
             className="imageLabel top"
             onClick={ () => handleImageClick(thumbProps, image.id) }>
@@ -85,7 +79,6 @@ const CarouselThumb = props => {
               { getFormattedName(image) }
             </span>
           </span>
-  
           { displaySelectControls(thumbProps, image) }
           <img
             className="thumbImage"
@@ -93,7 +86,6 @@ const CarouselThumb = props => {
             alt={ image.id } 
             onClick={ () => handleImageClick(thumbProps, image.id) }
             />
-  
           { image.id !== thumbProps.selectedImage ?
             <span 
               className="imageLabel bottom"
@@ -107,6 +99,7 @@ const CarouselThumb = props => {
     )
   }  
 }
+
 export default CarouselThumb
 
 const getThumbSource = (props, image) => {

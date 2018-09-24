@@ -1,0 +1,146 @@
+.imageLabel {
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.imageLabel.top {
+  font-weight: bold;
+  padding: 2%;
+  background-color: #aaa;
+  text-transform: uppercase;
+}
+
+.savedImageThumb {
+  color: black;
+  background-color: #eee;
+  width: 22vh;
+  height: 22vh;
+  margin: auto .5% auto .5%;
+  border-radius: 8px;
+  display: flex;
+  cursor: pointer;
+  overflow: hidden;
+  flex-flow: column;
+  border: 1px solid #aaa;
+}
+
+.selectedImageThumb {
+  border-color: #5fbfbb;
+  background-color: darkturquoise; 
+  width: 22vh;
+  height: 22vh;
+  margin: auto .5% auto .5%;
+  border-radius: 8px;
+  display: flex;
+  cursor: pointer;
+  overflow: hidden;
+  flex-flow: column;
+  border: 1px solid #5fbfbb;
+  color: #fff;
+}
+
+.selectedImageThumb > .imageLabel.top {
+  background-color: #0aa; 
+}
+
+.selectedImageThumb > .thumbCircle,
+.selectedImageThumb:hover > .thumbCircle {
+  background-color: #0aa;
+}
+.selectedImageThumb > .thumbCircle > p,
+.selectedImageThumb:hover > .thumbCircle > p {
+  color: white;
+}
+
+.selectedImageThumb > .thumbImage {
+  margin-top: 0; 
+}
+
+.savedImageThumb:hover {
+  background-color: darkturquoise; 
+  border-color: #5fbfbb;
+  color: #fff;
+}
+
+.savedImageThumb:hover > .imageLabel.top {
+  background-color: #0aa;
+}
+
+.savedImageThumb:hover > .thumbCircle {
+  background-color: #0aa;
+}
+.savedImageThumb:hover > .thumbCircle > p {
+  color: darkturquoise;
+}
+
+.savedImageThumb:hover > .thumbCircle.eraser {
+  background-color: darkred;
+}
+.savedImageThumb:hover > .thumbCircle.eraser > p {
+  color: #0aa;
+}
+
+.savedImageThumb:hover > .imageLabel.bottom {
+  background-color: inherit; 
+}
+
+.controlPanel { 
+  color: white;
+  background-color: darkturquoise;
+  padding: 3%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  justify-content: space-around;
+} 
+
+.controlPanel a {
+  color: white;
+  border-radius: 3px;
+  padding: 1%;
+  border: 1px solid white;
+  border-radius: 6px;
+}
+.controlPanel a:hover {
+  background-color: #0aa;
+  color: white;
+  border-radius: 3px;
+  padding: 1%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+.controlPanel a:focus {
+  background-color: #0aa;
+  color: #ddd;
+  border-radius: 3px;
+  padding: 1%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.thumbCircle {
+  display: flex;
+  flex-flow: column;
+  align-content: baseline;
+  justify-content: center;
+  margin: auto;
+  background-color: #777;
+  border-radius: 25%;
+  width: 17vh;
+  height: 17vh; 
+}
+.thumbCircle > p {
+  color: #0aa;
+  margin: auto;
+  font-size: 1000%;
+}
+.thumbCircle.eraser {
+  border-radius: 50%;
+  background-color: #777;
+}
+
+.thumbCircle.eraser > p {
+  color: darkred;
+}

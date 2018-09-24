@@ -1,6 +1,6 @@
-import '../styles/ImageDisplay.css'
 import React from 'react'
 import { isNonEmpty } from '../utils'
+import '../styles/ImageDisplay.css'
 
 const ImageDisplay = props => {
   if (isNonEmpty(props.previewImg)) {

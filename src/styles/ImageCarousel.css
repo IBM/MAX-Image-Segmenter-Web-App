@@ -1,0 +1,9 @@
+.caroCard {
+  height: 25vh;
+  padding: 20px;
+  margin: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  justify-content: center;
+}
