@@ -103,9 +103,8 @@ class Img extends Component {
 		this.loadImg(this.props.src)
 	}
 
-	componentWillReceiveProps = () => {
-		this.loadImg(this.props.src)
-		this.forceUpdate()
+	componentWillReceiveProps = nextProps => {
+		this.loadImg(nextProps.src)
 	}
 
 	render = () => {
