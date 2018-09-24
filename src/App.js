@@ -49,7 +49,7 @@ export default class App extends Component {
     if (Object.keys(this.state.image.urls).length === Object.keys(this.state.image.foundSegments).length+1) {
       const { urls, name, width, height } = this.state.image
       const pouchResponse = await saveToPouch({ urls, name, width, height })
-      console.log(`Saved image w/ MAX Model Data in PouchDB. id: ${pouchResponse.id}`)
+      console.log(`Saved image w/ MAX Model Data in PouchDB. id: ${ pouchResponse.id }`)
       this.setState({
         canvasReady: true,
         selectedObject: 'colormap',
@@ -60,23 +60,8 @@ export default class App extends Component {
     return null
   }
 
-  setPreviewImg = newImage => {
-    this.setState({ 
-      previewImg: newImage, 
-      image: {}, 
-      canvasReady: false 
-    })
-  }
-
-  setImageData = newImage => {
-    this.setState({ 
-      image: newImage,
-      imageLoaded: true  
-    })
-  }
-
   handleImageDelete = async image => {
-    console.log(await deleteSingleImage(image))
+    console.log(`deleted image id: ${(await deleteSingleImage(image)).id}`)
     this.setState({
       savedImages : this.state.savedImages.filter(doc => doc.id !== image.id)
     })
@@ -134,11 +119,22 @@ export default class App extends Component {
           :
             <UploadForm 
               canvas={ this.canvasRef.current }
-              setAppImageData={ this.setImageData }
               imageLoaded={ this.state.canvasReady }
               addSegURL={ this.addSegURL }
               imageName={ this.state.image.name }
-              setAppPreviewImg={ this.setPreviewImg } />
+              setAppPreviewImg={ newImage =>
+                this.setState({ 
+                  previewImg: newImage, 
+                  image: {}, 
+                  canvasReady: false 
+                }) 
+              } 
+              setAppImageData={newImage =>
+                this.setState({ 
+                  image: newImage,
+                  imageLoaded: true  
+                }) 
+              } />
           }
         </span>
 
@@ -148,11 +144,11 @@ export default class App extends Component {
           <ImageDisplay 
             image={ this.state.image } 
             selectedObject={ this.state.selectedObject }
-            setSelectedObject={ object => {
+            setSelectedObject={ object =>
               this.setState({
                 selectedObject : object
               })
-            } } />
+            } />
       )
     } else if (this.studioReady()) {
       console.log('konva ready')
@@ -213,7 +209,8 @@ export default class App extends Component {
                     <LoadedStudioImage 
                       label={ `Background` }
                       image={ this.state.studio.one } 
-                      segSelect={ seg => this.handleStudioSegmentSelect('one', seg) } /> 
+                      segSelect={ seg => 
+                        this.handleStudioSegmentSelect('one', seg) } /> 
                   </div>
                 :
                   null
@@ -225,11 +222,11 @@ export default class App extends Component {
                     side={ `left` }
                     image={ this.state.image }
                     segData={ this.state.image.response } 
-                    setSelectedObject={ object => {
+                    setSelectedObject={ object =>
                       this.setState({
                         selectedObject : object
                       })
-                    } } />
+                    } />
                 </div>
                 :
                   null
@@ -253,7 +250,8 @@ export default class App extends Component {
                     <LoadedStudioImage 
                       label={ `Front Layer` }
                       image={ this.state.studio.two } 
-                      segSelect={ seg => this.handleStudioSegmentSelect('two', seg) } /> 
+                      segSelect={ seg => 
+                        this.handleStudioSegmentSelect('two', seg) } /> 
                   </div>
                 :
                   null
@@ -265,11 +263,11 @@ export default class App extends Component {
                     side={ `right` }
                     image={ this.state.image }
                     segData={ this.state.image.response }
-                    setSelectedObject={ object => {
+                    setSelectedObject={ object =>
                       this.setState({
                         selectedObject : object
                       })
-                    } } />
+                    } />
                 </div>
                 :
                   null
@@ -284,13 +282,13 @@ export default class App extends Component {
               hoverImage={ this.state.hoverImage }
               selectedImage={ this.state.selectedImage }
               uploadMode={ this.state.uploadMode }
-              deleteImage={ image => this.handleImageDelete(image) }
               bulkDelete={ () => this.handleBulkDelete() } 
               setUploadMode={ () => this.handleUploadToggle() }
+              deleteImage={ image => this.handleImageDelete(image) }
+              setSelectedImage={ imageID => this.handleImageSelect(imageID) }
               setHoverImage={ imageID => 
                 this.setState({ hoverImage : imageID }) 
               }
-              setSelectedImage={ imageID => this.handleImageSelect(imageID) }
               loadIntoStudio={ (image, slotNum) =>
                 this.setState({ 
                   studio: {
