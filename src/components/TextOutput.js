@@ -50,8 +50,8 @@ const TextOutput = props => {
   )
   } else {
     return (
-      <div>
-        LOADING...
+      <div className="textBox panel panel-default">
+        Talking to MAX Model...
       </div>
     )
   }

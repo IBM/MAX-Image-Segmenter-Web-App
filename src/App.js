@@ -54,7 +54,8 @@ export default class App extends Component {
         canvasReady: true,
         selectedObject: 'colormap',
         savedImages: cleanDocs(await getAllDocs()),
-        uploadMode: false
+        uploadMode: false,
+        previewImg: {}
       })
     }
     return null
@@ -151,7 +152,6 @@ export default class App extends Component {
             } />
       )
     } else if (this.studioReady()) {
-      console.log('konva ready')
       return (
         <KonvaDisplay 
           BG={ this.state.studio.one } 
@@ -217,24 +217,32 @@ export default class App extends Component {
               }
               {
                 !this.state.uploadMode && isNonEmpty(this.state.image) ?
-                <div className="uploadWrapper">
-                  <TextOutput
-                    side={ `left` }
-                    image={ this.state.image }
-                    segData={ this.state.image.response } 
-                    setSelectedObject={ object =>
-                      this.setState({
-                        selectedObject : object
-                      })
-                    } />
-                </div>
+                  <div className="uploadWrapper">
+                    <TextOutput
+                      side={ `left` }
+                      image={ this.state.image }
+                      segData={ this.state.image.response } 
+                      setSelectedObject={ object =>
+                        this.setState({
+                          selectedObject : object
+                        })
+                      } />
+                  </div>
+                :
+                  null
+              }
+              {
+                this.state.uploadMode && isNonEmpty(this.state.previewImg) ?
+                  <div className="uploadWrapper">
+                    <TextOutput />
+                  </div>
                 :
                   null
               }
             </Col>
 
             <Col 
-              className={ isNonEmpty(this.state.studio) || this.state.uploadMode || isNonEmpty(this.state.previewImg) ? "centerCol" : "centerCol.empty" }
+              className={ isNonEmpty(this.state.studio) || this.state.uploadMode || isNonEmpty(this.state.image) ? "centerCol" : "centerCol.empty" }
               xs={ 6 }>   
               <div className="uploadWrapper">
                 { this.renderMainColumn() }
@@ -258,17 +266,25 @@ export default class App extends Component {
               }
               {
                 !this.state.uploadMode && isNonEmpty(this.state.image) ?
-                <div className="uploadWrapper">
-                  <TextOutput
-                    side={ `right` }
-                    image={ this.state.image }
-                    segData={ this.state.image.response }
-                    setSelectedObject={ object =>
-                      this.setState({
-                        selectedObject : object
-                      })
-                    } />
-                </div>
+                  <div className="uploadWrapper">
+                    <TextOutput
+                      side={ `right` }
+                      image={ this.state.image }
+                      segData={ this.state.image.response }
+                      setSelectedObject={ object =>
+                        this.setState({
+                          selectedObject : object
+                        })
+                      } />
+                  </div>
+                :
+                  null
+              }
+              {
+                this.state.uploadMode && isNonEmpty(this.state.previewImg) ?
+                  <div className="uploadWrapper">
+                    <TextOutput />
+                  </div>
                 :
                   null
               }
