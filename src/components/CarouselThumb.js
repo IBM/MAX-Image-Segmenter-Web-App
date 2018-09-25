@@ -114,14 +114,14 @@ const displaySelectControls = (props, image) => {
   if (props.selectedImage === image.id) {
     return (
       <div className="controlPanel">
-        <a onClick={ () => props.deleteImage(image) }>
+        <a className="cpbtn delete" onClick={ () => props.deleteImage(image) }>
           Delete 
         </a>
-        <a onClick={ () => props.loadIntoStudio(image, 'one') }>
-          Load BG 
+        <a className="cpbtn studio" onClick={ () => props.loadIntoStudio(image, 'one') }>
+          Background 
         </a>
-        <a onClick={ () => props.loadIntoStudio(image, 'two') }>
-          Load Front
+        <a className="cpbtn studio" onClick={ () => props.loadIntoStudio(image, 'two') }>
+          Front
         </a>
       </div>
     )

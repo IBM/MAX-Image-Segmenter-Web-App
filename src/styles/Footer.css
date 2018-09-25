@@ -2,11 +2,12 @@ footer {
   color: #f5f5f5;
   background-color: #0aa;
   text-align: center;
-  height: 10vh;
+  height: 7vh;
 }
 
 .maxMsg {
   padding: .5%;
+  margin: .25%;
 }
 
 .footerLinks {

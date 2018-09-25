@@ -15,8 +15,8 @@
 .savedImageThumb {
   color: black;
   background-color: #eee;
-  width: 22vh;
-  height: 22vh;
+  width: 20vh;
+  height: 20vh;
   margin: auto .5% auto .5%;
   border-radius: 8px;
   display: flex;
@@ -29,8 +29,8 @@
 .selectedImageThumb {
   border-color: #5fbfbb;
   background-color: darkturquoise; 
-  width: 22vh;
-  height: 22vh;
+  width: 20vh;
+  height: 20vh;
   margin: auto .5% auto .5%;
   border-radius: 8px;
   display: flex;
@@ -96,14 +96,14 @@
   justify-content: space-around;
 } 
 
-.controlPanel a {
+.cpbtn {
   color: white;
   border-radius: 3px;
   padding: 1%;
   border: 1px solid white;
   border-radius: 6px;
 }
-.controlPanel a:hover {
+.cpbtn:hover {
   background-color: #0aa;
   color: white;
   border-radius: 3px;
@@ -111,7 +111,7 @@
   border: 1px solid #ddd;
   border-radius: 6px;
 }
-.controlPanel a:focus {
+.cpbtn:focus {
   background-color: #0aa;
   color: #ddd;
   border-radius: 3px;
