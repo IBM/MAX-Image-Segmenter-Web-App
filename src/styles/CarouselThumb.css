@@ -61,9 +61,6 @@
 .selectedImageThumb > .imageGlyph.add,
 .selectedImageThumb:hover > .imageGlyph.add {
   color: cyan;
-  border: 1px solid white;
-  border-radius: 50%;
-  padding: 1%;
 }
 
 .savedImageThumb:hover {
