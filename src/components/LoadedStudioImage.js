@@ -18,7 +18,7 @@ const LoadedStudioImage = props => {
         backgroundSize: `contain`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        backgroundImage: `url(${ source.url })`
+        backgroundImage: `url(${ selected ? image.segments[selected].url : source.url })`
       }}>
       </div>
       <div style={ { maxHeight: '23vh', overflowY: overflowStyle } }>
