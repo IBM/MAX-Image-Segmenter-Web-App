@@ -166,7 +166,7 @@ export default class App extends Component {
   studioReady = () => {
     return (
       (isNonEmpty(this.state.studio.one) && isNonEmpty(this.state.studio.two)) &&
-      (isNonEmpty(this.state.studio.one.selected) && isNonEmpty(this.state.studio.two.selected))
+      (isNonEmpty(this.state.studio.one.selected) || isNonEmpty(this.state.studio.two.selected))
     )
   }
 
