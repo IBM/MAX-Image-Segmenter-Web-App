@@ -62,14 +62,21 @@ export default class App extends Component {
       if (!isNonEmpty(this.state.studio)) {
         console.log(`empty studio - could go in the BG slot`)
         const singleImageDoc = await getSingleImage(pouchResponse.id)
-        console.log(`${Object.keys(cleanDocs({ rows: [{value: pouchResponse.rev,  doc: singleImageDoc}] })[0]) }`)
+        //console.log(`${Object.keys(cleanDocs({ rows: [{value: pouchResponse.rev,  doc: singleImageDoc}] })[0]) }`)
         this.setState({
           studio: {
             one: cleanDocs({ rows: [{value: pouchResponse.rev,  doc: singleImageDoc}] })[0]
           }
         })
-      } else if (!isNonEmpty(this.state.studio.one)) {
+      } else if (isNonEmpty(this.state.studio.one)) {
         console.log(`BG image preloaded - could go in the front slot`)
+        const singleImageDoc = await getSingleImage(pouchResponse.id)
+        this.setState({
+          studio: {
+            ...this.state.studio,
+            two: cleanDocs({ rows: [{value: pouchResponse.rev,  doc: singleImageDoc}] })[0]
+          }
+        })
       } else {
         console.log(`loaded studio - overwriting the front image`)
       }
@@ -110,13 +117,15 @@ export default class App extends Component {
     if (newSetting === false) {
       this.setState({
         ...this.initialState,
-        savedImages: this.state.savedImages
+        savedImages: this.state.savedImages,
+        studio: this.state.studio
       })
     } else {
       this.setState({ 
         ...this.initialState,
         savedImages: this.state.savedImages,
         uploadMode: true,
+        studio: this.state.studio
       })
     }
   }
@@ -252,7 +261,8 @@ export default class App extends Component {
                   */
               }
               {
-                this.state.uploadMode && isNonEmpty(this.state.previewImg) ?
+                this.state.uploadMode && isNonEmpty(this.state.previewImg) && 
+                !isNonEmpty(this.state.studio.one) ?
                   <div className="uploadWrapper">
                     <TextOutput />
                   </div>
@@ -285,6 +295,7 @@ export default class App extends Component {
                   null
               }
               {
+                /*
                 !this.state.uploadMode && isNonEmpty(this.state.image) ?
                   <div className="uploadWrapper">
                     <TextOutput
@@ -299,9 +310,11 @@ export default class App extends Component {
                   </div>
                 :
                   null
+                */
               }
               {
-                this.state.uploadMode && isNonEmpty(this.state.previewImg) ?
+                this.state.uploadMode && isNonEmpty(this.state.previewImg) &&
+                !isNonEmpty(this.state.studio.two) ?
                   <div className="uploadWrapper">
                     <TextOutput />
                   </div>
