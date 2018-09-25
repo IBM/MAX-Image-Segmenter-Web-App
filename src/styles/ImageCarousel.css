@@ -7,3 +7,7 @@
   align-content: center;
   justify-content: center;
 }
+
+.carousel-control {
+  background-image: none !important;
+}

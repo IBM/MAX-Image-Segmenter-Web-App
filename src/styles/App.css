@@ -1,5 +1,5 @@
 html > body > #root > div {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -10,19 +10,19 @@ html > body > #root > div {
 .appContent {
   flex: 1 0 auto;
   width: 100%;
-  height: 53vh;
+  height: 55vh;
 }
 
 .stickyFoot {
   flex: none;
-  height: 32vh;
+  height: 35vh;
 }
 
 .stickyHead {
   flex: none;
   background-color: #ddd;
   padding: 1.5%;
-  height: 15vh;
+  height: 10vh;
 }
 
 .gridLayout {
