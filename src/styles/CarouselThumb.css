@@ -15,8 +15,8 @@
 .savedImageThumb {
   color: black;
   background-color: #eee;
-  width: 20vh;
-  height: 20vh;
+  width: 22vh;
+  height: 22vh;
   margin: auto .5% auto .5%;
   border-radius: 8px;
   display: flex;
@@ -29,8 +29,8 @@
 .selectedImageThumb {
   border-color: #5fbfbb;
   background-color: darkturquoise; 
-  width: 20vh;
-  height: 20vh;
+  width: 22vh;
+  height: 22vh;
   margin: auto .5% auto .5%;
   border-radius: 8px;
   display: flex;
