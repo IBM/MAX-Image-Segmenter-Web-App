@@ -13,8 +13,8 @@ export default class UploadForm extends Component {
     this.state = initialState
   }
 
-  receiveUpload = e => {
-    e.preventDefault()
+  receiveUpload = () => {
+    //e.preventDefault()
     const fileObj = this.uploadRef.current.files[0]
     console.log(fileObj ? 'file' : 'nofile')
     if (fileObj) {
@@ -127,6 +127,12 @@ export default class UploadForm extends Component {
     })
   }
 
+  handleFileChange = files => {
+    if (files[0]) {
+      this.receiveUpload()
+    }
+  }
+
   render() {
     return (
       <div className="uploadFormWrapper">
@@ -154,17 +160,8 @@ export default class UploadForm extends Component {
               id="filePicker" 
               ref={ this.uploadRef } 
               type="file" 
+              onChange={ e => this.handleFileChange(e.target.files) }
               accept="image/*" />
-
-            <label className="submitLabel" htmlFor="submitter">
-              <span className="btn btn-primary formBtn submitBtn">
-                Send To MAX Model
-              </span>
-            </label>
-            <input 
-              id="submitter" 
-              type="submit" 
-              value="Upload" />
           </form>
         </div>
       </div>
