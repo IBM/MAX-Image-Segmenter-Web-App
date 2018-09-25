@@ -10,7 +10,7 @@ const TextOutput = props => {
           { 
             `The MAX model identified the following 
             ${ props.image.foundSegments.filter(name=> name!=='colormap').length }
-            object segments: (Click to view) ` 
+            object segments: (ADD AN IMAGEview) ` 
           }
         </p>
         <p className="outputSegText">

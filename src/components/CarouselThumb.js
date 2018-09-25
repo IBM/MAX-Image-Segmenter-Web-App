@@ -1,11 +1,12 @@
 import React from 'react'
+import { Glyphicon } from 'react-bootstrap'
 import { getFormattedName } from '../utils' 
 import '../styles/CarouselThumb.css'
 
 const CarouselThumb = props => {
   const image = props.image
   const thumbProps = props.thumbProps
-  if (image.id === 'CLICK TO ADD AN IMAGE') {
+  if (image.id === 'ADD AN IMAGE') {
     return (
       <div 
         key={ image.id } 
@@ -20,11 +21,10 @@ const CarouselThumb = props => {
               { getFormattedName(image) }
             </span>
           </span>
-          <div
-            className="thumbCircle"
-            alt={ image.id }>
-            <p>{`+`}</p>
-          </div>
+          <Glyphicon 
+            className="imageGlyph add"
+            glyph="plus-sign" 
+            alt={ image.id } />
           { image.id !== thumbProps.selectedImage ?
             <span 
               className="imageLabel bottom">
@@ -50,11 +50,10 @@ const CarouselThumb = props => {
               { getFormattedName(image) }
             </span>
           </span>
-          <div
-            className="thumbCircle eraser"
-            alt={ image.id }>
-            <p>{`-`}</p>
-          </div>
+          <Glyphicon 
+            className="imageGlyph erase"
+            glyph="remove-sign" 
+            alt={ image.id } />
           { image.id !== thumbProps.selectedImage ?
             <span 
               className="imageLabel bottom">
@@ -116,13 +115,13 @@ const displaySelectControls = (props, image) => {
     return (
       <div className="controlPanel">
         <a className="cpbtn delete" onClick={ () => props.deleteImage(image) }>
-          Delete 
+        <Glyphicon glyph="trash" /> 
         </a>
         <a className="cpbtn studio" onClick={ () => props.loadIntoStudio(image, 'one') }>
-          Background 
+        Studio <Glyphicon glyph="arrow-left" /> 
         </a>
         <a className="cpbtn studio" onClick={ () => props.loadIntoStudio(image, 'two') }>
-          Front
+        Studio <Glyphicon glyph="arrow-right" /> 
         </a>
       </div>
     )
@@ -138,9 +137,9 @@ const handleImageClick = (props, imageID) => {
 }
 
 const applyImageClass = (props, imageID) => {
-  if (imageID !== 'CLICK TO ADD AN IMAGE' && imageID === props.selectedImage) {
+  if (imageID !== 'ADD AN IMAGE' && imageID === props.selectedImage) {
     return `selectedImageThumb`
-  } else if (imageID === 'CLICK TO ADD AN IMAGE' && props.uploadMode) { 
+  } else if (imageID === 'ADD AN IMAGE' && props.uploadMode) { 
     return `selectedImageThumb`
   } else {
     return `savedImageThumb`

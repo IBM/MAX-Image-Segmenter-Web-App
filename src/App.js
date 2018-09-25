@@ -97,7 +97,7 @@ export default class App extends Component {
   }
 
   handleImageSelect = imageID => {
-    if (imageID === 'CLICK TO ADD AN IMAGE') {
+    if (imageID === 'ADD AN IMAGE') {
       this.uploadModeToggle(imageID)
     } else if (imageID === 'ERASE ALL IMAGES') {
       this.handleBulkDelete()

@@ -86,7 +86,7 @@ const getCarouselPages = props => {
 }
 
 const addImageThumb = () => ({
-  id: `CLICK TO ADD AN IMAGE`,
+  id: `ADD AN IMAGE`,
   segments: { 
     source: { 
       url: `x`
