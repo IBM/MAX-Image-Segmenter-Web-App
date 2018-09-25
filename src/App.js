@@ -208,7 +208,7 @@ export default class App extends Component {
               xs={ 3 }>
               { 
                 isNonEmpty(this.state.studio.one) ?
-                  <div>
+                  <div className="uploadWrapper">
                     <LoadedStudioImage 
                       label={ `Background` }
                       image={ this.state.studio.one } 
@@ -257,7 +257,7 @@ export default class App extends Component {
               xs={ 3 }>
               { 
                 isNonEmpty(this.state.studio.two) ?
-                  <div>
+                  <div className="uploadWrapper">
                     <LoadedStudioImage 
                       label={ `Front Layer` }
                       image={ this.state.studio.two } 

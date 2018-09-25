@@ -86,6 +86,7 @@ const CarouselThumb = props => {
             alt={ image.id } 
             onClick={ () => handleImageClick(thumbProps, image.id) }
             />
+
           { image.id !== thumbProps.selectedImage ?
             <span 
               className="imageLabel bottom"

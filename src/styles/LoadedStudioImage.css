@@ -2,8 +2,8 @@
   text-align: center;
   margin: auto;
   background-color: #eee;
-  height: 47vh;
-  width: 30vh;
+  height: 50vh;
+  width: 22vw;
   overflow: hidden;
 }
 
@@ -16,15 +16,18 @@ h3.loadedImageLabel {
 }
 
 .loadedImageWrapper {
+  width: 22vw;
+  height: 22vh;
   display: flex;
   flex-flow: column;
   align-content: center;
   justify-content: center;
   background-color: #eee;
+  padding: auto;
 }
 
 .loadedImageThumb {
-  margin: 0 auto 4% auto;
-  max-height: 22vh;
-  width: auto;
+  margin: 0;
+  max-height: auto;
+  max-width: 20vw;
 }
