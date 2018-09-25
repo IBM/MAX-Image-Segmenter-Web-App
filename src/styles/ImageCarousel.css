@@ -1,6 +1,6 @@
 .caroCard {
   height: 25vh;
-  padding: 1%;
+  padding: .5%;
   margin: 0;
   display: flex;
   flex-flow: row nowrap;

@@ -59,14 +59,6 @@ html > body > #root > div {
   margin: 0;
 }
 
-.thumbImage {
-  display: block;
-  max-height: 65%;
-  width: auto;
-  margin: 5%;
-  border-radius: 4px;
-}
-
 .segList {
   font-size: .5em;
 }

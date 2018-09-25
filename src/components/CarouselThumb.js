@@ -85,16 +85,6 @@ const CarouselThumb = props => {
             alt={ image.id } 
             onClick={ () => handleImageClick(thumbProps, image.id) }
             />
-
-          { image.id !== thumbProps.selectedImage ?
-            <span 
-              className="imageLabel bottom"
-              onClick={ () => handleImageClick(thumbProps, image.id) }>
-              { ` ${ Object.keys(image.segments).length-2 } segments` }
-            </span>
-            :
-            null
-          }
       </div>
     )
   }  
