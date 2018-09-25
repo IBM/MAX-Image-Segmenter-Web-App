@@ -8,7 +8,7 @@ import TextOutput from './components/TextOutput'
 import LoadedStudioImage from './components/LoadedStudioImage'
 import ImageCarousel from './components/ImageCarousel'
 import Footer from './components/Footer'
-import { cleanDocs, getAllDocs, saveToPouch, deleteSingleImage, deleteAllImages, isNonEmpty } from './utils'
+import { cleanDocs, getAllDocs, saveToPouch, deleteSingleImage, deleteAllImages, isNonEmpty, getSingleImage } from './utils'
 import './styles/App.css'
 
 export default class App extends Component {
@@ -57,6 +57,22 @@ export default class App extends Component {
         uploadMode: false,
         previewImg: {}
       })
+
+      // beginning stages of preloading images into the studio
+      if (!isNonEmpty(this.state.studio)) {
+        console.log(`empty studio - could go in the BG slot`)
+        const singleImageDoc = await getSingleImage(pouchResponse.id)
+        console.log(`${Object.keys(cleanDocs({ rows: [{value: pouchResponse.rev,  doc: singleImageDoc}] })[0]) }`)
+        this.setState({
+          studio: {
+            one: cleanDocs({ rows: [{value: pouchResponse.rev,  doc: singleImageDoc}] })[0]
+          }
+        })
+      } else if (!isNonEmpty(this.state.studio.one)) {
+        console.log(`BG image preloaded - could go in the front slot`)
+      } else {
+        console.log(`loaded studio - overwriting the front image`)
+      }
     }
     return null
   }
@@ -218,7 +234,7 @@ export default class App extends Component {
                 :
                   null
               }
-              {
+              { /*
                 !this.state.uploadMode && isNonEmpty(this.state.image) ?
                   <div className="uploadWrapper">
                     <TextOutput
@@ -233,6 +249,7 @@ export default class App extends Component {
                   </div>
                 :
                   null
+                  */
               }
               {
                 this.state.uploadMode && isNonEmpty(this.state.previewImg) ?

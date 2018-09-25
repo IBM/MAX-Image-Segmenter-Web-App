@@ -100,6 +100,12 @@ export const cleanDocs = docs => {
   )
 }
 
+export const getSingleImage = imageID => {
+  const pouchDB = new PouchDB('offLine', { auto_compaction: true })
+
+  return pouchDB.get(imageID, { include_docs: true, attachments: true })
+} 
+
 export const saveToPouch = uploadData => {
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   const { urls, name, width, height } = uploadData
@@ -122,7 +128,7 @@ export const saveToPouch = uploadData => {
     height: height,
     segmentsFound: segmentList,
     _attachments : attachments
-  })
+  }, { include_docs: true })
 } 
 
 export const getPrediction = img => {
