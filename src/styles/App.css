@@ -40,7 +40,7 @@ html > body > #root > div {
 .sideCol {
   height: 100%;
   display: flex;
-  flex-flow: row;
+  flex-flow: column;
   align-content: center;
   justify-content: center;
   padding: 0 !important;

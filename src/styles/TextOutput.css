@@ -1,4 +1,5 @@
 .textBox {
+  margin: 1% auto 1% auto;
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -6,6 +7,7 @@
   font-size: 1.25em;
   height: 42vh;
   padding: 1%;
+  width: 95%;
 }
 .textBox > p {
   margin: 0;
