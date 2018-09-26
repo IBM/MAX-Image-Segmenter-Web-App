@@ -8,12 +8,12 @@ div.stickyHead.row {
 }
 
 .logoImg {
-  height: 12vh;
-  margin: 1% 0 1% 0;
+  height: 5vh;
+  margin: .5% 0 1% 0;
 }
 
 .titleText {
   display: inline-block;
   font-size: 2.75em;
-  margin: 2%;
+  margin:1%;
 }

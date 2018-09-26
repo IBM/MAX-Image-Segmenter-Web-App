@@ -1,6 +1,6 @@
 .caroCard {
   height: 25vh;
-  padding: 20px;
+  padding: .5%;
   margin: 0;
   display: flex;
   flex-flow: row nowrap;
@@ -10,4 +10,13 @@
 
 .carousel-control {
   background-image: none !important;
+  color: #0aa;
+}
+
+.glyphicon-chevron-left:before {
+  color: #0aa;
+}
+
+.glyphicon-chevron-right:before { 
+  color: #0aa;
 }

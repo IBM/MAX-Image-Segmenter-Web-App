@@ -5,24 +5,27 @@ html > body > #root > div {
   width: 100%;
   margin: 0;
   font-family: IBMPlexSans;
+  overflow: hidden;
 }
 
 .appContent {
+  background-color: white;
   flex: 1 0 auto;
-  width: 100%;
+  min-width: 100%;
   height: 55vh;
+  margin: 0;
 }
 
 .stickyFoot {
   flex: none;
-  height: 35vh;
+  height: 33vh;
 }
 
 .stickyHead {
-  flex: none;
+  flex: 0 1 auto;
   background-color: #ddd;
   padding: 1.5%;
-  height: 10vh;
+  max-height: 10vh;
 }
 
 .gridLayout {
@@ -36,11 +39,11 @@ html > body > #root > div {
 
 .sideCol {
   height: 100%;
-  margin-top: 1%;
   display: flex;
-  flex-flow: row;
+  flex-flow: column;
   align-content: center;
   justify-content: center;
+  padding: 0 !important;
 }
 
 .centerCol {
@@ -56,18 +59,14 @@ html > body > #root > div {
   margin: 0;
 }
 
-.thumbImage {
-  display: block;
-  max-height: 65%;
-  width: auto;
-  margin: 5%;
-  border-radius: 4px;
-}
-
 .segList {
   font-size: .5em;
 }
 
 .mainContent {
   height: 100%;
+}
+
+.containerfluid {
+  margin: 0;
 }

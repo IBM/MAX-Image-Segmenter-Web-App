@@ -1,5 +1,6 @@
 import React from 'react'
-import { COLOR_MAP, downloadSegments } from '../utils'
+import { Glyphicon } from 'react-bootstrap'
+import { COLOR_MAP, downloadSegments, isNonEmpty } from '../utils'
 import '../styles/TextOutput.css'
 
 const TextOutput = props => {
@@ -10,7 +11,7 @@ const TextOutput = props => {
           { 
             `The MAX model identified the following 
             ${ props.image.foundSegments.filter(name=> name!=='colormap').length }
-            object segments: (Click to view) ` 
+            object segments: (ADD AN IMAGEview) ` 
           }
         </p>
         <p className="outputSegText">
@@ -46,6 +47,37 @@ const TextOutput = props => {
         To make new images from the objects you've uploaded, 
         click the image thumbnails below to load them into the Studio.
       </p>
+    </div>
+  )
+  } else if (props.side === 'center' && isNonEmpty(props.image)) {
+    const numSegments = Object.keys(props.image.foundSegments.filter(name=> name!=='colormap' && name!=='background')).length
+    return (
+      <div className="textBox panel panel-default">
+        <p>
+          { 
+            `The `}<u>MAX Image Segmenter</u>{` processed the image and identified `}
+            <b> { numSegments } </b>
+            { ` object segment${ numSegments > 1 ? 's' : '' }: ` }
+            <b>
+              { Object.values(props.image.foundSegments.filter(name=> name!=='colormap' && name!=='background')).join(', ') } 
+            </b>
+            { `.` }
+        </p>
+        <p className="outputStudioText">
+          Click the segment buttons below an image to view them individually, or to download them to your local machine.
+        </p>
+        <div className="arrowIcons">
+          { isNonEmpty(props.studio.one) ? 
+            <Glyphicon glyph="arrow-left" />
+          :
+            null 
+          }
+          { isNonEmpty(props.studio.two) ? 
+            <Glyphicon glyph="arrow-right" />
+          :
+            null 
+          }
+        </div>
     </div>
   )
   } else {

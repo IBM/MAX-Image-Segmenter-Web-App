@@ -6,56 +6,61 @@
 }
 
 .imageLabel.top {
+  min-height: 22px;
   font-weight: bold;
-  padding: 2%;
   background-color: #aaa;
   text-transform: uppercase;
+}
+
+.thumbImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: auto 0 0 0;
 }
 
 .savedImageThumb {
   color: black;
   background-color: #eee;
-  width: 22vh;
-  height: 22vh;
-  margin: auto .5% auto .5%;
+  width: 23vh;
+  height: 90%;
+  margin: 0 .5% 0 .5%;
   border-radius: 8px;
   display: flex;
   cursor: pointer;
   overflow: hidden;
   flex-flow: column;
   border: 1px solid #aaa;
+  overflow: hidden;
 }
 
 .selectedImageThumb {
   border-color: #5fbfbb;
-  background-color: darkturquoise; 
-  width: 22vh;
-  height: 22vh;
-  margin: auto .5% auto .5%;
+  background-color: #0aa; 
+  width: 23vh;
+  height: 90%;
+  margin: 0 .5% 0 .5%;
   border-radius: 8px;
   display: flex;
   cursor: pointer;
-  overflow: hidden;
   flex-flow: column;
   border: 1px solid #5fbfbb;
   color: #fff;
+  overflow: hidden;
+}
+
+.selectedImageThumb > .thumbImage {
+  margin-top: 25px;
 }
 
 .selectedImageThumb > .imageLabel.top {
   background-color: #0aa; 
+  height: 26px;
 }
 
-.selectedImageThumb > .thumbCircle,
-.selectedImageThumb:hover > .thumbCircle {
-  background-color: #0aa;
-}
-.selectedImageThumb > .thumbCircle > p,
-.selectedImageThumb:hover > .thumbCircle > p {
-  color: white;
-}
-
-.selectedImageThumb > .thumbImage {
-  margin-top: 0; 
+.selectedImageThumb > .imageGlyph.add,
+.selectedImageThumb:hover > .imageGlyph.add {
+  color: cyan;
 }
 
 .savedImageThumb:hover {
@@ -68,18 +73,12 @@
   background-color: #0aa;
 }
 
-.savedImageThumb:hover > .thumbCircle {
-  background-color: #0aa;
-}
-.savedImageThumb:hover > .thumbCircle > p {
-  color: darkturquoise;
+.savedImageThumb:hover > .imageGlyph {
+  color: #0aa;
 }
 
-.savedImageThumb:hover > .thumbCircle.eraser {
-  background-color: darkred;
-}
-.savedImageThumb:hover > .thumbCircle.eraser > p {
-  color: #0aa;
+.savedImageThumb:hover > .imageGlyph.erase {
+  color: darkred;
 }
 
 .savedImageThumb:hover > .imageLabel.bottom {
@@ -87,60 +86,47 @@
 }
 
 .controlPanel { 
+  margin: 1% 0 1% 0;
   color: white;
-  background-color: darkturquoise;
-  padding: 3%;
+  padding: 1% 0 1% 0;
   display: flex;
   flex-flow: row nowrap;
   align-content: center;
   justify-content: space-around;
 } 
 
-.controlPanel a {
+.cpbtn {
+  margin: auto;
   color: white;
   border-radius: 3px;
   padding: 1%;
-  border: 1px solid white;
+  border: 1px solid darkcyan;
   border-radius: 6px;
 }
-.controlPanel a:hover {
-  background-color: #0aa;
+.cpbtn:hover {
+  background-color: darkcyan;
+  border-color: black;
   color: white;
-  border-radius: 3px;
-  padding: 1%;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  text-decoration: none;
 }
-.controlPanel a:focus {
+.cpbtn:focus {
   background-color: #0aa;
-  color: #ddd;
-  border-radius: 3px;
-  padding: 1%;
-  border: 1px solid #ddd;
-  border-radius: 6px;
 }
 
-.thumbCircle {
+.imageGlyph {
   display: flex;
   flex-flow: column;
-  align-content: baseline;
+  align-content: center;
   justify-content: center;
   margin: auto;
-  background-color: #777;
-  border-radius: 25%;
-  width: 80%;
-  height: 80%; 
-}
-.thumbCircle > p {
-  color: #0aa;
-  margin: auto;
+  color: #aaa;
   font-size: 1000%;
 }
-.thumbCircle.eraser {
-  border-radius: 50%;
-  background-color: #777;
+
+.cpbtn.delete {
+  padding: 1% 2% 1% 2%;
 }
 
-.thumbCircle.eraser > p {
+.cpbtn.delete:hover {
   color: darkred;
 }

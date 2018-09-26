@@ -1,25 +1,28 @@
+
+
 .konvaMain {
-  min-width: 45vh !important;
-  height: 45vh !important;
+  width: 50vh !important;
+  height: 50vh !important;
 }
 
 .konvaMain > .konvajs-content {
   width: auto !important;
-  height: 100% !important;
+  height: 50vh !important;
 }
 .konvaMain > .konvajs-content > canvas {
   background-color: white !important;
-  width: 100% !important;
-  height: 100% !important;
+  width: 50vh !important;
+  height: 50vh !important;
 }
 
 .konvaDL {
   margin: .5% 0 0 0 !important;
   color: white;
-  background-color: darkturquoise;
-  border: 2px solid #0aa;
-  margin: 2% 0 2% 0;
+  background-color: lightseagreen;
+  border: 2px solid darkcyan;
 }
 .konvaDL:hover {
   background-color: #0aa;
+  border-color: green;
+  color: white;
 }

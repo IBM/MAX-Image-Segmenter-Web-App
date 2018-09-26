@@ -1,0 +1,28 @@
+.userInfo {
+  text-align: center;
+  margin: 1% auto 1% auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-content: space-between;
+  font-size: 1.25em;
+  height: 42vh;
+  padding: 1%;
+  width: 95%;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.userInfo::after {
+  opacity: .2;
+  content: " ";
+  background: url('../images/codait-logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  top: 20%;
+  left: 35%;
+  bottom: 10%;
+  right: 35%;
+  position: absolute;
+  z-index: 100;   
+}

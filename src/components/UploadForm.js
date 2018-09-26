@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, getScaledSize } from '../utils'
+import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, getScaledSize, isNonEmpty } from '../utils'
 import '../styles/UploadForm.css'
 
 const initialState = {
@@ -13,8 +13,8 @@ export default class UploadForm extends Component {
     this.state = initialState
   }
 
-  receiveUpload = e => {
-    e.preventDefault()
+  receiveUpload = () => {
+    //e.preventDefault()
     const fileObj = this.uploadRef.current.files[0]
     console.log(fileObj ? 'file' : 'nofile')
     if (fileObj) {
@@ -127,12 +127,18 @@ export default class UploadForm extends Component {
     })
   }
 
+  handleFileChange = files => {
+    if (files[0]) {
+      this.receiveUpload()
+    }
+  }
+
   render() {
     return (
       <div className="uploadFormWrapper">
       <div className="uploadForm panel panel-default">
         <h3 className="text panel-heading">
-          Select an image to begin:
+          {isNonEmpty(this.props.studio) ? `Upload another image to be processed:` : `Upload an image to be processed:`}
         </h3>  
         <div className="formWrapper">
           <form 
@@ -142,7 +148,7 @@ export default class UploadForm extends Component {
             
             <label className="pickerLabel" htmlFor="filePicker">
               <span className="btn btn-primary formBtn filePickerBtn">
-                Choose Image
+                Select Image
               </span>
             </label>
             <span>
@@ -154,17 +160,8 @@ export default class UploadForm extends Component {
               id="filePicker" 
               ref={ this.uploadRef } 
               type="file" 
+              onChange={ e => this.handleFileChange(e.target.files) }
               accept="image/*" />
-
-            <label className="submitLabel" htmlFor="submitter">
-              <span className="btn btn-primary formBtn submitBtn">
-                Send To MAX Model
-              </span>
-            </label>
-            <input 
-              id="submitter" 
-              type="submit" 
-              value="Upload" />
           </form>
         </div>
       </div>
