@@ -262,7 +262,7 @@ export default class App extends Component {
                 this.state.uploadMode && isNonEmpty(this.state.previewImg) && 
                 !isNonEmpty(this.state.studio.one) ?
                   <div className="uploadWrapper">
-                    <TextOutput />
+                    <UserInfoText mode='loading-left' />
                   </div>
                 :
                   null
@@ -302,7 +302,7 @@ export default class App extends Component {
                 this.state.uploadMode && isNonEmpty(this.state.previewImg) &&
                 !isNonEmpty(this.state.studio.two) ?
                   <div className="uploadWrapper">
-                    <TextOutput />
+                    <UserInfoText mode='loading-right' />
                   </div>
                 :
                   null
