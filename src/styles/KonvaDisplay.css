@@ -10,7 +10,7 @@
   height: 50vh !important;
 }
 .konvaMain > .konvajs-content > canvas {
-  background-color: white !important;
+  background-color: #f5f5f5 !important;
   width: 50vh !important;
   height: 50vh !important;
 }
@@ -18,11 +18,11 @@
 .konvaDL {
   margin: .5% 0 0 0 !important;
   color: white;
-  background-color: lightseagreen;
+  background-color: #0aa;
   border: 2px solid darkcyan;
 }
 .konvaDL:hover {
-  background-color: #0aa;
+  background-color: #99c24d;
   border-color: green;
   color: white;
 }

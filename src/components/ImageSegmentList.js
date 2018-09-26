@@ -6,9 +6,9 @@ import '../styles/ImageSegmentList.css'
 const ImageSegmentList = props => {
   let scrollClass
   const segments = Object.keys(props.image.segments)
-  if (segments.length > 5) {
+  if (segments.length > 7) {
     scrollClass = 'segmentListScrollLong'
-  } else if (segments.length > 4) {
+  } else if (segments.length > 5) {
     scrollClass = 'segmentListScroll'
   } else {
     scrollClass = 'segmentList'

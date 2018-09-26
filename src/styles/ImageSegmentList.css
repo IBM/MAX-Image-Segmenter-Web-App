@@ -4,8 +4,8 @@
   flex-flow: column;
   align-content: center;
   justify-content: center;
-  margin: 2% auto 5% auto;
-  width: 22vh;
+  margin: 0 0 5% 0;
+  width: 100%;
   overflow: hidden;
   
 }
@@ -16,9 +16,9 @@
   flex-flow: column;
   align-content: flex-start;
   justify-content: start;
-  margin: 2% auto 5% auto;
-  width: 22vh;
-  height: 28vh;
+  margin: 0 0 5% 0;
+  width: 100%;
+  max-height: 28vh;
 }
 
 
@@ -28,19 +28,17 @@
   flex-flow: column;
   align-content: flex-start;
   justify-content: start;
-  margin: 2% auto 5% auto;
-  width: 22vh;
-  height: 40vh;
+  margin: 0 0 5% 0;
+  width: 100%;
+  max-height: 40vh;
 }
 
 .studioSegLabel {
-  width: 90%;
-  margin: 0 auto 0 auto;
+  width: 100%;
+  margin: 0 auto 0 auto !important;
   text-transform: capitalize;
   background-color: #2e4057;
   color: white;
-  border-radius: 6px;
-  border: 1px solid #0aa;
   padding: 1%;
   cursor: pointer;
 }
@@ -60,29 +58,20 @@
 }
 
 .downloadSegLabel {
-  width: 90%;
-  margin: 3% auto 0 auto;
+  width: 100%;
+  margin: 0 auto 0 auto;
   text-transform: capitalize;
   background-color: #2e4057;
   color: #99c24d;
-  border: 1px solid lightseagreen; 
-  border-radius: 6px;
-  padding: 0;
+  padding: 1%;
   cursor: pointer;
 }
 
 .downloadSegLabel:hover {
   color: white;
   background-color: darkturquoise;
-  border-color: #2e4057;
-  border-radius: 6px;
 }
 
 .dlText {
   padding-left: 2%;
-  border-left: 1px solid darkcyan;
-}
-
-.downloadSegLabel > .glyphicon {
-  margin-top: 2%;
 }

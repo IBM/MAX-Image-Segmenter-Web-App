@@ -35,6 +35,7 @@
 
 .selectedImageThumb {
   background-color: #0aa; 
+  border: 1px solid #2e4057;
   width: 23vh;
   height: 90%;
   margin: 0 .5% 0 .5%;
@@ -97,9 +98,9 @@
   margin: auto;
   color: white;
   border-radius: 3px;
-  padding: 1%;
-  background-color: #2e4057;
-  border-radius: 6px;
+  padding: 1% 2% 1% 2%;
+  background-color: darkcyan;
+  border-radius: 4px;
 }
 .cpbtn:hover {
   background-color: darkturquoise;
