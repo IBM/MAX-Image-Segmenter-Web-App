@@ -15,7 +15,7 @@ const LoadedStudioImage = props => {
       </h3>
       <div className="loadedImageWrapper"
       style={{
-        backgroundSize: `contain`,
+        backgroundSize: `cover`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         backgroundImage: `url(${ selected ? image.segments[selected].url : source.url })`

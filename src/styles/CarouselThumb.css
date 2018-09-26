@@ -8,8 +8,9 @@
 .imageLabel.top {
   min-height: 22px;
   font-weight: bold;
-  background-color: #aaa;
+  background-color: #2e4057;
   text-transform: uppercase;
+  color: white;
 }
 
 .thumbImage {
@@ -20,8 +21,7 @@
 }
 
 .savedImageThumb {
-  color: black;
-  background-color: #eee;
+  background-color: #0aa;;
   width: 23vh;
   height: 90%;
   margin: 0 .5% 0 .5%;
@@ -30,12 +30,10 @@
   cursor: pointer;
   overflow: hidden;
   flex-flow: column;
-  border: 1px solid #aaa;
   overflow: hidden;
 }
 
 .selectedImageThumb {
-  border-color: #5fbfbb;
   background-color: #0aa; 
   width: 23vh;
   height: 90%;
@@ -44,7 +42,6 @@
   display: flex;
   cursor: pointer;
   flex-flow: column;
-  border: 1px solid #5fbfbb;
   color: #fff;
   overflow: hidden;
 }
@@ -54,27 +51,28 @@
 }
 
 .selectedImageThumb > .imageLabel.top {
+  color: white;
   background-color: #0aa; 
   height: 26px;
 }
 
 .selectedImageThumb > .imageGlyph.add,
 .selectedImageThumb:hover > .imageGlyph.add {
-  color: cyan;
+  color: darkturquoise;
 }
 
 .savedImageThumb:hover {
-  background-color: darkturquoise; 
-  border-color: #5fbfbb;
+  background-color: #0aa; 
   color: #fff;
 }
 
 .savedImageThumb:hover > .imageLabel.top {
   background-color: #0aa;
+  color: white;
 }
 
 .savedImageThumb:hover > .imageGlyph {
-  color: #0aa;
+  color: #99c24d;
 }
 
 .savedImageThumb:hover > .imageGlyph.erase {
@@ -100,12 +98,11 @@
   color: white;
   border-radius: 3px;
   padding: 1%;
-  border: 1px solid darkcyan;
+  background-color: #2e4057;
   border-radius: 6px;
 }
 .cpbtn:hover {
-  background-color: darkcyan;
-  border-color: black;
+  background-color: darkturquoise;
   color: white;
   text-decoration: none;
 }
@@ -119,14 +116,10 @@
   align-content: center;
   justify-content: center;
   margin: auto;
-  color: #aaa;
+  color: #2e4057;
   font-size: 1000%;
 }
 
 .cpbtn.delete {
   padding: 1% 2% 1% 2%;
-}
-
-.cpbtn.delete:hover {
-  color: darkred;
 }

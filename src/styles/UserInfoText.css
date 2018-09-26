@@ -1,4 +1,6 @@
 .userInfo {
+  background-color: #2e4057 !important;
+  color: white !important;
   text-align: center;
   margin: 1% auto 1% auto;
   display: flex;

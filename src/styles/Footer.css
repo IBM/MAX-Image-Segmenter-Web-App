@@ -1,6 +1,6 @@
 footer {
-  color: #f5f5f5;
-  background-color: #0aa;
+  color: white;
+  background-color: #2f2d2e;
   text-align: center;
   height: 8vh;
 }
@@ -19,7 +19,7 @@ footer {
 }
 
 .maxLink {
-  color: blue;
+  color: darkturquoise;
 }
 
 .maxLink:hover {

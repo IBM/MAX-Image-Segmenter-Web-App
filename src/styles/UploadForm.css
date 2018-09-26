@@ -43,15 +43,15 @@ form > label {
 }
 
 .formBtn {
-  background-color: darkturquoise;
+  background-color: #0aa;
   cursor: pointer;
-  border-color: #5FBFBB;
+  border-color: #0aa;
   margin: 2% !important;
 }
 
 .formBtn:hover {
-  background-color: #0aa;
-  border-color: #0aa;
+  background-color: #99c24d;
+  border-color: #99c24d;
 }
 
 .uploadFormWrapper {
@@ -64,6 +64,7 @@ form > label {
 
 .uploadForm {
   margin: 2% auto 2% auto;
+  border-color: #2f2d2e !important;
 }
 
 .text {
@@ -73,6 +74,8 @@ form > label {
   margin: auto auto 5% auto;
   width: 100%;
   display: block;
+  background-color: #2f2d2e !important; 
+  color: white !important;
 }
 
 #submitter {

@@ -1,5 +1,5 @@
 .segmentList {
-  background-color: #eee;
+  background-color: #0aa;
   display: flex;
   flex-flow: column;
   align-content: center;
@@ -11,7 +11,7 @@
 }
 
 .segmentListScroll {
-  background-color: #eee;
+  background-color: #0aa;
   display: flex;
   flex-flow: column;
   align-content: flex-start;
@@ -23,7 +23,7 @@
 
 
 .segmentListScrollLong {
-  background-color: #eee;
+  background-color: #0aa;
   display: flex;
   flex-flow: column;
   align-content: flex-start;
@@ -37,46 +37,44 @@
   width: 90%;
   margin: 0 auto 0 auto;
   text-transform: capitalize;
-  background-color: white;
-  color: darkturquoise;
-  border: 2px solid darkturquoise; 
+  background-color: #2e4057;
+  color: white;
   border-radius: 6px;
+  border: 1px solid #0aa;
   padding: 1%;
   cursor: pointer;
 }
 .studioSegLabel:hover {
-  border: 2px solid darkcyan; 
-  background-color: lightcyan;
+  background-color: darkturquoise;
 }
 .studioSegLabel + .studioSegLabel {
   margin-top: 2%;
 }
 
 .studioSegLabel.selected {
-  border: 2px solid darkcyan; 
-  background-color: darkturquoise;
+  background-color: #99c24d;
   color: white;
 }
 .studioSegLabel.selected:hover {
-  border: 2px solid darkturquoise; 
   color: darkcyan;
 }
 
 .downloadSegLabel {
-  width: 92%;
+  width: 90%;
   margin: 3% auto 0 auto;
   text-transform: capitalize;
-  background-color: lightseagreen;
-  color: #f5f5f5;
-  border: 2px solid darkcyan; 
+  background-color: #2e4057;
+  color: #99c24d;
+  border: 1px solid lightseagreen; 
   border-radius: 6px;
   padding: 0;
   cursor: pointer;
 }
 
 .downloadSegLabel:hover {
-  background-color: #0aa;
-  border: 2px solid green; 
+  color: white;
+  background-color: darkturquoise;
+  border-color: #2e4057;
   border-radius: 6px;
 }
 

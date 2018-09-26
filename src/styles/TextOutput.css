@@ -1,4 +1,7 @@
 .textBox {
+  background-color: #0aa;
+  border-color: #0aa !important;
+  color: white;
   margin: 1% auto 1% auto;
   display: flex;
   flex-flow: column;
@@ -72,7 +75,7 @@
 }
 
 .arrowIcons > .glyphicon {
-  color: #aaa !important;
+  color: #99c24d !important;
 }
 
 .arrowIcons {
