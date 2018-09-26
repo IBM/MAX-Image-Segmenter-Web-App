@@ -4,8 +4,10 @@ import '../styles/UserInfoText.css'
 const UserInfoText = props => {
   const currentMode = props.mode
   return (
-    <div className="textBox panel panel-default userInfo">
-      { renderMessage(currentMode) }
+    <div className="uploadWrapper">
+      <div className="textBox panel panel-default userInfo">
+        { renderMessage(currentMode) }
+      </div>
     </div>
   )
 }

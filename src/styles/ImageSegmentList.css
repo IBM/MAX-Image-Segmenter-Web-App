@@ -1,90 +1,77 @@
 .segmentList {
-  background-color: #eee;
+  background-color: #0aa;
   display: flex;
   flex-flow: column;
   align-content: center;
   justify-content: center;
-  margin: 2% auto 5% auto;
-  width: 22vh;
+  margin: 0 0 5% 0;
+  width: 100%;
   overflow: hidden;
   
 }
 
 .segmentListScroll {
-  background-color: #eee;
+  background-color: #0aa;
   display: flex;
   flex-flow: column;
   align-content: flex-start;
   justify-content: start;
-  margin: 2% auto 5% auto;
-  width: 22vh;
-  height: 28vh;
+  margin: 0 0 5% 0;
+  width: 100%;
+  max-height: 28vh;
 }
 
 
 .segmentListScrollLong {
-  background-color: #eee;
+  background-color: #0aa;
   display: flex;
   flex-flow: column;
   align-content: flex-start;
   justify-content: start;
-  margin: 2% auto 5% auto;
-  width: 22vh;
-  height: 40vh;
+  margin: 0 0 5% 0;
+  width: 100%;
+  max-height: 40vh;
 }
 
 .studioSegLabel {
-  width: 90%;
-  margin: 0 auto 0 auto;
+  width: 100%;
+  margin: 0 auto 0 auto !important;
   text-transform: capitalize;
-  background-color: white;
-  color: darkturquoise;
-  border: 2px solid darkturquoise; 
-  border-radius: 6px;
+  background-color: #2e4057;
+  color: white;
   padding: 1%;
   cursor: pointer;
 }
 .studioSegLabel:hover {
-  border: 2px solid darkcyan; 
-  background-color: lightcyan;
+  background-color: darkturquoise;
 }
 .studioSegLabel + .studioSegLabel {
   margin-top: 2%;
 }
 
 .studioSegLabel.selected {
-  border: 2px solid darkcyan; 
-  background-color: darkturquoise;
+  background-color: #99c24d;
   color: white;
 }
 .studioSegLabel.selected:hover {
-  border: 2px solid darkturquoise; 
   color: darkcyan;
 }
 
 .downloadSegLabel {
-  width: 92%;
-  margin: 3% auto 0 auto;
+  width: 100%;
+  margin: 0 auto 0 auto;
   text-transform: capitalize;
-  background-color: lightseagreen;
-  color: #f5f5f5;
-  border: 2px solid darkcyan; 
-  border-radius: 6px;
-  padding: 0;
+  background-color: #2e4057;
+  color: #99c24d;
+  padding: 1%;
   cursor: pointer;
 }
 
 .downloadSegLabel:hover {
-  background-color: #0aa;
-  border: 2px solid green; 
-  border-radius: 6px;
+  color: white;
+  background-color: darkturquoise;
 }
 
 .dlText {
   padding-left: 2%;
-  border-left: 1px solid darkcyan;
-}
-
-.downloadSegLabel > .glyphicon {
-  margin-top: 2%;
 }

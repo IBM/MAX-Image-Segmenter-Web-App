@@ -30,7 +30,7 @@ or `http://localhost:5000` to view the MAX model's API documentation.
 ### Option 2: Build/Run with Docker
 
 * Simply run the Magic Cropping Tool container with the command  
-`docker run -it -p 3000:3000 kastentx/magic-cropping-tool`   
+`docker run -it -p 3000:3000 kastentx/max-cropping-tool`   
 _(development-use image)_
 
 Open your browser and navigate to `http://localhost:3000` to run the app, 

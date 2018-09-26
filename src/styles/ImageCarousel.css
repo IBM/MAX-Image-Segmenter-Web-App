@@ -6,17 +6,18 @@
   flex-flow: row nowrap;
   align-content: center;
   justify-content: center;
+  background-color: #f18f01;
 }
 
 .carousel-control {
   background-image: none !important;
-  color: #0aa;
+  color: darkturquoise;
 }
 
 .glyphicon-chevron-left:before {
-  color: #0aa;
+  color: darkturquoise;
 }
 
 .glyphicon-chevron-right:before { 
-  color: #0aa;
+  color: darkturquoise;
 }
