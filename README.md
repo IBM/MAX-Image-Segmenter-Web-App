@@ -8,7 +8,7 @@ The official docs recommend using [Docker](https://docs.docker.com/) to run the 
 
 Once the required steps have been completed to install Docker, use the following command to run the model:  
 `docker run -it -p 5000:5000 -e CORS_ENABLE=true kastentx/cors-max-imgseg`  
-_(custom MAX Model image being used pending merge of [PR #14](https://github.com/IBM/MAX-Image-Segmenter/pull/14))_ 
+_(custom MAX Model image being used pending merge of [PR #14] (https://github.com/IBM/MAX-Image-Segmenter/pull/14) & docker image rebuild)_ 
 
 Once Docker downloads the image and starts the container, you should see logging info in the terminal indicating that the server is `Running on http://0.0.0.0:5000/`, among other things. 
 
@@ -30,7 +30,7 @@ or `http://localhost:5000` to view the MAX model's API documentation.
 ### Option 2: Build/Run with Docker
 
 * Simply run the Magic Cropping Tool container with the command  
-`docker run -it -p 3000:3000 kastentx/img-upload-app`   
+`docker run -it -p 3000:3000 kastentx/magic-cropping-tool`   
 _(development-use image)_
 
 Open your browser and navigate to `http://localhost:3000` to run the app, 
@@ -70,8 +70,6 @@ If you receive an error about duplicate containers or container names already be
 
 <hr>
 <div style="text-align: center">
-<b>DEMO VIDEO</b> <br>  
-<i>in development</i>
 
 #### Uploading Images
 ![upload](./screenshots/upload.png)
@@ -84,4 +82,7 @@ If you receive an error about duplicate containers or container names already be
 
 #### Creating Images with Saved Objects in Studio
 ![upload](./screenshots/studio.png)
+
+<b>DEMO VIDEO</b> <br>  
+<i>in development</i>
 </div>
