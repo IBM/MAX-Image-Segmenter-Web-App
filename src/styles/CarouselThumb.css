@@ -100,15 +100,17 @@
   color: white;
   border-radius: 3px;
   padding: 1%;
-  border: 1px solid white;
+  border: 1px solid darkcyan;
   border-radius: 6px;
 }
 .cpbtn:hover {
-  background-color: darkturquoise;
+  background-color: darkcyan;
+  border-color: black;
+  color: white;
+  text-decoration: none;
 }
 .cpbtn:focus {
   background-color: #0aa;
-  color: #ddd;
 }
 
 .imageGlyph {
@@ -119,4 +121,12 @@
   margin: auto;
   color: #aaa;
   font-size: 1000%;
+}
+
+.cpbtn.delete {
+  padding: 1% 2% 1% 2%;
+}
+
+.cpbtn.delete:hover {
+  color: darkred;
 }

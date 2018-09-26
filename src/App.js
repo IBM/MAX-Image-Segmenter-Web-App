@@ -162,6 +162,7 @@ export default class App extends Component {
               previewImg={ this.state.previewImg } />
           :
             <UploadForm 
+              studio={ this.state.studio }
               canvas={ this.canvasRef.current }
               imageLoaded={ this.state.canvasReady }
               addSegURL={ this.addSegURL }

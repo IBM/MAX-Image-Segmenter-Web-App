@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, getScaledSize } from '../utils'
+import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, getScaledSize, isNonEmpty } from '../utils'
 import '../styles/UploadForm.css'
 
 const initialState = {
@@ -138,7 +138,7 @@ export default class UploadForm extends Component {
       <div className="uploadFormWrapper">
       <div className="uploadForm panel panel-default">
         <h3 className="text panel-heading">
-          Upload an image to be processed:
+          {isNonEmpty(this.props.studio) ? `Upload another image to be processed:` : `Upload an image to be processed:`}
         </h3>  
         <div className="formWrapper">
           <form 

@@ -1,5 +1,4 @@
 import React from 'react'
-import logo from '../images/codait-logo.png'
 import '../styles/AppHeader.css'
 
 const AppHeader = props => { 

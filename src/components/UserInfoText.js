@@ -18,7 +18,7 @@ const renderMessage = mode => {
   } else if (mode === 'studio-loading') {
     return (
 
-      `Choose or upload another image begin combining objects and creating new images in the Studio.`
+      `Choose or upload another image to begin combining objects and creating new images in the Studio.`
       )
   }
 }
