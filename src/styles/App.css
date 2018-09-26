@@ -66,6 +66,7 @@ html > body > #root > div {
 .mainContent {
   height: 100%;
   background-color: #2e4057;
+  border-bottom: 1px solid #f5f5f5;
 }
 
 .containerfluid {
