@@ -6,7 +6,7 @@ const Footer = () => {
     <footer>
         <p className="maxMsg">
           Start building your own Machine Learning powered apps 
-          with open-souce models from the 
+          with open-source models from the 
           <a 
             className="maxLink" 
             href="https://developer.ibm.com/code/exchanges/models/">
