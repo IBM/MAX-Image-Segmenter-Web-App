@@ -12,7 +12,7 @@ _(custom MAX Model image being used pending merge of [PR #14] (https://github.co
 
 Once Docker downloads the image and starts the container, you should see logging info in the terminal indicating that the server is `Running on http://0.0.0.0:5000/`, among other things. 
 
-Leave this terminal open, with the model server running, and continue with the folllowing steps in a new terminal window.
+Leave this terminal open, with the model server running, and continue with the following steps in a new terminal window.
 
 ## Step 2: Start the Web App
 
@@ -49,7 +49,7 @@ If you receive errors about ports being in use, check to make sure nothing else 
 
 ## Alternative Install Option: Build/Run MAX Model + Web App in one step with Docker-Compose
 
-* First, download the configuriation file from a terminal window with the command  
+* First, download the configuration file from a terminal window with the command  
   `curl https://raw.githubusercontent.com/IBM/MAX-ImgSeg-Magic-Cropping-Tool/downloads/docker-compose.yml > docker-compose.yml`
 
 * Then, in the same directory as this file you've just downloaded, use the following command to build and run the containers with [docker-compose](https://docs.docker.com/compose/).
