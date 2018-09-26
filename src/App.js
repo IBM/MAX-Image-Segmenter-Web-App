@@ -10,6 +10,7 @@ import ImageCarousel from './components/ImageCarousel'
 import Footer from './components/Footer'
 import { cleanDocs, getAllDocs, saveToPouch, deleteSingleImage, deleteAllImages, isNonEmpty, getSingleImage } from './utils'
 import './styles/App.css'
+import UserInfoText from './components/UserInfoText'
 
 export default class App extends Component {
   initialState = {
@@ -21,7 +22,8 @@ export default class App extends Component {
     savedImages: [],
     hoverImage: '',
     selectedImage: '',
-    studio: {}
+    studio: {},
+    mode: 'initial'
   }
 
   constructor(props) {
@@ -34,6 +36,7 @@ export default class App extends Component {
     this.setState({
       savedImages: cleanDocs(await getAllDocs())
     })
+    console.log('initialLoad')
   }
 
   addSegURL = async (name, url) => {
@@ -57,16 +60,16 @@ export default class App extends Component {
         uploadMode: false,
         previewImg: {}
       })
+      // here, state needs to be updated to get rid of these bool flags and use string mode
 
-      // beginning stages of preloading images into the studio
       if (!isNonEmpty(this.state.studio)) {
         console.log(`empty studio - could go in the BG slot`)
         const singleImageDoc = await getSingleImage(pouchResponse.id)
-        //console.log(`${Object.keys(cleanDocs({ rows: [{value: pouchResponse.rev,  doc: singleImageDoc}] })[0]) }`)
         this.setState({
           studio: {
-            one: cleanDocs({ rows: [{value: pouchResponse.rev,  doc: singleImageDoc}] })[0]
-          }
+            one: cleanDocs({ rows: [{value: pouchResponse.rev,  doc: singleImageDoc}] })[0],
+          },
+          mode: 'studio-loading'
         })
       } else if (isNonEmpty(this.state.studio.one)) {
         console.log(`BG image preloaded - could go in the front slot`)
@@ -75,10 +78,14 @@ export default class App extends Component {
           studio: {
             ...this.state.studio,
             two: cleanDocs({ rows: [{value: pouchResponse.rev,  doc: singleImageDoc}] })[0]
-          }
+          },
+          mode: 'studio'
         })
       } else {
         console.log(`loaded studio - overwriting the front image`)
+        this.setState({
+          mode: 'studio'
+        })
       }
     }
     return null
@@ -118,20 +125,26 @@ export default class App extends Component {
       this.setState({
         ...this.initialState,
         savedImages: this.state.savedImages,
-        studio: this.state.studio
+        studio: this.state.studio,
+        mode: isNonEmpty(this.state.studio) ? 'studio-loading' : 'initial'
       })
     } else {
       this.setState({ 
         ...this.initialState,
         savedImages: this.state.savedImages,
         uploadMode: true,
-        studio: this.state.studio
+        studio: this.state.studio,
+        mode: 'upload'
       })
     }
   }
 
   renderMainColumn() {
-    if (this.state.uploadMode) { 
+    if (this.state.mode === 'initial') {
+      return <UserInfoText mode={ this.state.mode } />
+    } else if (this.state.mode === 'studio-loading') {
+      return <UserInfoText mode={ this.state.mode } />
+    } else if (this.state.mode === 'upload') { 
       return (
         <span>
           <canvas 
