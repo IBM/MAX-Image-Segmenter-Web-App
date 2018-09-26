@@ -1,4 +1,5 @@
 import React from 'react'
+import { Glyphicon } from 'react-bootstrap'
 import { downloadSegments } from '../utils'
 import '../styles/ImageSegmentList.css'
 
@@ -7,7 +8,7 @@ const ImageSegmentList = props => {
   const segments = Object.keys(props.image.segments)
   if (segments.length > 5) {
     scrollClass = 'segmentListScrollLong'
-  } else if (segments.length > 3) {
+  } else if (segments.length > 4) {
     scrollClass = 'segmentListScroll'
   } else {
     scrollClass = 'segmentList'
@@ -31,7 +32,7 @@ const ImageSegmentList = props => {
         key='download'
         className="downloadSegLabel"
         onClick={ () => downloadSegments(props.image) }>
-        Download all segments
+        <Glyphicon glyph="floppy-disk" /> <span className="dlText ">{` Download Segments`}</span>
       </span>
     </div>
   )

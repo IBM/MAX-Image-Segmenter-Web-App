@@ -18,7 +18,7 @@ export default class App extends Component {
     imageLoaded: false,
     image: {},
     previewImg: {},
-    selectedObject: 'colormap',
+    selectedObject: '',
     savedImages: [],
     hoverImage: '',
     selectedImage: '',
@@ -55,7 +55,7 @@ export default class App extends Component {
       console.log(`Saved image w/ MAX Model Data in PouchDB. id: ${ pouchResponse.id }`)
       this.setState({
         canvasReady: true,
-        selectedObject: 'colormap',
+        selectedObject: '',
         savedImages: cleanDocs(await getAllDocs()),
         uploadMode: false,
         previewImg: {}
@@ -79,12 +79,12 @@ export default class App extends Component {
             ...this.state.studio,
             two: cleanDocs({ rows: [{value: pouchResponse.rev,  doc: singleImageDoc}] })[0]
           },
-          mode: 'studio'
+          mode: this.studioReady() ? 'studio' : 'studio-loading'
         })
       } else {
         console.log(`loaded studio - overwriting the front image`)
         this.setState({
-          mode: 'studio'
+          mode: this.studioReady() ? 'studio' : 'studio-loading'
         })
       }
     }
@@ -142,8 +142,13 @@ export default class App extends Component {
   renderMainColumn() {
     if (this.state.mode === 'initial') {
       return <UserInfoText mode={ this.state.mode } />
-    } else if (this.state.mode === 'studio-loading') {
-      return <UserInfoText mode={ this.state.mode } />
+    } else if (this.state.mode === 'studio-loading' && isNonEmpty(this.state.image)) {
+      return (
+        <TextOutput 
+          side="center"  
+          image={ this.state.image } 
+          studio={ this.state.studio } />
+        )
     } else if (this.state.mode === 'upload') { 
       return (
         <span>
@@ -177,21 +182,7 @@ export default class App extends Component {
           }
         </span>
       )
-    } /* 
-      else if (isNonEmpty(this.state.image)) {
-      return (
-          <ImageDisplay 
-            image={ this.state.image } 
-            selectedObject={ this.state.selectedObject }
-            setSelectedObject={ object =>
-              this.setState({
-                selectedObject : object
-              })
-            } />
-      )
-    } 
-      */
-      else if (this.studioReady()) {
+    } else if (this.studioReady()) {
         return (
           <KonvaDisplay 
             BG={ this.state.studio.one } 
@@ -205,15 +196,14 @@ export default class App extends Component {
   }
 
   studioReady = () => {
-    return (
-      (isNonEmpty(this.state.studio.one) && isNonEmpty(this.state.studio.two)) &&
-      (isNonEmpty(this.state.studio.one.selected) || isNonEmpty(this.state.studio.two.selected))
-    )
+    const check = ((isNonEmpty(this.state.studio.one) && isNonEmpty(this.state.studio.two)) &&
+    (isNonEmpty(this.state.studio.one.selected) || isNonEmpty(this.state.studio.two.selected))) || false
+    console.log(check)
+    return check
   }
 
   handleStudioSegmentSelect = (slotNum, segment) => {
     if (this.state.studio[slotNum].selected === segment) {
-      console.log(`matching`)
       this.setState({
         studio: {
           ...this.state.studio,
@@ -221,7 +211,8 @@ export default class App extends Component {
             ...this.state.studio[slotNum],
             selected: null
           }
-        }
+        },
+        mode: 'studio'
       })
     } else {
       this.setState({
@@ -231,7 +222,8 @@ export default class App extends Component {
             ...this.state.studio[slotNum],
             selected: segment
           }
-        }
+        },
+        mode: 'studio'
       })
     }
   }
@@ -247,6 +239,12 @@ export default class App extends Component {
             <Col 
               className="sideCol"
               xs={ 3 }>
+              { // this can be cleaned up by extracting into a 'renderSideColumn' method
+                this.state.mode === 'studio-loading' && !isNonEmpty(this.state.studio.one) ?
+                  <UserInfoText mode={ this.state.mode } />
+                :
+                  null
+              }
               { 
                 isNonEmpty(this.state.studio.one) ?
                   <div className="uploadWrapper">
@@ -258,23 +256,6 @@ export default class App extends Component {
                   </div>
                 :
                   null
-              }
-              { /*
-                !this.state.uploadMode && isNonEmpty(this.state.image) ?
-                  <div className="uploadWrapper">
-                    <TextOutput
-                      side={ `left` }
-                      image={ this.state.image }
-                      segData={ this.state.image.response } 
-                      setSelectedObject={ object =>
-                        this.setState({
-                          selectedObject : object
-                        })
-                      } />
-                  </div>
-                :
-                  null
-                  */
               }
               {
                 this.state.uploadMode && isNonEmpty(this.state.previewImg) && 
@@ -298,6 +279,12 @@ export default class App extends Component {
             <Col 
               className="sideCol"
               xs={ 3 }>
+              { // this can be cleaned up by extracting into a 'renderSideColumn' method
+                this.state.mode === 'studio-loading' && !isNonEmpty(this.state.studio.two) ?
+                  <UserInfoText mode={ this.state.mode } />
+                :
+                  null
+              }
               { 
                 isNonEmpty(this.state.studio.two) ?
                   <div className="uploadWrapper">
@@ -309,24 +296,6 @@ export default class App extends Component {
                   </div>
                 :
                   null
-              }
-              {
-                /*
-                !this.state.uploadMode && isNonEmpty(this.state.image) ?
-                  <div className="uploadWrapper">
-                    <TextOutput
-                      side={ `right` }
-                      image={ this.state.image }
-                      segData={ this.state.image.response }
-                      setSelectedObject={ object =>
-                        this.setState({
-                          selectedObject : object
-                        })
-                      } />
-                  </div>
-                :
-                  null
-                */
               }
               {
                 this.state.uploadMode && isNonEmpty(this.state.previewImg) &&
@@ -359,7 +328,9 @@ export default class App extends Component {
                   studio: {
                     ...this.state.studio,
                     [slotNum]: image
-                  }  
+                  },
+                  mode: (isNonEmpty(this.state.studio.one) && isNonEmpty(this.state.studio.two)) 
+                          && (isNonEmpty(this.state.studio.one.selected) || isNonEmpty(this.state.studio.two.selected)) ? 'studio' : 'studio-loading'
                 }) } />
           </Row>
 

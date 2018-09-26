@@ -6,7 +6,7 @@
   align-content: space-between;
   font-size: 1.25em;
   height: 42vh;
-  padding: 1%;
+  padding: 5% 1% 1% 1%;
   width: 95%;
 }
 .textBox > p {
@@ -69,4 +69,19 @@
   border-radius: 6px;
   padding: 1%;
   cursor: pointer;
+}
+
+.arrowIcons > .glyphicon {
+  color: #aaa !important;
+}
+
+.arrowIcons {
+  font-size: 350%;
+  
+  display: flex;
+  flex: column;
+  align-content: center;
+  justify-content: space-between;
+  margin: auto 0 auto 0;
+  padding: 0 10% 0 10%;
 }

@@ -46,6 +46,7 @@
 }
 .studioSegLabel:hover {
   border: 2px solid darkcyan; 
+  background-color: lightcyan;
 }
 .studioSegLabel + .studioSegLabel {
   margin-top: 2%;
@@ -65,21 +66,25 @@
   width: 85%;
   margin: 3% auto 0 auto;
   text-transform: capitalize;
-  background-color: seagreen;
+  background-color: lightseagreen;
   color: #f5f5f5;
-  border: 2px solid green; 
+  border: 2px solid darkcyan; 
   border-radius: 6px;
-  padding: 1%;
+  padding: 0;
   cursor: pointer;
 }
 
 .downloadSegLabel:hover {
-  text-transform: capitalize;
-  background-color: green;
-  color: #f5f5f5;
+  background-color: #0aa;
   border: 2px solid green; 
   border-radius: 6px;
-  padding: 1%;
-  cursor: pointer;
-  margin-top: 3%;
+}
+
+.dlText {
+  padding-left: 2%;
+  border-left: 1px solid darkcyan;
+}
+
+.downloadSegLabel > .glyphicon {
+  margin-top: 2%;
 }

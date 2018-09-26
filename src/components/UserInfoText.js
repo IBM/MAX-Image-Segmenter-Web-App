@@ -17,8 +17,8 @@ const renderMessage = mode => {
     return `Click the 'Add an Image' button below to begin.`
   } else if (mode === 'studio-loading') {
     return (
-      
-      `Load another image using the carousel below to begin creating new images.`
+
+      `Choose or upload another image begin combining objects and creating new images in the Studio.`
       )
   }
 }

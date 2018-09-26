@@ -6,7 +6,7 @@ const LoadedStudioImage = props => {
   const { image, label, segSelect } = props
   const selected = image.selected
   const source = image.segments.source
-  const overflowStyle = Object.keys(image.segments).length > 3 ? 'scroll' : 'hidden' 
+  const overflowStyle = Object.keys(image.segments).length > 4 ? 'scroll' : 'hidden' 
 
   return (
     <div className="panel panel-default imagePanel">
