@@ -55,7 +55,7 @@ const TextOutput = props => {
       <div className="textBox panel panel-default">
         <p>
           { 
-            `The `}<u>MAX Image Segmenter</u>{` processed the image and identified `}
+            `The `}<u>MAX Image Segmenter</u>{ ` processed '${ props.image.name }' and identified ` }
             <b> { numSegments } </b>
             { ` object segment${ numSegments > 1 ? 's' : '' }: ` }
             <b>

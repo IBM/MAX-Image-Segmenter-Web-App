@@ -213,7 +213,7 @@ export default class App extends Component {
             selected: null
           }
         },
-        mode: 'studio'
+        mode: this.studioReady() ? 'studio' : 'studio-loading'
       })
     } else {
       this.setState({
@@ -224,7 +224,7 @@ export default class App extends Component {
             selected: segment
           }
         },
-        mode: 'studio'
+        mode: this.studioReady() ? 'studio' : 'studio-loading'
       })
     }
   }
@@ -330,8 +330,7 @@ export default class App extends Component {
                     ...this.state.studio,
                     [slotNum]: image
                   },
-                  mode: (isNonEmpty(this.state.studio.one) && isNonEmpty(this.state.studio.two)) 
-                          && (isNonEmpty(this.state.studio.one.selected) || isNonEmpty(this.state.studio.two.selected)) ? 'studio' : 'studio-loading'
+                  mode: this.studioReady() ? 'studio' : 'studio-loading'
                 }) } />
           </Row>
 
