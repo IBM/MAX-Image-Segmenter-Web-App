@@ -72,16 +72,16 @@ If you receive an error about duplicate containers or container names already be
 <div style="text-align: center">
 
 #### Uploading Images
-![upload](./screenshots/upload.png)
+<i>coming soon</i>
 
 #### MAX Image Segmenter Response
-![upload](./screenshots/max-response.png)
+<i>coming soon</i>
 
 #### Loading Images into the Studio
-![upload](./screenshots/loading-images.png)
+<i>coming soon</i>
 
 #### Creating Images with Saved Objects in Studio
-![upload](./screenshots/studio.png)
+<i>coming soon</i>
 
 <b>DEMO VIDEO</b> <br>  
 <i>in development</i>
