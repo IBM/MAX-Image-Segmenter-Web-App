@@ -90,8 +90,8 @@ export default class KonvaDisplay extends Component {
         <Stage
           className="konvaMain"
           ref={ref => this.stageRef = ref }
-          height={ 513 }
-          width={ 513 }>
+          height={ this.props.BG.height }
+          width={ this.props.BG.width }>
           <Layer> 
             { BGImage ? this.renderLayer('BG', BGImage, selected) : null }  
             { frontImage ? this.renderLayer('front', frontImage, selected) : null }
