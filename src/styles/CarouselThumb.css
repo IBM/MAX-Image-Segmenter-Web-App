@@ -22,9 +22,10 @@
 
 .savedImageThumb {
   background-color: #0aa;;
-  width: 23vh;
-  height: 90%;
-  margin: 0 .5% 0 .5%;
+  width: 18vw;
+  height: 18vw;
+  max-height: 100%;
+  margin: auto .5% auto .5%;
   border-radius: 8px;
   display: flex;
   cursor: pointer;
@@ -36,9 +37,10 @@
 .selectedImageThumb {
   background-color: #0aa; 
   border: 1px solid #2e4057;
-  width: 23vh;
-  height: 90%;
-  margin: 0 .5% 0 .5%;
+  width: 18vw;
+  height: 18vw;
+  max-height: 100%;
+  margin: auto .5% auto .5%;
   border-radius: 8px;
   display: flex;
   cursor: pointer;

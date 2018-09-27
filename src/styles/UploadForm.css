@@ -60,10 +60,6 @@ form > label {
   width: 45vh;
 }
 
-.uploadWrapper {
-  text-align: center;
-}
-
 .uploadForm {
   margin: 2% auto 2% auto;
   border-color: #2f2d2e !important;

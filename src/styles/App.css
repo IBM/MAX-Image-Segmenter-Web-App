@@ -35,6 +35,13 @@ html > body > #root > div {
 .uploadWrapper {
   margin: auto;
   text-align: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  justify-content: center;
+  padding: 0;
 }
 
 .sideCol {
@@ -67,6 +74,7 @@ html > body > #root > div {
   height: 100%;
   background-color: #2e4057;
   border-bottom: 1px solid #f5f5f5;
+  
 }
 
 .containerfluid {

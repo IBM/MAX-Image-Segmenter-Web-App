@@ -1,10 +1,10 @@
 .imagePanel {
   text-align: center;
-  margin: auto;
+  margin: 0 2% 0 2%;
   background-color: #2e4057;
   max-height: 50vh;
   min-width: 16vw;
-  max-width: 22vw;
+  max-width: 96%  !important;
   overflow: hidden;
   border-color: #2f2d2e !important;
 }
@@ -23,7 +23,7 @@ h3.loadedImageLabel {
   flex-flow: column;
   align-content: center;
   justify-content: center;
-  background-color: #f5f5f5 !important;
+  background-color: #2e4057 !important;
   padding: auto;
 }
 

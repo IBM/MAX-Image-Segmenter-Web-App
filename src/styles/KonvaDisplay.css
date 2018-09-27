@@ -1,16 +1,16 @@
 .konvaMain {
-  width: 50vh !important;
+  max-width: 50vw !important;
   max-height: 50vh !important;
 }
 
 .konvaMain > .konvajs-content {
-  width: auto !important;
+  max-width: 50vw !important;
   max-height: 50vh !important;
+  margin: auto !important;
 }
 .konvaMain > .konvajs-content > canvas {
-  margin-top: auto;
   background-color: #f5f5f5 !important;
-  width: 50vh !important;
+  max-width: 50vw !important;
   max-height: 50vh !important;
 }
 

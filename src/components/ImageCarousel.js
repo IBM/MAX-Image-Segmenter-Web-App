@@ -7,6 +7,7 @@ import '../styles/ImageCarousel.css'
 const ImageCarousel = props => {
   return (
   <Carousel
+    className="caroBar"
     interval={ null }>
     { getCarouselPages(props) }
   </Carousel>
