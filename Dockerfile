@@ -9,9 +9,6 @@ WORKDIR /workspace
 
 # envrionment variables
 ENV REACT_APP_LOCAL_MODEL_PORT=5000 \
-    REACT_APP_KUBE_MODEL_PORT= \
-    REACT_APP_KUBE_IP= \
-    REACT_APP_DEPLOY_TYPE= \
     PORT=3000
 
 # install and cache app dependencies
