@@ -9,7 +9,7 @@ import TextOutput from './components/TextOutput'
 import LoadedStudioImage from './components/LoadedStudioImage'
 import ImageCarousel from './components/ImageCarousel'
 import Footer from './components/Footer'
-import { cleanDocs, getAllDocs, saveToPouch, deleteSingleImage, deleteAllImages, isEmpty, isNonEmpty, getSingleImage } from './utils'
+import { cleanDocs, getAllDocs, saveToPouch, deleteAllImages, isEmpty, isNonEmpty, getSingleImage } from './utils'
 import './styles/App.css'
 
 export default class App extends Component {
