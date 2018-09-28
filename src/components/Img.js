@@ -26,9 +26,7 @@ class Img extends Component {
 		if (!src) {
 			throw new Error("Expected image src instead saw " + typeof src)
 		}
-
 		let img = imgCache[src]
-
 		if (!img) {
 			img = imgCache[src] = document.createElement("img")
 			img.loadFns = []
@@ -36,14 +34,12 @@ class Img extends Component {
 			img.onerror = () =>  {
 				img.error = true
 				img.errorFns.forEach(fn => fn.call(img))
-
 			}
 			img.onload = () => {
 				let hasNH = 'naturalHeight' in img,
 					w = hasNH ? 'naturalWidth' : 'width',
 					h = hasNH ? 'naturalHeight' : 'height',
 					invalidImg = img[w] + img[h] === 0
-
 				if (invalidImg) {
 					img.onerror()
 				} else {
@@ -52,28 +48,23 @@ class Img extends Component {
 				}
 			}
 		}
-
 		if (!img.loaded && !img.error) {
 			img.loadFns.push(() => {
 				img.loaded = true
 				this.setState({ loaded: true, image: img })
 			})
-
 			img.errorFns.push(() => {
 				img.error = true
 				this.setState({ error: true, image: brokenImage })
 			})
-
 		} else if (img.error) {
 			this.setState({ error: true, image: brokenImage })
 		} else {
 			this.setState({ loaded: true, image: img })
 		}
-
 		if (!img.src) {
 			img.src = src
 		}
-
 	}
 
 	fillRect = (p, c) => {
@@ -92,7 +83,6 @@ class Img extends Component {
 		switch (space) {
 			case "fill":
 				return this.fillRect(parent, child)
-
 			case "fit":
 			default:
 				return this.fitRect(parent, child)
@@ -112,7 +102,6 @@ class Img extends Component {
 			image = this.state.image,
 			imageDims = image ? { width: image.width, height: image.height } : selfDims,
 			pos = { x: this.props.x || 0, y: this.props.y || 0 }
-
 		return (
 			<Image 
 				stroke={ '#0aa' }

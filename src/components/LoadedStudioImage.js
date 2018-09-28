@@ -14,12 +14,12 @@ const LoadedStudioImage = props => {
         { label }
       </h3>
       <div className="loadedImageWrapper"
-      style={{
+      style={ {
         backgroundSize: `cover`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         backgroundImage: `url(${ selected ? image.segments[selected].url : source.url })`
-      }}>
+      } }>
       </div>
       <div style={ { maxHeight: '23vh', overflowY: overflowStyle } }>
         <ImageSegmentList 

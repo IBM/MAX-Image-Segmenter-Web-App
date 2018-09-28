@@ -2,19 +2,13 @@ import React, { Component } from 'react'
 import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, getScaledSize, isNonEmpty } from '../utils'
 import '../styles/UploadForm.css'
 
-const initialState = {
-  isLoading: false
-}
-
 export default class UploadForm extends Component {
   constructor(props) {
     super(props)
     this.uploadRef = React.createRef()
-    this.state = initialState
   }
 
   receiveUpload = () => {
-    //e.preventDefault()
     const fileObj = this.uploadRef.current.files[0]
     console.log(fileObj ? 'file' : 'nofile')
     if (fileObj) {
@@ -41,10 +35,6 @@ export default class UploadForm extends Component {
             source: canvas.toDataURL() 
           }
         }
-        this.setState({
-          isLoading: true,
-          imageName: fileObj.name
-        })
         this.props.setAppPreviewImg(newImage)
         try {
           console.log('sending to MAX...')
@@ -55,7 +45,6 @@ export default class UploadForm extends Component {
           }
           this.mapNeededURLs({ ...newImage, ...MAXData })
           this.props.setAppImageData(MAXImage)
-
         } catch (e) {
           console.error('error saving MAX Image data in parent state')
         }       
@@ -80,50 +69,49 @@ export default class UploadForm extends Component {
       let img = new Image()
       let imageURL
       img.onload = () => {
-        const flatSegMap = imageObj.response.flatSegMap
-        const { scaledWidth, scaledHeight } = getScaledSize({
-          height: img.naturalHeight, 
-          width: img.naturalWidth
-        })
-        img.width = scaledWidth
-        img.height = scaledHeight
-        canvas.width = scaledWidth 
-        canvas.height = scaledHeight
-
-        ctx.drawImage(img, 0, 0, img.width, img.height)
-        const imageData = ctx.getImageData(0, 0, img.width, img.height)
-        const data = imageData.data
-
-        if (segmentName === 'colormap') {
-          for (let i = 0; i < data.length; i += 4) {
-            const segMapPixel = flatSegMap[i / 4]
-            let objColor = [0, 0, 0]
-            if (segMapPixel) {
-              objColor = getColor(imageObj.response.objectIDs.indexOf(segMapPixel))
-              data[i]   = objColor[0]  // red channel
-              data[i+1] = objColor[1]  // green channel
-              data[i+2] = objColor[2]  // blue channel
-              data[i+3] = 200          // alpha
+        try {
+          const flatSegMap = imageObj.response.flatSegMap
+          const { scaledWidth, scaledHeight } = getScaledSize({
+            height: img.naturalHeight, 
+            width: img.naturalWidth
+          })
+          img.width = scaledWidth
+          img.height = scaledHeight
+          canvas.width = scaledWidth 
+          canvas.height = scaledHeight
+          ctx.drawImage(img, 0, 0, img.width, img.height)
+          const imageData = ctx.getImageData(0, 0, img.width, img.height)
+          const data = imageData.data
+          if (segmentName === 'colormap') {
+            for (let i = 0; i < data.length; i += 4) {
+              const segMapPixel = flatSegMap[i / 4]
+              let objColor = [0, 0, 0]
+              if (segMapPixel) {
+                objColor = getColor(imageObj.response.objectIDs.indexOf(segMapPixel))
+                data[i]   = objColor[0]  // red channel
+                data[i+1] = objColor[1]  // green channel
+                data[i+2] = objColor[2]  // blue channel
+                data[i+3] = 200          // alpha
+              }
+            }
+          } else { 
+            for (let i = 0; i < data.length; i += 4) {
+              const segMapPixel = flatSegMap[i / 4]
+              if (segMapPixel !== OBJ_MAP[segmentName]) {
+                data[i+3] = 0           // alpha
+              }
             }
           }
-        } else { 
-          for (let i = 0; i < data.length; i += 4) {
-            const segMapPixel = flatSegMap[i / 4]
-            if (segMapPixel !== OBJ_MAP[segmentName]) {
-              data[i+3] = 0           // alpha
-            }
-          }
+          ctx.putImageData(imageData, 0, 0)      
+          imageURL = canvas.toDataURL()
+          this.props.addSegURL(segmentName, imageURL)
+          resolve(imageURL)
+        } catch (e) {
+          window.location.reload()
+          reject(`${e} - image load error`)
         }
-        ctx.putImageData(imageData, 0, 0)      
-        imageURL = canvas.toDataURL()
-        this.props.addSegURL(segmentName, imageURL)
-        resolve(imageURL)
       }
-      try {
-        img.src = imageObj.urls.source
-      } catch (e) {
-        reject(`image load error`)
-      }
+      img.src = imageObj.urls.source
     })
   }
 
@@ -136,35 +124,29 @@ export default class UploadForm extends Component {
   render() {
     return (
       <div className="uploadFormWrapper">
-      <div className="uploadForm panel panel-default">
-        <h3 className="text panel-heading">
-          {isNonEmpty(this.props.studio) ? `Upload another image to be processed:` : `Upload an image to be processed:`}
-        </h3>  
-        <div className="formWrapper">
-          <form 
-            method="post" 
-            encType="multipart/form-data" 
-            onSubmit={ this.receiveUpload }>
-            
-            <label className="pickerLabel" htmlFor="filePicker">
-              <span className="btn btn-primary formBtn filePickerBtn">
-                Select Image
-              </span>
-            </label>
-            <span>
-              <p>
-                { this.state.imageName }
-              </p>
-            </span>
-            <input 
-              id="filePicker" 
-              ref={ this.uploadRef } 
-              type="file" 
-              onChange={ e => this.handleFileChange(e.target.files) }
-              accept="image/*" />
-          </form>
+        <div className="uploadForm panel panel-default">
+          <h3 className="text panel-heading">
+            {isNonEmpty(this.props.studio) ? `Upload another image to be processed:` : `Upload an image to be processed:`}
+          </h3>  
+          <div className="formWrapper">
+            <form 
+              method="post" 
+              encType="multipart/form-data" 
+              onSubmit={ this.receiveUpload }>
+              <label className="pickerLabel" htmlFor="filePicker">
+                <span className="btn btn-primary formBtn filePickerBtn">
+                  Select Image
+                </span>
+              </label>
+              <input 
+                id="filePicker" 
+                ref={ this.uploadRef } 
+                type="file" 
+                onChange={ e => this.handleFileChange(e.target.files) }
+                accept="image/*" />
+            </form>
+          </div>
         </div>
-      </div>
       </div>
     )
   }

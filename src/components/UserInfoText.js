@@ -18,9 +18,7 @@ const renderMessage = mode => {
   if (mode === 'initial') {
     return `Click the 'Add an Image' button below to begin.`
   } else if (mode === 'studio-loading') {
-    return (
-      `Choose another image to begin combining objects and creating images in the Studio.`
-      )
+    return `Choose another image to begin combining objects and creating images in the Studio.`
   } else if (mode === 'loading-left') {
     return `Talking to MAX Model...`
   } else if (mode === 'loading-right') {

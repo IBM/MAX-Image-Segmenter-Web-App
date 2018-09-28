@@ -4,21 +4,19 @@ import AppHeader from './components/AppHeader'
 import UploadForm from './components/UploadForm'
 import KonvaDisplay from './components/KonvaDisplay'
 import ImageDisplay from './components/ImageDisplay'
+import UserInfoText from './components/UserInfoText'
 import TextOutput from './components/TextOutput'
 import LoadedStudioImage from './components/LoadedStudioImage'
 import ImageCarousel from './components/ImageCarousel'
 import Footer from './components/Footer'
-import { cleanDocs, getAllDocs, saveToPouch, deleteSingleImage, deleteAllImages, isNonEmpty, getSingleImage } from './utils'
+import { cleanDocs, getAllDocs, saveToPouch, deleteSingleImage, deleteAllImages, isEmpty, isNonEmpty, getSingleImage } from './utils'
 import './styles/App.css'
-import UserInfoText from './components/UserInfoText'
+
 
 export default class App extends Component {
   initialState = {
-    uploadMode: false,
-    imageLoaded: false,
     image: {},
     previewImg: {},
-    selectedObject: '',
     savedImages: [],
     hoverImage: '',
     selectedImage: '',
@@ -55,14 +53,13 @@ export default class App extends Component {
       console.log(`Saved image w/ MAX Model Data in PouchDB. id: ${ pouchResponse.id }`)
       this.setState({
         canvasReady: true,
-        selectedObject: '',
         savedImages: cleanDocs(await getAllDocs()),
-        uploadMode: false,
+        mode: this.studioReady() ? 'studio' : 'studio-loading',
         previewImg: {}
       })
       // here, state needs to be updated to get rid of these bool flags and use string mode
 
-      if (!isNonEmpty(this.state.studio)) {
+      if (isEmpty(this.state.studio)) {
         console.log(`empty studio - could go in the BG slot`)
         const singleImageDoc = await getSingleImage(pouchResponse.id)
         this.setState({
@@ -105,7 +102,7 @@ export default class App extends Component {
 
   handleImageSelect = imageID => {
     if (imageID === 'ADD AN IMAGE') {
-      this.uploadModeToggle(imageID)
+      this.uploadModeToggle()
     } else if (imageID === 'ERASE ALL IMAGES') {
       this.handleBulkDelete()
     } else {
@@ -113,15 +110,13 @@ export default class App extends Component {
         ...this.state,
         selectedImage : imageID,
         image: {},
-        previewImg: {},
-        uploadMode: false 
+        previewImg: {}
       })
     }
   }
 
-  uploadModeToggle = imageID => {
-    const newSetting = !this.state.uploadMode
-    if (newSetting === false) {
+  uploadModeToggle = () => {
+    if (this.state.mode === 'upload') {
       this.setState({
         ...this.initialState,
         savedImages: this.state.savedImages,
@@ -132,7 +127,6 @@ export default class App extends Component {
       this.setState({ 
         ...this.initialState,
         savedImages: this.state.savedImages,
-        uploadMode: true,
         studio: this.state.studio,
         mode: 'upload'
       })
@@ -145,7 +139,6 @@ export default class App extends Component {
     } else if (this.state.mode === 'studio-loading' && isNonEmpty(this.state.image)) {
       return (
         <TextOutput 
-          side="center"  
           image={ this.state.image } 
           studio={ this.state.studio } />
         )
@@ -164,26 +157,22 @@ export default class App extends Component {
             <UploadForm 
               studio={ this.state.studio }
               canvas={ this.canvasRef.current }
-              imageLoaded={ this.state.canvasReady }
               addSegURL={ this.addSegURL }
-              imageName={ this.state.image.name }
               setAppPreviewImg={ newImage =>
                 this.setState({ 
                   previewImg: newImage, 
-                  image: {}, 
-                  canvasReady: false 
+                  image: {}
                 }) 
               } 
               setAppImageData={newImage =>
                 this.setState({ 
-                  image: newImage,
-                  imageLoaded: true  
+                  image: newImage
                 }) 
               } />
           }
         </span>
       )
-    } else if (this.studioReady()) {
+    } else if (this.state.mode === 'studio') {
         return (
           <KonvaDisplay 
             BG={ this.state.studio.one } 
@@ -198,12 +187,12 @@ export default class App extends Component {
 
   studioReady = () => {
     const check = ((isNonEmpty(this.state.studio.one) && isNonEmpty(this.state.studio.two)) &&
-    (isNonEmpty(this.state.studio.one.selected) || isNonEmpty(this.state.studio.two.selected))) || false
-    console.log(check)
+    (this.state.studio.one.selected || this.state.studio.two.selected))
     return check
   }
 
   handleStudioSegmentSelect = (slotNum, segment) => {
+    const otherSlot = slotNum === 'one' ? 'two' : 'one'
     if (this.state.studio[slotNum].selected === segment) {
       this.setState({
         studio: {
@@ -213,7 +202,7 @@ export default class App extends Component {
             selected: null
           }
         },
-        mode: this.studioReady() ? 'studio' : 'studio-loading'
+        mode: isNonEmpty(this.state.studio[otherSlot]) ? 'studio' : 'studio-loading'
       })
     } else {
       this.setState({
@@ -224,7 +213,7 @@ export default class App extends Component {
             selected: segment
           }
         },
-        mode: this.studioReady() ? 'studio' : 'studio-loading'
+        mode: isNonEmpty(this.state.studio[otherSlot]) ? 'studio' : 'studio-loading'
       })
     }
   }
@@ -241,7 +230,7 @@ export default class App extends Component {
               className="sideCol"
               xs={ 3 }>
               { // this can be cleaned up by extracting into a 'renderSideColumn' method
-                this.state.mode === 'studio-loading' && !isNonEmpty(this.state.studio.one) ?
+                this.state.mode === 'studio-loading' && isEmpty(this.state.studio.one) ?
                   <UserInfoText mode={ this.state.mode } />
                 :
                   null
@@ -259,8 +248,8 @@ export default class App extends Component {
                   null
               }
               {
-                this.state.uploadMode && isNonEmpty(this.state.previewImg) && 
-                !isNonEmpty(this.state.studio.one) ?
+                this.state.mode === 'upload' && isNonEmpty(this.state.previewImg) && 
+                isEmpty(this.state.studio.one) ?
                   <div className="uploadWrapper">
                     <UserInfoText mode='loading-left' />
                   </div>
@@ -270,7 +259,7 @@ export default class App extends Component {
             </Col>
 
             <Col 
-              className={ isNonEmpty(this.state.studio) || this.state.uploadMode || isNonEmpty(this.state.image) ? "centerCol" : "centerCol.empty" }
+              className="centerCol"
               xs={ 6 }>   
               <div className="uploadWrapper">
                 { this.renderMainColumn() }
@@ -281,7 +270,7 @@ export default class App extends Component {
               className="sideCol"
               xs={ 3 }>
               { // this can be cleaned up by extracting into a 'renderSideColumn' method
-                this.state.mode === 'studio-loading' && !isNonEmpty(this.state.studio.two) ?
+                this.state.mode === 'studio-loading' && isEmpty(this.state.studio.two) ?
                   <UserInfoText mode={ this.state.mode } />
                 :
                   null
@@ -299,8 +288,8 @@ export default class App extends Component {
                   null
               }
               {
-                this.state.uploadMode && isNonEmpty(this.state.previewImg) &&
-                !isNonEmpty(this.state.studio.two) ?
+                this.state.mode === 'upload' && isNonEmpty(this.state.previewImg) &&
+                isEmpty(this.state.studio.two) ?
                   <div className="uploadWrapper">
                     <UserInfoText mode='loading-right' />
                   </div>
