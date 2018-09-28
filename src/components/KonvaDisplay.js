@@ -20,19 +20,6 @@ export default class KonvaDisplay extends Component {
     this.state = this.initialState
   }
 
-  componentWillReceiveProps(nextProps) {
-    // detection of new props here may allow multiple 
-    // image segments to be added to one canvas
-    
-    /*
-    console.log(`componentWillReceiveProps!`)
-    console.log(`current props-bg ${JSON.stringify(this.props.BG.selected)}`)
-    console.log(`current props-front ${JSON.stringify(this.props.front.selected)}`)
-    console.log(`nextProps-bg ${JSON.stringify(nextProps.BG.selected)}`)
-    console.log(`nextProps-front ${JSON.stringify(nextProps.front.selected)}`)
-    */
-  }
-
   handleDragEndOne = e => {
     this.setState({
       image1: {

@@ -14,9 +14,7 @@ const CarouselThumb = props => {
         onMouseEnter={ () => thumbProps.setHoverImage(image.id) } 
         onMouseLeave={ () => thumbProps.setHoverImage('') }
         onClick={ () => handleImageClick(thumbProps, image.id) }>
-          <span 
-            className="imageLabel top"
-            >
+          <span className="imageLabel top">
             <span className="imageTitle">
               { getFormattedName(image) }
             </span>
@@ -43,9 +41,7 @@ const CarouselThumb = props => {
         onMouseEnter={ () => thumbProps.setHoverImage(image.id) } 
         onMouseLeave={ () => thumbProps.setHoverImage('') }
         onClick={ () => handleImageClick(thumbProps, image.id) }>
-          <span 
-            className="imageLabel top"
-            >
+          <span className="imageLabel top">
             <span className="imageTitle">
               { getFormattedName(image) }
             </span>
@@ -71,20 +67,19 @@ const CarouselThumb = props => {
         className={ applyImageClass(thumbProps, image.id) }
         onMouseEnter={ () => thumbProps.setHoverImage(image.id) } 
         onMouseLeave={ () => thumbProps.setHoverImage('') }>
-          <span 
-            className="imageLabel top"
-            onClick={ () => handleImageClick(thumbProps, image.id) }>
-            <span className="imageTitle">
-              { getFormattedName(image) }
-            </span>
+        <span 
+          className="imageLabel top"
+          onClick={ () => handleImageClick(thumbProps, image.id) }>
+          <span className="imageTitle">
+            { getFormattedName(image) }
           </span>
-          { displaySelectControls(thumbProps, image) }
-          <img
-            className="thumbImage"
-            src={ getThumbSource(thumbProps, image) }
-            alt={ image.id } 
-            onClick={ () => handleImageClick(thumbProps, image.id) }
-            />
+        </span>
+        { displaySelectControls(thumbProps, image) }
+        <img
+          className="thumbImage"
+          src={ getThumbSource(thumbProps, image) }
+          alt={ image.id } 
+          onClick={ () => handleImageClick(thumbProps, image.id) } />
       </div>
     )
   }  

@@ -4,32 +4,20 @@ import CarouselThumb from './CarouselThumb'
 import { isNonEmpty } from '../utils'
 import '../styles/ImageCarousel.css'
 
-const ImageCarousel = props => {
-  return (
+const ImageCarousel = props => (
   <Carousel
     className="caroBar"
     interval={ null }>
     { getCarouselPages(props) }
   </Carousel>
-  )
-}
+)
 
 export default ImageCarousel
 
 const getCarouselPages = props => {
   const numImages = isNonEmpty(props.images) ? props.images.length : 0
   const numPages = numImages % 3 !== 0 ? Math.ceil(numImages / 3) : Math.ceil(numImages / 3) + 1
-  const { 
-    hoverImage, 
-    selectedImage, 
-    uploadMode,
-    setHoverImage, 
-    setSelectedImage,
-    deleteImage, 
-    loadIntoStudio,
-    images
-  } = props
-  const imageThumbs = numImages > 1 ? images.concat(deleteAllImagesThumb()) : images
+  const imageThumbs = numImages > 1 ? props.images.concat(deleteAllImagesThumb()) : props.images
   let pages = []
 
   if (numImages !== 0) {
@@ -40,17 +28,9 @@ const getCarouselPages = props => {
           animateIn={ true }
           animateOut={ true }>
           <div className="caroCard">
-            { getCarouselPageItems(imageThumbs, i, numPages).map((img, i) => 
+            { getCarouselPageItems(imageThumbs, i).map((img, i) => 
               <CarouselThumb
-                thumbProps={ {
-                  hoverImage,
-                  selectedImage,
-                  setHoverImage,
-                  setSelectedImage,
-                  deleteImage,
-                  loadIntoStudio,
-                  uploadMode
-                } }
+                thumbProps={ props }
                 key={ i }
                 image={ img } />
             ) }
@@ -65,17 +45,9 @@ const getCarouselPages = props => {
           animateIn={ true }
           animateOut={ true }>
           <div className="caroCard">
-            { getCarouselPageItems(imageThumbs, 0, 0).map((img, i) => 
+            { getCarouselPageItems(imageThumbs, 0).map((img, i) => 
               <CarouselThumb
-                thumbProps={ {
-                  hoverImage,
-                  selectedImage,
-                  setHoverImage,
-                  setSelectedImage,
-                  deleteImage,
-                  loadIntoStudio,
-                  uploadMode
-                } }
+                thumbProps={ props }
                 key={ i }
                 image={ img } />
             ) }
@@ -90,10 +62,10 @@ const addImageThumb = () => ({
   id: `ADD AN IMAGE`,
   segments: { 
     source: { 
-      url: `x`
+      url: null
     },
     colormap: {
-      url: 'z'
+      url: null
     } 
   }
 })
@@ -102,15 +74,15 @@ const deleteAllImagesThumb = () => ({
   id: `ERASE ALL IMAGES`,
   segments: { 
     source: { 
-      url: `x`
+      url: null
     },
     colormap: {
-      url: 'z'
+      url: null
     } 
   }
 })
 
-const getCarouselPageItems = (imageThumbs, pageNum, numPages) => {
+const getCarouselPageItems = (imageThumbs, pageNum) => {
   const startPos = pageNum * 3
   const endPos = startPos + 3
   let pageImages = [addImageThumb()].concat(imageThumbs.slice(startPos, endPos))

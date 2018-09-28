@@ -61,13 +61,16 @@ export const isNonEmpty = obj => {
   return obj && Object.keys(obj).length !== 0
 }
 
+export const isEmpty = obj => {
+  return !isNonEmpty(obj)
+}
+
 export const getAllDocs = () => {
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.allDocs({ include_docs: 'true', attachments: 'true' })
 }
 
 export const deleteAllImages = () => {
-  console.log(`bulk delete`)
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.destroy()
 }
