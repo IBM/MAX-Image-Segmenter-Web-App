@@ -48,7 +48,7 @@ If you receive errors about ports being in use, check to make sure nothing else 
 ## Alternative Install Option: Build/Run MAX Model + Web App in one step with Docker-Compose
 
 * First, download the configuriation file from a terminal window with the command  
-  `curl https://raw.githubusercontent.com/IBM/MAX-ImgSeg-Magic-Cropping-Tool/downloads/docker-compose.yml > docker-compose.yml`
+  `curl https://raw.githubusercontent.com/IBM/MAX-Image-Segmenter-Web-App/master/docker-compose.yml > docker-compose.yml`
 
 * Then, in the same directory as this file you've just downloaded, use the following command to build and run the containers with [docker-compose](https://docs.docker.com/compose/).
 `docker-compose up -d --build`
