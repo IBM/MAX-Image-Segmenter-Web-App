@@ -21,3 +21,15 @@
 .glyphicon-chevron-right:before { 
   color: darkturquoise;
 }
+
+.singlePageCarousel > .carousel-indicators {
+  display: none;
+}
+
+.carousel-indicators > li {
+  background-color: darkturquoise;
+  border-color: cyan;
+}
+.carousel-indicators > li.active {
+  background-color: cyan;
+}

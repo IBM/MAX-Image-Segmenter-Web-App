@@ -4,13 +4,15 @@ import CarouselThumb from './CarouselThumb'
 import { isNonEmpty } from '../utils'
 import '../styles/ImageCarousel.css'
 
-const ImageCarousel = props => (
-  <Carousel
-    className="caroBar"
-    interval={ null }>
-    { getCarouselPages(props) }
-  </Carousel>
-)
+const ImageCarousel = props => {
+  const singlePage = isNonEmpty(props.images) && props.images.length < 4
+  return (
+    <Carousel
+      className={ singlePage ? `singlePageCarousel` : `multiPageCarousel` }
+      interval={ null }>
+      { getCarouselPages(props) }
+    </Carousel>
+)}
 
 export default ImageCarousel
 
