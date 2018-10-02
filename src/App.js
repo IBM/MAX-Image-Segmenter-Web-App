@@ -9,7 +9,7 @@ import TextOutput from './components/TextOutput'
 import LoadedStudioImage from './components/LoadedStudioImage'
 import ImageCarousel from './components/ImageCarousel'
 import Footer from './components/Footer'
-import { cleanDocs, getAllDocs, saveToPouch, deleteAllImages, isEmpty, isNonEmpty, getSingleImage } from './utils'
+import { cleanDocs, getAllDocs, saveToPouch, deleteAllImages, isEmpty, isNonEmpty, getSingleImage, deleteSingleImage } from './utils'
 import './styles/App.css'
 
 export default class App extends Component {
@@ -54,8 +54,7 @@ export default class App extends Component {
         mode: this.studioReady() ? 'studio' : 'studio-loading',
         previewImg: {}
       })
-      // here, state needs to be updated to get rid of these bool flags and use string mode
-
+      
       if (isEmpty(this.state.studio)) {
         const singleImageDoc = await getSingleImage(pouchResponse.id)
         this.setState({
@@ -83,6 +82,7 @@ export default class App extends Component {
   }
 
   handleImageDelete = async image => {
+    await deleteSingleImage(image)
     this.setState({
       savedImages : this.state.savedImages.filter(doc => doc.id !== image.id)
     })
@@ -292,7 +292,7 @@ export default class App extends Component {
               images={ this.state.savedImages }
               hoverImage={ this.state.hoverImage }
               selectedImage={ this.state.selectedImage }
-              uploadMode={ this.state.uploadMode }
+              mode={ this.state.mode }
               bulkDelete={ () => this.handleBulkDelete() } 
               setUploadMode={ () => this.handleUploadToggle() }
               deleteImage={ image => this.handleImageDelete(image) }
