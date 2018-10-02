@@ -124,7 +124,7 @@ const handleImageClick = (props, imageID) => {
 const applyImageClass = (props, imageID) => {
   if (imageID !== 'ADD AN IMAGE' && imageID === props.selectedImage) {
     return `selectedImageThumb`
-  } else if (imageID === 'ADD AN IMAGE' && props.uploadMode) { 
+  } else if (imageID === 'ADD AN IMAGE' && props.mode === 'upload') { 
     return `selectedImageThumb`
   } else {
     return `savedImageThumb`

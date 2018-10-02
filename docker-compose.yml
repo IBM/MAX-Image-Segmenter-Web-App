@@ -3,9 +3,9 @@ version: '3.5'
 services:
   img-upload-app:
     container_name: img-upload-app
-    image: kastentx/img-upload-app
+    image: kastentx/max-cropping-tool
     ports:
-      - '4444:4444'
+      - '3000:3000'
 
   max-model:
     container_name: cors-max-imgseg

@@ -9,9 +9,8 @@ import TextOutput from './components/TextOutput'
 import LoadedStudioImage from './components/LoadedStudioImage'
 import ImageCarousel from './components/ImageCarousel'
 import Footer from './components/Footer'
-import { cleanDocs, getAllDocs, saveToPouch, deleteSingleImage, deleteAllImages, isEmpty, isNonEmpty, getSingleImage } from './utils'
+import { cleanDocs, getAllDocs, saveToPouch, deleteAllImages, isEmpty, isNonEmpty, getSingleImage, deleteSingleImage } from './utils'
 import './styles/App.css'
-
 
 export default class App extends Component {
   initialState = {
@@ -34,7 +33,6 @@ export default class App extends Component {
     this.setState({
       savedImages: cleanDocs(await getAllDocs())
     })
-    console.log('initialLoad')
   }
 
   addSegURL = async (name, url) => {
@@ -50,17 +48,14 @@ export default class App extends Component {
     if (Object.keys(this.state.image.urls).length === Object.keys(this.state.image.foundSegments).length+1) {
       const { urls, name, width, height } = this.state.image
       const pouchResponse = await saveToPouch({ urls, name, width, height })
-      console.log(`Saved image w/ MAX Model Data in PouchDB. id: ${ pouchResponse.id }`)
       this.setState({
         canvasReady: true,
         savedImages: cleanDocs(await getAllDocs()),
         mode: this.studioReady() ? 'studio' : 'studio-loading',
         previewImg: {}
       })
-      // here, state needs to be updated to get rid of these bool flags and use string mode
-
+      
       if (isEmpty(this.state.studio)) {
-        console.log(`empty studio - could go in the BG slot`)
         const singleImageDoc = await getSingleImage(pouchResponse.id)
         this.setState({
           studio: {
@@ -69,7 +64,6 @@ export default class App extends Component {
           mode: 'studio-loading'
         })
       } else if (isNonEmpty(this.state.studio.one)) {
-        console.log(`BG image preloaded - could go in the front slot`)
         const singleImageDoc = await getSingleImage(pouchResponse.id)
         this.setState({
           studio: {
@@ -79,7 +73,6 @@ export default class App extends Component {
           mode: this.studioReady() ? 'studio' : 'studio-loading'
         })
       } else {
-        console.log(`loaded studio - overwriting the front image`)
         this.setState({
           mode: this.studioReady() ? 'studio' : 'studio-loading'
         })
@@ -89,7 +82,7 @@ export default class App extends Component {
   }
 
   handleImageDelete = async image => {
-    console.log(`deleted image id: ${(await deleteSingleImage(image)).id}`)
+    await deleteSingleImage(image)
     this.setState({
       savedImages : this.state.savedImages.filter(doc => doc.id !== image.id)
     })
@@ -131,6 +124,85 @@ export default class App extends Component {
         mode: 'upload'
       })
     }
+  }
+
+  studioReady = () => {
+    const check = ((isNonEmpty(this.state.studio.one) && isNonEmpty(this.state.studio.two)) &&
+    (this.state.studio.one.selected || this.state.studio.two.selected))
+    return check
+  }
+
+  handleStudioSegmentSelect = (slotNum, segment) => {
+    const otherSlot = slotNum === 'one' ? 'two' : 'one'
+    if (this.state.studio[slotNum].selected === segment) {
+      this.setState({
+        studio: {
+          ...this.state.studio,
+          [slotNum]: {
+            ...this.state.studio[slotNum],
+            selected: null
+          }
+        },
+        mode: isNonEmpty(this.state.studio[otherSlot]) ? 'studio' : 'studio-loading'
+      })
+    } else {
+      this.setState({
+        studio: {
+          ...this.state.studio,
+          [slotNum]: {
+            ...this.state.studio[slotNum],
+            selected: segment
+          }
+        },
+        mode: isNonEmpty(this.state.studio[otherSlot]) ? 'studio' : 'studio-loading'
+      })
+    }
+  }
+
+  handleStudioLoad = (image, slotNum) => {
+    const otherSlot = slotNum === 'one' ? this.state.studio.two : this.state.studio.one
+    this.setState({ 
+      studio: {
+        ...this.state.studio,
+        [slotNum]: image
+      },
+      mode: isNonEmpty(otherSlot) && otherSlot.selected ? 'studio' : 'studio-loading'
+    })
+  }
+
+  renderSideColumn = side => {
+    const slot = side === 'left' ? 'one' : 'two'
+    return (
+      <div>
+        { 
+          this.state.mode === 'studio-loading' && isEmpty(this.state.studio[slot]) ?
+            <UserInfoText mode={ this.state.mode } />
+          :
+            null
+        }
+        { 
+          isNonEmpty(this.state.studio[slot]) ?
+            <div className="uploadWrapper">
+              <LoadedStudioImage 
+                label={ `Background` }
+                image={ this.state.studio[slot] } 
+                segSelect={ seg => 
+                  this.handleStudioSegmentSelect(slot, seg) } /> 
+            </div>
+          :
+            null
+        }
+        {
+          this.state.mode === 'upload' && isNonEmpty(this.state.previewImg) && 
+          isEmpty(this.state.studio[slot]) ?
+            <div className="uploadWrapper">
+              <UserInfoText mode={`loading-${side}`} />
+            </div>
+          :
+            null
+        }
+      </div>
+    )
   }
 
   renderMainColumn() {
@@ -185,79 +257,20 @@ export default class App extends Component {
     }
   }
 
-  studioReady = () => {
-    const check = ((isNonEmpty(this.state.studio.one) && isNonEmpty(this.state.studio.two)) &&
-    (this.state.studio.one.selected || this.state.studio.two.selected))
-    return check
-  }
-
-  handleStudioSegmentSelect = (slotNum, segment) => {
-    const otherSlot = slotNum === 'one' ? 'two' : 'one'
-    if (this.state.studio[slotNum].selected === segment) {
-      this.setState({
-        studio: {
-          ...this.state.studio,
-          [slotNum]: {
-            ...this.state.studio[slotNum],
-            selected: null
-          }
-        },
-        mode: isNonEmpty(this.state.studio[otherSlot]) ? 'studio' : 'studio-loading'
-      })
-    } else {
-      this.setState({
-        studio: {
-          ...this.state.studio,
-          [slotNum]: {
-            ...this.state.studio[slotNum],
-            selected: segment
-          }
-        },
-        mode: isNonEmpty(this.state.studio[otherSlot]) ? 'studio' : 'studio-loading'
-      })
-    }
-  }
-
   render() {
     return (
       <Grid fluid={ true }>
         <Row className='stickyHead'>
           <AppHeader />
         </Row>
+
         <div className="appContent">
           <Row className="mainContent">
             <Col 
               className="sideCol"
               xs={ 3 }>
-              { // this can be cleaned up by extracting into a 'renderSideColumn' method
-                this.state.mode === 'studio-loading' && isEmpty(this.state.studio.one) ?
-                  <UserInfoText mode={ this.state.mode } />
-                :
-                  null
-              }
-              { 
-                isNonEmpty(this.state.studio.one) ?
-                  <div className="uploadWrapper">
-                    <LoadedStudioImage 
-                      label={ `Background` }
-                      image={ this.state.studio.one } 
-                      segSelect={ seg => 
-                        this.handleStudioSegmentSelect('one', seg) } /> 
-                  </div>
-                :
-                  null
-              }
-              {
-                this.state.mode === 'upload' && isNonEmpty(this.state.previewImg) && 
-                isEmpty(this.state.studio.one) ?
-                  <div className="uploadWrapper">
-                    <UserInfoText mode='loading-left' />
-                  </div>
-                :
-                  null
-              }
+              { this.renderSideColumn('left') }
             </Col>
-
             <Col 
               className="centerCol"
               xs={ 6 }>   
@@ -265,69 +278,35 @@ export default class App extends Component {
                 { this.renderMainColumn() }
               </div>
             </Col>
-
             <Col 
               className="sideCol"
               xs={ 3 }>
-              { // this can be cleaned up by extracting into a 'renderSideColumn' method
-                this.state.mode === 'studio-loading' && isEmpty(this.state.studio.two) ?
-                  <UserInfoText mode={ this.state.mode } />
-                :
-                  null
-              }
-              { 
-                isNonEmpty(this.state.studio.two) ?
-                  <div className="uploadWrapper">
-                    <LoadedStudioImage 
-                      label={ `Front Layer` }
-                      image={ this.state.studio.two } 
-                      segSelect={ seg => 
-                        this.handleStudioSegmentSelect('two', seg) } /> 
-                  </div>
-                :
-                  null
-              }
-              {
-                this.state.mode === 'upload' && isNonEmpty(this.state.previewImg) &&
-                isEmpty(this.state.studio.two) ?
-                  <div className="uploadWrapper">
-                    <UserInfoText mode='loading-right' />
-                  </div>
-                :
-                  null
-              }
+              { this.renderSideColumn('right') }
             </Col>
           </Row>
         </div>
+
         <div className="stickyFoot">
           <Row className="carousel">
             <ImageCarousel
               images={ this.state.savedImages }
               hoverImage={ this.state.hoverImage }
               selectedImage={ this.state.selectedImage }
-              uploadMode={ this.state.uploadMode }
+              mode={ this.state.mode }
               bulkDelete={ () => this.handleBulkDelete() } 
               setUploadMode={ () => this.handleUploadToggle() }
               deleteImage={ image => this.handleImageDelete(image) }
+              loadIntoStudio={ (image, slotNum) => this.handleStudioLoad(image, slotNum) }
               setSelectedImage={ imageID => this.handleImageSelect(imageID) }
               setHoverImage={ imageID => 
                 this.setState({ hoverImage : imageID }) 
-              }
-              loadIntoStudio={ (image, slotNum) =>
-                this.setState({ 
-                  studio: {
-                    ...this.state.studio,
-                    [slotNum]: image
-                  },
-                  mode: this.studioReady() ? 'studio' : 'studio-loading'
-                }) } />
+              } />
           </Row>
-
           <Row className="footer">
             <Footer />
           </Row>
         </div>
-    </Grid> 
+      </Grid> 
     )
   }
 }

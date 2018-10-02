@@ -4,7 +4,10 @@ import { isNonEmpty } from '../utils'
 import '../styles/TextOutput.css'
 
 const TextOutput = props => {
+<<<<<<< HEAD
   console.log(JSON.stringify(props))
+=======
+>>>>>>> master
   if (isNonEmpty(props.image)) {
     const numSegments = Object.keys(props.image.foundSegments.filter(name=> name!=='colormap' && name!=='background')).length
     return (

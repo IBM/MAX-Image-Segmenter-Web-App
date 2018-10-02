@@ -71,7 +71,6 @@ export const getAllDocs = () => {
 }
 
 export const deleteAllImages = () => {
-  console.log(`bulk delete`)
   const pouchDB = new PouchDB('offLine', { auto_compaction: true })
   return pouchDB.destroy()
 }

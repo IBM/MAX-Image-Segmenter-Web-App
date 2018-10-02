@@ -10,7 +10,6 @@ export default class UploadForm extends Component {
 
   receiveUpload = () => {
     const fileObj = this.uploadRef.current.files[0]
-    console.log(fileObj ? 'file' : 'nofile')
     if (fileObj) {
       const imageURL = window.URL.createObjectURL(fileObj)
       const canvas = this.props.canvas
@@ -37,7 +36,6 @@ export default class UploadForm extends Component {
         }
         this.props.setAppPreviewImg(newImage)
         try {
-          console.log('sending to MAX...')
           const MAXData = cleanMAXResponse(newImage.name, await getPrediction(fileObj))
           const MAXImage = { 
             ...newImage, 

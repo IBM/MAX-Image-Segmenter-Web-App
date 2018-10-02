@@ -21,7 +21,6 @@ Leave this terminal open, with the model server running, and continue with the f
 * First, clone this repo.
 * Then, `cd` into the new directory. 
 * Install dependencies with the command `npm install`
-* Rename the environment file with `mv sample.env .env` (and populate any blank values if running with a MAX model deployed to K8s)
 * Start the app with `npm start`
 
 Open your browser and navigate to `http://localhost:3000` to run the app, 
@@ -31,7 +30,6 @@ or `http://localhost:5000` to view the MAX model's API documentation.
 
 * Simply run the Magic Cropping Tool container with the command  
 `docker run -it -p 3000:3000 kastentx/max-cropping-tool`   
-_(development-use image)_
 
 Open your browser and navigate to `http://localhost:3000` to run the app, 
 or `http://localhost:5000` to view the MAX model's API documentation.
@@ -50,7 +48,7 @@ If you receive errors about ports being in use, check to make sure nothing else 
 ## Alternative Install Option: Build/Run MAX Model + Web App in one step with Docker-Compose
 
 * First, download the configuriation file from a terminal window with the command  
-  `curl https://raw.githubusercontent.com/IBM/MAX-ImgSeg-Magic-Cropping-Tool/downloads/docker-compose.yml > docker-compose.yml`
+  `curl https://raw.githubusercontent.com/IBM/MAX-Image-Segmenter-Web-App/master/docker-compose.yml > docker-compose.yml`
 
 * Then, in the same directory as this file you've just downloaded, use the following command to build and run the containers with [docker-compose](https://docs.docker.com/compose/).
 `docker-compose up -d --build`
