@@ -7,7 +7,7 @@ const TextOutput = props => {
   if (isNonEmpty(props.image)) {
     const numSegments = Object.keys(props.image.foundSegments.filter(name=> name!=='colormap' && name!=='background')).length
     return (
-      <div className="textBox panel panel-default">
+      <div className="outputTextBox panel panel-default">
         <p>
           { `The ` }
           <span className="modelName">

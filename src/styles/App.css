@@ -43,7 +43,7 @@ html > body > #root > div {
   flex-flow: column;
   align-content: center;
   justify-content: center;
-  padding: 0;
+  padding: 0 ! important;
 }
 
 .sideCol {

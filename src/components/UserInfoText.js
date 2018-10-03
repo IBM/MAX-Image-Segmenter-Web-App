@@ -5,7 +5,7 @@ const UserInfoText = props => {
   const currentMode = props.mode
   return (
     <div className="uploadWrapper">
-      <div className="textBox panel panel-default userInfo">
+      <div className="textBox userInfo">
         { renderMessage(currentMode) }
       </div>
     </div>

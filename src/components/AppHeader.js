@@ -27,10 +27,10 @@ export default class AppHeader extends Component {
 const particleParams = {
   "particles": {
     "number": {
-      "value": 80,
+      "value": 120,
       "density": {
         "enable": true,
-        "value_area": 700
+        "value_area": 950
       }
     },
     "color": {
@@ -75,12 +75,12 @@ const particleParams = {
     },
     "move": {
       "enable": true,
-      "speed": 6,
+      "speed": 4,
       "direction": "none",
       "random": false,
       "straight": false,
-      "out_mode": "out",
-      "bounce": false,
+      "out_mode": "bounce",
+      "bounce": true,
       "attract": {
         "enable": false,
         "rotateX": 600,

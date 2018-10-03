@@ -60,6 +60,7 @@ form > label {
 
 .uploadFormWrapper {
   width: 45vh;
+  max-width: 100%;
   margin: auto;
 }
 

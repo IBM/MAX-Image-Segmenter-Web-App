@@ -1,4 +1,4 @@
-.textBox {
+.outputTextBox {
   background-color: #2f2d2e;
   border-color: #0aa !important;
   color: #f5f5f5;
@@ -13,7 +13,7 @@
   width: 95%;
 }
 
-.textBox > p {
+.outputTextBox > p {
   margin: 0;
 }
 
