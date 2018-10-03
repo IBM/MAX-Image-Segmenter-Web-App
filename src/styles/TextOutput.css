@@ -17,6 +17,10 @@
   margin: 0;
 }
 
+.modelName {
+  color: darkturquoise;
+}
+
 .outputSegText {
   padding-top: 10%;
   padding-bottom: 5%;

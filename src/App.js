@@ -184,7 +184,7 @@ export default class App extends Component {
           isNonEmpty(this.state.studio[slot]) ?
             <div className="uploadWrapper">
               <LoadedStudioImage 
-                label={ `Background` }
+                label={ side === 'left' ? `Background` : 'Front Layer' }
                 image={ this.state.studio[slot] } 
                 segSelect={ seg => 
                   this.handleStudioSegmentSelect(slot, seg) } /> 
@@ -196,7 +196,7 @@ export default class App extends Component {
           this.state.mode === 'upload' && isNonEmpty(this.state.previewImg) && 
           isEmpty(this.state.studio[slot]) ?
             <div className="uploadWrapper">
-              <UserInfoText mode={`loading-${side}`} />
+              <UserInfoText mode={`loading-${ side }` } />
             </div>
           :
             null

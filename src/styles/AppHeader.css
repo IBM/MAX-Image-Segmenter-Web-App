@@ -24,7 +24,7 @@ div.stickyHead.row {
   z-index: 999 !important;
 }
 
-.titleText > u {
+.modelName {
   color: darkturquoise;
 }
 

@@ -13,18 +13,20 @@ const ImageSegmentList = props => {
   } else {
     scrollClass = 'segmentList'
   }
+
+  const sortedList = ['source', 'colormap'].concat(segments.filter(seg => seg !== 'source' && seg !== 'colormap').sort())
   
   return (
     <div className={ scrollClass }>
-      { segments.sort().map(seg => {
+      { sortedList.map(seg => {
         const segLabelClass = seg === props.selected ? 
-          'studioSegLabel selected' : 'studioSegLabel'
+          `studioSegLabel selected` : `studioSegLabel`
         return (
           <span 
             key={ seg }
-            className={segLabelClass}
+            className={ `${segLabelClass} ${getClassTail(seg)}` }
             onClick={ () => props.selectSeg(seg) }>
-            { seg }
+            { getSegmentText(seg) }
           </span>
         )
       }) }
@@ -32,10 +34,28 @@ const ImageSegmentList = props => {
         key='download'
         className="downloadSegLabel"
         onClick={ () => downloadSegments(props.image) }>
-        <Glyphicon glyph="floppy-disk" /> <span className="dlText ">{` Download Segments`}</span>
+        <Glyphicon glyph="floppy-disk" /> <span className="dlText ">{` Download All Segments`}</span>
       </span>
     </div>
   )
 }
 
 export default ImageSegmentList
+
+const getSegmentText = segLabel => {
+  if (segLabel === 'source') {
+    return 'Source Image'
+  } else if (segLabel === 'colormap') {
+    return 'Highlighted Colormap'
+  } else {
+    return segLabel
+  }
+}
+
+const getClassTail = segLabel => {
+  if (segLabel === 'source' || segLabel === 'colormap') {
+    return `faded`
+  } else {
+    return null
+  }
+}

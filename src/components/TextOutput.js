@@ -9,7 +9,11 @@ const TextOutput = props => {
     return (
       <div className="textBox panel panel-default">
         <p>
-          { `The ` }<u>MAX Image Segmenter</u>{ ` processed '${ props.image.name }' and identified ` }
+          { `The ` }
+          <span className="modelName">
+            MAX Image Segmenter
+          </span>
+          { ` processed '${ props.image.name }' and identified ` }
           <b> 
             { numSegments } 
           </b>

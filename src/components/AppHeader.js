@@ -14,7 +14,10 @@ export default class AppHeader extends Component {
           className='particles'
           params={ particleParams } />
         <span className="titleText">
-          <u><b>MAX</b> Image Segmenter</u>  Magic Cropping Tool
+          <span className="modelName">
+            <b>MAX</b> Image Segmenter 
+          </span>
+          { ` Magic Cropping Tool` }
         </span>
       </div>
     )
