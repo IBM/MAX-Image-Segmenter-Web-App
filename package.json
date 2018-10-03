@@ -13,6 +13,7 @@
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.5.1",
     "react-konva": "^1.7.15",
+    "react-particles-js": "^2.3.0",
     "react-scripts": "1.1.5"
   },
   "scripts": {
