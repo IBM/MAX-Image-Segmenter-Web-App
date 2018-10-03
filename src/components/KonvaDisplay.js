@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Stage, Layer } from 'react-konva'
+import { Glyphicon } from 'react-bootstrap'
 import Img from './Img'
 import '../styles/KonvaDisplay.css'
 
@@ -87,7 +88,7 @@ export default class KonvaDisplay extends Component {
         <button
           className="btn konvaDL"
           onClick={ () => this.downloadStage() }>
-          Download
+          <Glyphicon glyph="floppy-disk" /> <span className="dlText ">{` Download Image`}</span>
         </button>
       </div>
     )

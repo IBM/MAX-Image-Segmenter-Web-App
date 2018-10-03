@@ -18,12 +18,11 @@
 
 .konvaDL {
   margin-top: 2%;
-  color: white;
-  background-color: #0aa;
-  border: 2px solid darkcyan;
+  color: #2e4057;
+  background-color: darkturquoise;
+  border: 0 !important;
 }
 .konvaDL:hover {
-  background-color: #99c24d;
-  border-color: #4D7601;
+  background-color: #80A934;
   color: #2e4057;
 }

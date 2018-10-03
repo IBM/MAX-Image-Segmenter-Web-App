@@ -45,15 +45,17 @@ form > label {
 }
 
 .formBtn {
-  background-color: #0aa;
+  background-color: darkturquoise;
   cursor: pointer;
-  border-color: #0aa;
+  border-color: darkturquoise;
+  color: #2e4057;
   margin: 2% !important;
 }
 
-.formBtn:hover {
-  background-color: #99c24d;
-  border-color: #99c24d;
+.formBtn:hover, .formBtn:active, .formBtn:focus {
+  background-color: #99c24d !important;
+  border-color: #99c24d !important;
+  color: #2e4057 !important;
 }
 
 .uploadFormWrapper {

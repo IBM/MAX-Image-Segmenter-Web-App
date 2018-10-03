@@ -18,3 +18,7 @@ div.stickyHead.row {
   font-size: 2.75em;
   margin:1%;
 }
+
+.titleText > u {
+  color: darkturquoise;
+}
