@@ -1,19 +1,25 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Particles from 'react-particles-js'
 import '../styles/AppHeader.css'
 
-const AppHeader = () => (
-  <div className="titleBanner">
-  <Particles
-    className='particles'
-    params={particleParams} />
-    <span className="titleText">
-      <u><b>MAX</b> Image Segmenter</u>  Magic Cropping Tool
-    </span>
-  </div>
-)
-
-export default AppHeader
+export default class AppHeader extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return false
+  }
+  
+  render() {
+    return ( 
+      <div className="titleBanner">
+        <Particles
+          className='particles'
+          params={particleParams} />
+        <span className="titleText">
+          <u><b>MAX</b> Image Segmenter</u>  Magic Cropping Tool
+        </span>
+      </div>
+    )
+  }
+}
 
 
 const particleParams = {
@@ -36,11 +42,6 @@ const particleParams = {
       },
       "polygon": {
         "nb_sides": 5
-      },
-      "image": {
-        "src": "img/github.svg",
-        "width": 100,
-        "height": 100
       }
     },
     "opacity": {
