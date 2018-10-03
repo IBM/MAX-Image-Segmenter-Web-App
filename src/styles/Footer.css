@@ -6,8 +6,16 @@ footer {
 }
 
 .maxMsg {
+  width: 100%;
   padding: .5%;
-  margin-bottom: .25%;
+  z-index: 999 !important;
+}
+
+.footerMsgBox {
+  width: 100%;
+  position: absolute;
+  bottom: 2.5vh;
+  left: 0;
 }
 
 .footerLinks {
@@ -18,10 +26,34 @@ footer {
   justify-content: space-between;
 }
 
-.maxLink {
+.maxLink.left {
+  position: absolute;
+  bottom: 0;
+  left: 1vw;
+  margin-bottom: 1.5vh;
+}
+
+.maxLink.right {
+  position: absolute;
+  bottom: 0;
+  right: 1vw;
+  margin-bottom: 1.5vh;
+}
+
+.maxMsg > a,
+.maxLink > a {
+  width: 100%;
   color: darkturquoise;
 }
 
-.maxLink:hover {
+.maxMsg > a:hover,
+.maxLink > a:hover {
   color: cyan;
+}
+
+footer > .particles, 
+footer > .particles > canvas {
+  z-index: -99 !important;
+  height: 8vh !important;
+  width: 100% !important;
 }

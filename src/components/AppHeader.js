@@ -12,7 +12,7 @@ export default class AppHeader extends Component {
       <div className="titleBanner">
         <Particles
           className='particles'
-          params={particleParams} />
+          params={ particleParams } />
         <span className="titleText">
           <u><b>MAX</b> Image Segmenter</u>  Magic Cropping Tool
         </span>

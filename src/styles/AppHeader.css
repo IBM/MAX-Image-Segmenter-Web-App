@@ -14,6 +14,7 @@ div.stickyHead.row {
 }
 
 .titleText {
+  height: 100;
   width: 100%;
   font-size: 2.75em;
   margin-top: 1.5vh;
