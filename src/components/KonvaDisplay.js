@@ -77,7 +77,7 @@ export default class KonvaDisplay extends Component {
       <div>
         <Stage
           className="konvaMain"
-          ref={ref => this.stageRef = ref }
+          ref={ ref => this.stageRef = ref }
           height={ this.props.BG.height }
           width={ this.props.BG.width }>
           <Layer> 
