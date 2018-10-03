@@ -44,6 +44,7 @@
 }
 .studioSegLabel:hover {
   background-color: darkturquoise;
+  color: #2e4057;
 }
 .studioSegLabel + .studioSegLabel {
   margin-top: 2%;
@@ -51,10 +52,10 @@
 
 .studioSegLabel.selected {
   background-color: #99c24d;
-  color: white;
+  color: #2e4057;
 }
 .studioSegLabel.selected:hover {
-  color: darkcyan;
+  background-color: #80A934;
 }
 
 .downloadSegLabel {
@@ -68,8 +69,8 @@
 }
 
 .downloadSegLabel:hover {
-  color: white;
-  background-color: darkturquoise;
+  background-color: darkcyan;
+  color: #2e4057;
 }
 
 .dlText {

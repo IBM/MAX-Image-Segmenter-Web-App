@@ -1,6 +1,7 @@
 .konvaMain {
   max-width: 50vw !important;
   max-height: 50vh !important;
+  margin: auto !important;
 }
 
 .konvaMain > .konvajs-content {
@@ -9,7 +10,8 @@
   margin: auto !important;
 }
 .konvaMain > .konvajs-content > canvas {
-  background-color: #f5f5f5 !important;
+  border-radius: 4px;
+  background-color: #2f2d2e !important;
   max-width: 50vw !important;
   max-height: 50vh !important;
 }
@@ -22,6 +24,6 @@
 }
 .konvaDL:hover {
   background-color: #99c24d;
-  border-color: green;
-  color: white;
+  border-color: #4D7601;
+  color: #2e4057;
 }

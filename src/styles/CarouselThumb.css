@@ -17,7 +17,13 @@
   display: block;
   width: 100%;
   height: 100%;
-  margin: 0 0 0 0;
+  margin: 0;
+}
+
+@-moz-document url-prefix() {
+  .thumbImage {
+    margin: 0 !important;
+  }
 }
 
 .savedImageThumb {
@@ -36,7 +42,6 @@
 
 .selectedImageThumb {
   background-color: #0aa; 
-  border: 1px solid #2e4057;
   width: 18vw;
   height: 18vw;
   max-height: 100%;
@@ -54,7 +59,7 @@
 }
 
 .selectedImageThumb > .imageLabel.top {
-  color: white;
+  color: #2e4057;
   background-color: #0aa; 
   height: 26px;
 }
@@ -106,11 +111,15 @@
 }
 .cpbtn:hover {
   background-color: darkturquoise;
-  color: white;
+  color: #2e4057;
   text-decoration: none;
 }
 .cpbtn:focus {
   background-color: #0aa;
+}
+
+.cpbtn.delete:hover {
+  color: darkred;
 }
 
 .imageGlyph {

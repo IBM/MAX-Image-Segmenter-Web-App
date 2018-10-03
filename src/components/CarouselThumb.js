@@ -103,7 +103,7 @@ const displaySelectControls = (props, image) => {
         <Glyphicon glyph="trash" /> 
         </a>
         <a className="cpbtn studio" onClick={ () => props.loadIntoStudio(image, 'one') }>
-        Studio <Glyphicon glyph="arrow-left" /> 
+        <Glyphicon glyph="arrow-left" /> Studio 
         </a>
         <a className="cpbtn studio" onClick={ () => props.loadIntoStudio(image, 'two') }>
         Studio <Glyphicon glyph="arrow-right" /> 

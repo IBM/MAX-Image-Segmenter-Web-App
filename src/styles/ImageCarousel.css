@@ -27,9 +27,10 @@
 }
 
 .carousel-indicators > li {
-  background-color: darkturquoise;
-  border-color: cyan;
+  background-color: #2e4057;
+  border-color: darkturquoise;
 }
 .carousel-indicators > li.active {
   background-color: cyan;
+  border-color: cyan;
 }
