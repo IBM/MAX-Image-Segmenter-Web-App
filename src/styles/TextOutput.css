@@ -12,12 +12,9 @@
   padding: 5% 1% 1% 1%;
   width: 95%;
 }
+
 .textBox > p {
   margin: 0;
-}
-
-.objLabel {
-  margin-bottom: 1%;
 }
 
 .outputSegText {
@@ -27,29 +24,6 @@
 
 .outputStudioText {
   padding-top: 15%;
-}
-
-.objLabel {
-  transition: transform .15s cubic-bezier(0.5, 0, 0.5, 0.2);
-  transform-origin: 50% 80%;
-}
-
-.maxLabel {
-  margin : 0;
-  display : inline-block;
-  font-size : 1.25em;
-  cursor: pointer;
-  text-decoration: underline;
-  transition: transform .15s cubic-bezier(0.5, 0, 0.5, 0.2);
-  transform-origin: 50% 80%;
-}
-
-.objLabel:hover {
-  transform: scale(1.1);
-}
-
-.maxLabel:hover {
-  transform: scale(1.05);
 }
 
 .outputDLButton {
@@ -80,7 +54,6 @@
 
 .arrowIcons {
   font-size: 350%;
-  
   display: flex;
   flex: column;
   align-content: center;
