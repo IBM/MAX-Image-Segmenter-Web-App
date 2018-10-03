@@ -14,11 +14,22 @@ div.stickyHead.row {
 }
 
 .titleText {
-  display: inline-block;
+  width: 100%;
   font-size: 2.75em;
-  margin:1%;
+  margin: 1%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999 !important;
 }
 
 .titleText > u {
   color: darkturquoise;
+}
+
+.titleBanner > .particles, 
+.titleBanner > .particles > canvas {
+  z-index: -99 !important;
+  max-height: 10vh !important;
+  width: 100% !important;
 }
