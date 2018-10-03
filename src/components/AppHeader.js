@@ -21,14 +21,13 @@ export default class AppHeader extends Component {
   }
 }
 
-
 const particleParams = {
   "particles": {
     "number": {
       "value": 80,
       "density": {
         "enable": true,
-        "value_area": 800
+        "value_area": 700
       }
     },
     "color": {
@@ -38,14 +37,14 @@ const particleParams = {
       "type": "circle",
       "stroke": {
         "width": 0,
-        "color": "#000000"
+        "color": "#00aaaa"
       },
       "polygon": {
         "nb_sides": 5
       }
     },
     "opacity": {
-      "value": 0.5,
+      "value": 0.4,
       "random": false,
       "anim": {
         "enable": false,
@@ -55,7 +54,7 @@ const particleParams = {
       }
     },
     "size": {
-      "value": 3,
+      "value": 2,
       "random": true,
       "anim": {
         "enable": false,
@@ -86,5 +85,5 @@ const particleParams = {
       }
     }
   },
-  "retina_detect": true
+  "retina_detect": false
 }

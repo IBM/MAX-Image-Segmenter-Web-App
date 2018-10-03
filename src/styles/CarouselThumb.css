@@ -10,7 +10,7 @@
   font-weight: bold;
   background-color: #2e4057;
   text-transform: uppercase;
-  color: white;
+  color: #f5f5f5;
 }
 
 .thumbImage {
@@ -26,7 +26,7 @@
 }
 
 .savedImageThumb {
-  background-color: #0aa;;
+  background-color: #0aa;
   width: 18vw;
   height: 18vw;
   max-height: 100%;
@@ -49,7 +49,7 @@
   display: flex;
   cursor: pointer;
   flex-flow: column;
-  color: #fff;
+  color: #f5f5f5;
   overflow: hidden;
 }
 
@@ -69,12 +69,12 @@
 
 .savedImageThumb:hover {
   background-color: #0aa; 
-  color: #fff;
+  color: #f5f5f5;
 }
 
 .savedImageThumb:hover > .imageLabel.top {
   background-color: #0aa;
-  color: white;
+  color: #f5f5f5;
 }
 
 .savedImageThumb:hover > .imageGlyph {
@@ -91,7 +91,6 @@
 
 .controlPanel { 
   margin: 1% 0 1% 0;
-  color: white;
   padding: 1% 0 1% 0;
   display: flex;
   flex-flow: row nowrap;
@@ -101,7 +100,7 @@
 
 .cpbtn {
   margin: auto;
-  color: white;
+  color: #f5f5f5;
   border-radius: 3px;
   padding: 1% 2% 1% 2%;
   background-color: darkcyan;

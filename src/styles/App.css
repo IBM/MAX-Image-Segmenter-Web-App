@@ -9,7 +9,6 @@ html > body > #root > div {
 }
 
 .appContent {
-  background-color: white;
   flex: 1 0 auto;
   min-width: 100%;
   height: 55vh;
@@ -23,13 +22,8 @@ html > body > #root > div {
 
 .stickyHead {
   flex: 0 1 auto;
-  background-color: #ddd;
   padding: 1.5%;
   max-height: 10vh;
-}
-
-.gridLayout {
-  background-color: #f5f5f5;
 }
 
 .uploadWrapper {
@@ -79,8 +73,4 @@ html > body > #root > div {
 
 .containerfluid {
   margin: 0;
-}
-
-.uploadFormWrapper {
-  margin: auto;
 }

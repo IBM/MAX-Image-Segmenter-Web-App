@@ -16,7 +16,7 @@ div.stickyHead.row {
 .titleText {
   width: 100%;
   font-size: 2.75em;
-  margin-top: 1%;
+  margin-top: 1.5vh;
   position: absolute;
   top: 0;
   left: 0;
@@ -30,6 +30,6 @@ div.stickyHead.row {
 .titleBanner > .particles, 
 .titleBanner > .particles > canvas {
   z-index: -99 !important;
-  max-height: 10vh !important;
+  height: 10vh !important;
   width: 100% !important;
 }

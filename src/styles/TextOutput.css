@@ -1,7 +1,7 @@
 .textBox {
-  background-color: #f5f5f5;
-  border-color: #f18f01 !important;
-  color: #2e4057;
+  background-color: #2f2d2e;
+  border-color: #0aa !important;
+  color: #f5f5f5;
   margin: 1% auto 1% auto;
   display: flex;
   flex-flow: column;
