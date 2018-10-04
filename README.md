@@ -48,7 +48,7 @@ Go to `http://localhost:5000` to load it. From there you can explore the API and
 
 # Step 2: Start the Web App
 
-## Option 1: Run the App with `npm`
+### Option 1: Run the App with `npm`
 
 First, clone this repo with the command: 
 ```
@@ -67,7 +67,7 @@ npm start
 
 Open your browser and navigate to `http://localhost:3000` to view the app.
 
-## Option 2: Run the App with Docker
+### Option 2: Run the App with Docker
 
 Start the app with the command: 
 ```
@@ -76,7 +76,7 @@ docker run -it -p 3000:3000 kastentx/max-cropping-tool
 
 Open your browser and navigate to `http://localhost:3000` to view the app.
 
-### To Stop
+#### To Stop
 
 This command will stop all running containers:  
 ```
@@ -85,13 +85,13 @@ docker kill $(docker ps -aq)
 
 See the [Docker docs](https://docs.docker.com/) for more information about removing images and containers that you've accumulated. 
 
-### Troubleshooting
+#### Troubleshooting
 
 If you receive errors about ports being in use, check to make sure nothing else is already using ports `5000` or `3000` which are needed by this app. To make sure the containers aren't already running, use the command `docker ps` to list all running containers.
 
 # Alternate Install Methods 
 
-## Build/Run MAX Model + Web App in One Step with Docker-Compose
+### Build/Run MAX Model + Web App in One Step with Docker-Compose
 
 First, download the configuriation file with the following command:  
 ```
@@ -106,14 +106,14 @@ docker-compose up -d
 Open your browser and navigate to `http://localhost:3000` to view the app, 
 or `http://localhost:5000` to view the MAX Model API documentation.
 
-### To Stop
+#### To Stop
 
 Stop the Web App and MAX Model server with the following command: 
 ```
 docker-compose stop
 ```
 
-### Troubleshooting
+#### Troubleshooting
 
 If you receive an error about duplicate containers or container names already being in use, or you just want to get rid of all saved containers use the command:
 ```
