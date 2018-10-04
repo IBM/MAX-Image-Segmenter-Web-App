@@ -2,7 +2,7 @@
 
 _intro_
 
-_arch diagram_
+![Architecture Overview](./static/arch.png)
 
 
 # Installation Steps
@@ -35,7 +35,7 @@ The official docs recommend using [Docker](https://docs.docker.com/) to run the 
 ## 1. Start the Model Server
 
 Use the following command to start the MAX model server:  
-```
+```bash
 docker run -it -p 5000:5000 -e CORS_ENABLE=true kastentx/cors-max-imgseg
 ```  
 
@@ -51,17 +51,17 @@ Go to `http://localhost:5000` to load it. From there you can explore the API and
 ### Option 1: Run the App with `npm`
 
 First, clone this repo with the command: 
-```
+```bash
 git clone https://github.com/IBM/MAX-Image-Segmenter-Web-App.git
 ```
 
 Enter the directory with `cd`, then install dependencies with the command: 
-```
+```bash
 npm install
 ```
 
 Finally, start the app with: 
-```
+```bash
 npm start
 ```
 
@@ -70,7 +70,7 @@ Open your browser and navigate to `http://localhost:3000` to view the app.
 ### Option 2: Run the App with Docker
 
 Start the app with the command: 
-```
+```bash
 docker run -it -p 3000:3000 kastentx/max-cropping-tool
 ```   
 
@@ -79,7 +79,7 @@ Open your browser and navigate to `http://localhost:3000` to view the app.
 #### To Stop
 
 This command will stop all running containers:  
-```
+```bash
 docker kill $(docker ps -aq)
 ```
 
@@ -94,12 +94,12 @@ If you receive errors about ports being in use, check to make sure nothing else 
 ### Build/Run MAX Model + Web App in One Step with Docker-Compose
 
 First, download the configuriation file with the following command:  
-```
+```bash
 curl https://raw.githubusercontent.com/IBM/MAX-Image-Segmenter-Web-App/master/docker-compose.yml > docker-compose.yml
 ```
 
 Then, in the same directory use the following command to build and run the MAX Model and Web App with [docker-compose](https://docs.docker.com/compose/).
-```
+```bash
 docker-compose up -d
 ```
 
@@ -109,14 +109,14 @@ or `http://localhost:5000` to view the MAX Model API documentation.
 #### To Stop
 
 Stop the Web App and MAX Model server with the following command: 
-```
+```bash
 docker-compose stop
 ```
 
 #### Troubleshooting
 
 If you receive an error about duplicate containers or container names already being in use, or you just want to get rid of all saved containers use the command:
-```
+```bash
 docker rm $(docker ps -aq)
 ```
 
