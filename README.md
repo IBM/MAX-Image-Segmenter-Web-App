@@ -2,8 +2,11 @@
 
 _intro_
 
-![Architecture Overview](./static/arch.png)
+<div style="text-align: center;">
 
+  ![Architecture Overview](./static/arch.png)
+
+</div>
 
 # Installation Steps
 
