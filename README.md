@@ -10,15 +10,19 @@ _arch diagram_
 ## Run Locally
 
 ### Step 1: Start the MAX Model API
-1. [Start the Model Server](#1-start-the-model-server)
-2. [Experiment with the API (Optional)](#2-experiment-with-the-api-optional)
+* [Start the Model Server](#1-start-the-model-server)
+* [Experiment with the API (Optional)](#2-experiment-with-the-api-optional)
 
 ### Step 2: Start the Web App
 
-1. [Option 1: Run the App with `npm`](#option-1-run-the-app-with-npm)
-2. [Option 2: Run the App with Docker](#option-2-run-the-app-with-docker)
+* [Option 1: Run the App with `npm`](#option-1-run-the-app-with-npm)
+* [Option 2: Run the App with Docker](#option-2-run-the-app-with-docker)
 
-#### [Optional: Build/Run MAX Model + Web App in One Step with Docker-Compose](#alternate-install-option-buildrun-max-model--web-app-in-one-step-with-docker-compose)
+### Alternate Install Methods: 
+
+* [Build/Run MAX Model + Web App in One Step with Docker-Compose](#buildrun-max-model--web-app-in-one-step-with-docker-compose)
+
+<br>
 
 # Step 1: Start the MAX Image Segmenter Model
 
@@ -83,7 +87,9 @@ See the [Docker docs](https://docs.docker.com/) for more information about remov
 
 If you receive errors about ports being in use, check to make sure nothing else is already using ports `5000` or `3000` which are needed by this app. To make sure the containers aren't already running, use the command `docker ps` to list all running containers.
 
-## Alternate Install Option: Build/Run MAX Model + Web App in One Step with Docker-Compose
+# Alternate Install Methods 
+
+## Build/Run MAX Model + Web App in One Step with Docker-Compose
 
 First, download the configuriation file with the following command:  
 ```
