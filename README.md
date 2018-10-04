@@ -26,6 +26,8 @@ _arch diagram_
 
 # Step 1: Start the MAX Image Segmenter Model
 
+> NOTE: The set of instructions in this section are a modified version of the ones found in the [MAX Image Segmenter model repo](https://github.com/IBM/MAX-Image-Segmenter)
+
 This app leverages the API server included with the MAX Image Segmenter model located [here](https://github.com/IBM/MAX-Image-Segmenter). 
 
 The official docs recommend using [Docker](https://docs.docker.com/) to run the MAX model server on your machine, which is also the recommended method to build and run this app. See the [Docker install docs](https://docs.docker.com/install/) for more information.
