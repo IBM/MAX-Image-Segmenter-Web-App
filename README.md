@@ -3,9 +3,7 @@
 _intro_
 
 <div style="text-align: center;">
-
-  ![Architecture Overview](./static/arch.png)
-
+  <img src="./static/arch.png" alt="Architectural Diagram" />
 </div>
 
 # Installation Steps
