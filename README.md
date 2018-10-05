@@ -39,7 +39,7 @@ The official docs recommend using [Docker](https://docs.docker.com/) to run the 
 
 Use the following command to start the MAX model server:  
 ```bash
-docker run -it -p 5000:5000 -e CORS_ENABLE=true kastentx/cors-max-imgseg
+docker run -it -p 5000:5000 -e CORS_ENABLE=true codait/max-image-segmenter
 ```  
 
 Leave this window open and perform the folllowing steps in a new terminal window.
