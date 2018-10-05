@@ -23,7 +23,7 @@ const LoadedStudioImage = props => {
       </div>
       <div style={ { maxHeight: '25vh', overflowY: overflowStyle } }>
         <ImageSegmentList 
-            selected={ selected }
+            selected={ selected || 'none' }
             selectSeg={ segSelect }
             image={ image } />
       </div>
