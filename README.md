@@ -25,7 +25,7 @@ _intro_
 
 <br>
 
-# Step 1: Start the MAX Image Segmenter Model
+## Step 1: Start the MAX Image Segmenter Model
 
 > NOTE: The set of instructions in this section are a modified version of the ones found in the [MAX Image Segmenter model repo](https://github.com/IBM/MAX-Image-Segmenter)
 
@@ -33,7 +33,7 @@ This app leverages the API server included with the MAX Image Segmenter model lo
 
 The official docs recommend using [Docker](https://docs.docker.com/) to run the MAX model server on your machine, which is also the recommended method to build and run this app. See the [Docker install docs](https://docs.docker.com/install/) for more information.
 
-## 1. Start the Model Server
+### 1. Start the Model Server
 
 Use the following command to start the MAX model server:  
 ```bash
@@ -42,12 +42,12 @@ docker run -it -p 5000:5000 -e CORS_ENABLE=true codait/max-image-segmenter
 
 Leave this window open and perform the folllowing steps in a new terminal window.
 
-## 2. Experiment with the API (Optional)
+### 2. Experiment with the API (Optional)
 
 The API server automatically generates an interactive Swagger documentation page.
 Go to `http://localhost:5000` to load it. From there you can explore the API and also create test requests.
 
-# Step 2: Start the Web App
+## Step 2: Start the Web App
 
 ### Option 1: Run the App with `npm`
 
