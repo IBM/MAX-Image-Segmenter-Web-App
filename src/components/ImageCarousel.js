@@ -1,11 +1,11 @@
 import React from 'react'
 import { Carousel } from 'react-bootstrap'
 import CarouselThumb from './CarouselThumb'
-import { isNonEmpty } from '../utils'
+import { isNonEmpty, isEmpty } from '../utils'
 import '../styles/ImageCarousel.css'
 
 const ImageCarousel = props => {
-  const singlePage = isNonEmpty(props.images) && props.images.length < 4
+  const singlePage = isEmpty(props.images) || props.images.length < 4
   return (
     <Carousel
       className={ singlePage ? `singlePageCarousel` : `multiPageCarousel` }
