@@ -99,7 +99,7 @@ First, download the configuration file with the following command:
 curl https://raw.githubusercontent.com/IBM/MAX-Image-Segmenter-Web-App/master/docker-compose.yml > docker-compose.yml
 ```
 
-Then, in the same directory use the following command to build and run the MAX Model and Web App with [docker-compose](https://docs.docker.com/compose/).
+Then, in the same directory run the MAX Model and Web App with [docker-compose](https://docs.docker.com/compose/) using the following command:
 ```bash
 docker-compose up -d
 ```
