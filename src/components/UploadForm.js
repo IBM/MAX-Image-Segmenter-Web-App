@@ -45,6 +45,7 @@ export default class UploadForm extends Component {
           this.props.setAppImageData(MAXImage)
         } catch (e) {
           console.error('error saving MAX Image data in parent state')
+          this.props.handleCrash()
         }       
       }
       scaledImage.src = imageURL
