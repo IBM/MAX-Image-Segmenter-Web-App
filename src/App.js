@@ -236,24 +236,36 @@ export default class App extends Component {
                   image: {}
                 }) 
               } 
-              setAppImageData={newImage =>
+              setAppImageData={ newImage =>
                 this.setState({ 
                   image: newImage
+                }) 
+              }
+              handleCrash={ () => 
+                this.setState({
+                  studio: {},
+                  mode: 'initial'
                 }) 
               } />
           }
         </span>
       )
     } else if (this.state.mode === 'studio') {
-        return (
-          <KonvaDisplay 
-            BG={ this.state.studio.one } 
-            selected={ {
-              BG: this.state.studio.one.selected,
-              front: this.state.studio.two.selected
-            } }
-            front={ this.state.studio.two } />
-        )
+      return (
+        <KonvaDisplay 
+          BG={ this.state.studio.one } 
+          selected={ {
+            BG: this.state.studio.one.selected,
+            front: this.state.studio.two.selected
+          } }
+          front={ this.state.studio.two } 
+          resetStudio={ () => 
+            this.setState({
+              studio: {},
+              mode: 'studio-loading'
+            }) 
+          } />
+      )
     }
   }
 

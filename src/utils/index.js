@@ -151,7 +151,7 @@ export const getPrediction = img => {
     method: 'post',
     url: `http://${modelIP}:${modelPort}/model/predict`,
     data: bodyFormData,
-    config: { headers: { 'Content-Type' : 'multipart/form-data', 'accept' : 'application/json' } }
+    config: { headers: { 'Content-Type' : 'multipart/form-data', 'accept' : 'application/json' }, timeout: 8000 }
   })
 }
 
