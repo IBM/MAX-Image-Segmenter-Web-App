@@ -54,7 +54,6 @@ export default class App extends Component {
         mode: this.studioReady() ? 'studio' : 'studio-loading',
         previewImg: {}
       })
-      
       if (isEmpty(this.state.studio)) {
         const singleImageDoc = await getSingleImage(pouchResponse.id)
         this.setState({
@@ -207,10 +206,10 @@ export default class App extends Component {
 
   renderMainColumn() {
     if (this.state.mode === 'initial') {
-      return <UserInfoText mode={ this.state.mode } />
+      return <UserInfoText hasImages={ isNonEmpty(this.state.savedImages) } mode={ this.state.mode } />
     } else if (this.state.mode === 'studio-loading' && isNonEmpty(this.state.image)) {
       return (
-        <TextOutput 
+        <TextOutput
           image={ this.state.image } 
           studio={ this.state.studio } />
         )
@@ -262,7 +261,7 @@ export default class App extends Component {
           resetStudio={ () => 
             this.setState({
               studio: {},
-              mode: 'studio-loading'
+              mode: 'initial'
             }) 
           } />
       )

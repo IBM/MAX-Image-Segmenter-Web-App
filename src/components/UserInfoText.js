@@ -2,11 +2,10 @@ import React from 'react'
 import '../styles/UserInfoText.css'
 
 const UserInfoText = props => {
-  const currentMode = props.mode
   return (
     <div className="uploadWrapper">
       <div className="textBox userInfo">
-        { renderMessage(currentMode) }
+        { renderMessage(props.mode, props.hasImages) }
       </div>
     </div>
   )
@@ -14,9 +13,13 @@ const UserInfoText = props => {
 
 export default UserInfoText
 
-const renderMessage = mode => {
+const renderMessage = (mode, hasImages) => {
   if (mode === 'initial') {
-    return `Click the 'Add an Image' button below to begin.`
+    if (hasImages){
+      return `Select or Add an Image below to begin.`
+    } else {
+      return `Click the 'Add an Image' button below to begin.`
+    }
   } else if (mode === 'studio-loading') {
     return `Choose another image to begin combining objects and creating images in the Studio.`
   } else if (mode === 'loading-left') {
