@@ -94,7 +94,7 @@ If you receive errors about ports being in use, check to make sure nothing else 
 
 ### Build/Run MAX Model + Web App in One Step with Docker-Compose
 
-First, download the configuriation file with the following command:  
+First, download the configuration file with the following command:  
 ```bash
 curl https://raw.githubusercontent.com/IBM/MAX-Image-Segmenter-Web-App/master/docker-compose.yml > docker-compose.yml
 ```
