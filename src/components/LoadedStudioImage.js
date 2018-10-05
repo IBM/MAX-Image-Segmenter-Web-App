@@ -6,7 +6,7 @@ const LoadedStudioImage = props => {
   const { image, label, segSelect } = props
   const selected = image.selected
   const source = image.segments.source
-  const overflowStyle = Object.keys(image.segments).length > 5 ? 'scroll' : 'hidden' 
+  const overflowStyle = Object.keys(image.segments).length > 5 ? 'scroll' : 'hidden'
 
   return (
     <div className="panel panel-default imagePanel">
@@ -21,7 +21,7 @@ const LoadedStudioImage = props => {
         backgroundImage: `url(${ selected ? image.segments[selected].url : source.url })`
       } }>
       </div>
-      <div style={ { maxHeight: '23vh', overflowY: overflowStyle } }>
+      <div style={ { maxHeight: '25vh', overflowY: overflowStyle } }>
         <ImageSegmentList 
             selected={ selected }
             selectSeg={ segSelect }
