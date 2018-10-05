@@ -183,9 +183,5 @@ const downloadSingleSeg = (imgName, segment) => {
   saveAs(B64toBlob(URLtoB64(segment.url), 'image/png'), `${ imgName }-${ segment.name }.png`)
 }
 
-export const downloadSegments = async ({ id, segments }) => {
-  for (let seg in segments) {
-    const segment = segments[seg]
-    downloadSingleSeg(id.split('-')[1], segment)
-  }
-}
+export const downloadSegments = async ({ id, segments }) => Object.keys(segments)
+  .forEach(seg => downloadSingleSeg(id.split('-')[1], segments[seg]))
