@@ -16,13 +16,28 @@
   max-height: 50vh !important;
 }
 
-.konvaDL {
+.konvaBtn {
   margin-top: 2%;
   color: #2e4057;
   background-color: darkturquoise;
   border: 0 !important;
 }
-.konvaDL:hover {
+
+.konvaBtn.DL:hover {
   background-color: #80A934;
   color: #2e4057;
+}
+
+.konvaBtn.Reset:hover {
+  background-color: rgba(139, 0, 0, 0.548);
+  color: #f5f5f5;
+}
+
+.konvaBtnBar {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: row;
+  align-content: center;
+  justify-content: space-evenly;
 }

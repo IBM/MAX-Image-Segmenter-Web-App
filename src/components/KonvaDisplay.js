@@ -85,11 +85,18 @@ export default class KonvaDisplay extends Component {
             { frontImage ? this.renderLayer('front', frontImage, selected) : null }
           </Layer>
         </Stage>
-        <button
-          className="btn konvaDL"
-          onClick={ () => this.downloadStage() }>
-          <Glyphicon glyph="floppy-disk" /> <span className="dlText ">{` Download Image`}</span>
-        </button>
+        <div className="konvaBtnBar">
+          <button
+            className="btn konvaBtn DL"
+            onClick={ () => this.downloadStage() }>
+            <Glyphicon glyph="floppy-save" /> <span className="dlText ">{` Download Image`}</span>
+          </button>
+          <button
+            className="btn konvaBtn Reset"
+            onClick={ () => this.props.resetStudio() }>
+            <Glyphicon glyph="refresh" /> <span className="dlText ">{` Reset Studio`}</span>
+          </button>
+        </div>
       </div>
     )
   }
