@@ -6,10 +6,25 @@ In this application, the [MAX Image Segmenter](https://github.com/IBM/MAX-Image-
 
 In the Studio section of the app, two images may be loaded into an interface that allows for drag-and-drop combinations of any two objects within them. Any new images you may happen to create here can also be downloaded.
 
+When the reader has completed this Code Pattern, they will understand how to:
+
+* Build a docker image of the Image Segmenter MAX Model
+* Deploy a deep learning model with a REST endpoint
+* Recognize objects segments in an image using the MAX Model's REST API
+* Run a web application that using the model's REST API
+* Interact with processed object segments to create new images
+
 <br>
 <div style="text-align: center;">
   <img src="./static/arch.png" alt="Architectural Diagram" />
 </div>
+
+# Flow
+
+1. User submits image using the web app UI
+2. MAX Model API porcesses image and returns JSON response
+3. Web App uses JSON response to crop objects from image and display them to user
+4. User interacts with object segments from uploaded images using web app UI
 
 # Installation Steps
 
@@ -32,7 +47,7 @@ In the Studio section of the app, two images may be loaded into an interface tha
 
 ## Step 1: Start the MAX Image Segmenter Model
 
-> NOTE: The set of instructions in this section are a modified version of the ones found in the [MAX Image Segmenter model repo](https://github.com/IBM/MAX-Image-Segmenter)
+> NOTE: The set of instructions in this section are a modified version of the ones found in the [MAX Image Segmenter Model gitHub repo](https://github.com/IBM/MAX-Image-Segmenter)
 
 This app leverages the API server included with the MAX Image Segmenter model located [here](https://github.com/IBM/MAX-Image-Segmenter). 
 
