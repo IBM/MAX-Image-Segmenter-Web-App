@@ -60,7 +60,7 @@ Use the following command to start the MAX model server:
 docker run -it -p 5000:5000 -e CORS_ENABLE=true codait/max-image-segmenter
 ```  
 
-Leave this window open and perform the folllowing steps in a new terminal window.
+Leave this window open and perform the following steps in a new terminal window.
 
 ### 2. Experiment with the API (Optional)
 
