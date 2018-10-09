@@ -22,8 +22,8 @@ When the reader has completed this Code Pattern, they will understand how to:
 # Flow
 
 1. User submits image using the web app UI
-2. MAX Model API porcesses image and returns JSON response
-3. Web App uses JSON response to crop objects from image and display them to user
+2. MAX Model API processes image and returns JSON response
+3. Web app uses JSON response to crop objects from image and display them to user
 4. User interacts with object segments from uploaded images using web app UI
 
 # Installation Steps
