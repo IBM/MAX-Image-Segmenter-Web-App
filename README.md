@@ -45,11 +45,11 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 # Screen Shots
 
-* [Starting the App](#Starting-the-App)
-* [Uploading Images](#Uploading-Images)
-* [MAX Image Segmenter Response](#MAX-Image-Segmenter-Response)
-* [Loading Images into the Studio](#Loading-Images-into-the-Studio)
-* [Combining Objects to Create New Images](#Combining-Objects-to-Create-New-Images)
+* [Starting the App](#starting-the-app)
+* [Uploading Images](#uploading-images)
+* [MAX Image Segmenter Response](#max-image-segmenter-response)
+* [Loading Images into the Studio](#loading-images-into-the-studio)
+* [Combining Objects to Create New Images](#combining-objects-to-create-new-images)
 
 
 ## Step 1: Start the MAX Image Segmenter Model
