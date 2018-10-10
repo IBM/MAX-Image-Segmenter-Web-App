@@ -43,7 +43,14 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 * [Build/Run MAX Model + Web App in One Step with Docker-Compose](#buildrun-max-model--web-app-in-one-step-with-docker-compose)
 
-<br>
+# Screen Shots
+
+* [Starting the App](#Starting-the-App)
+* [Uploading Images](#Uploading-Images)
+* [MAX Image Segmenter Response](#MAX-Image-Segmenter-Response)
+* [Loading Images into the Studio](#Loading-Images-into-the-Studio)
+* [Combining Objects to Create New Images](#Combining-Objects-to-Create-New-Images)
+
 
 ## Step 1: Start the MAX Image Segmenter Model
 
