@@ -184,7 +184,7 @@ Once you have multiple images available in the carousel, you may load them into 
 
 <img src="./static/combine-images.png" alt="Combining Objects" />
 
-Once two images have been loaded into the Studio, click to select an Object Segment from the list below each image, then drag them around the canvas to create something new! You can download the current canvas or reset the Studio at any time using the buttons below.
+Once two images have been loaded into the Studio, click to select an Object Segment from the list below each image, then drag them around the canvas to create something new! You can download the current image or reset the studio at any time using the buttons below.
 
 <img src="./static/reverse.png" alt="Combining Objects 2" />
 
