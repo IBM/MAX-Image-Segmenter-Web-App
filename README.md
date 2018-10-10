@@ -154,7 +154,7 @@ This is the screen you will see upon first starting the app. Click "Add an Image
 
 <img src="./static/upload.png" alt="Uploading Images" />
 
-From this view, click the "Select an Image" button to process an image from your device.
+From this view, click the "Select Image" button to process an image from your device.
 
 #### MAX Image Segmenter Response
 
