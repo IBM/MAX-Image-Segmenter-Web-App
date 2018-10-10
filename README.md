@@ -142,19 +142,46 @@ docker rm $(docker ps -aq)
 ```
 
 <hr>
-<div style="text-align: center">
+<div style="text-align: center;">
+
+#### Starting the App
+
+<img src="./static/intro.png" alt="Starting the App" />
+
+This is the screen you will see upon first starting the app. Click "Add an Image" in the lower part of the screen to begin.
 
 #### Uploading Images
-<i>coming soon</i>
+
+<img src="./static/upload.png" alt="Uploading Images" />
+
+From this view, click the "Select an Image" button to process an image from your device.
 
 #### MAX Image Segmenter Response
-<i>coming soon</i>
+
+<img src="./static/max-one.png" alt="MAX Response" />
+
+The first image to be added will be displayed on the left side of the screen, with a short description in the center.
+
+<img src="./static/max-two.png" alt="MAX Response (Second Image)" />
+
+As subsequent images are added, they will appear on the right side of the screen.
 
 #### Loading Images into the Studio
-<i>coming soon</i>
 
-#### Creating Images with Saved Objects in Studio
-<i>coming soon</i>
+<img src="./static/loading-into-studio.png" alt="Loading Images into the Studio" />
+
+Once you have multiple images available in the carousel, you may load them into either position in the studio through the buttons pictured above. Click an image to display its control panel.
+
+
+#### Combining Objects to Create New Images
+
+<img src="./static/combine-images.png" alt="Combining Objects" />
+
+Once two images have been loaded into the Studio, click to select an Object Segment from the list below each image, then drag them around the canvas to create something new! You can download the current canvas or reset the Studio at any time using the buttons below.
+
+<img src="./static/reverse.png" alt="Combining Objects 2" />
+
+Use the provided sample images in the `/assets` folder or supply your own to see what kinds of creations you can come up with. Here's an example using a 'background' segment in the front layer with an outer-space background layer.
 
 <b>DEMO VIDEO</b> <br>  
 <i>in development</i>
