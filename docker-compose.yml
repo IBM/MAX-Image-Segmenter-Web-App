@@ -2,8 +2,8 @@ version: '3.5'
 
 services:
   max-cropping-tool:
-    container_name: max-cropping-tool
-    image: kastentx/max-cropping-tool
+    container_name: max-image-segmenter-web-app
+    image: codait/max-image-segmenter-web-app
     ports:
       - '3000:3000'
 
