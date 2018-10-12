@@ -44,20 +44,20 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 ## Run Locally
 
-### Step 1: Start the MAX Model API
+**Step 1: Start the MAX Model API**
 * [Start the Model Server](#1-start-the-model-server)
 * [Experiment with the API (Optional)](#2-experiment-with-the-api-optional)
 
-### Step 2: Start the Web App
+**Step 2: Start the Web App**
 
 * [Option 1: Run the App with `npm`](#option-1-run-the-app-with-npm)
 * [Option 2: Run the App with Docker](#option-2-run-the-app-with-docker)
 
-### Alternate Install Methods:
+**Alternate Install Methods**
 
 * [Build/Run MAX Model + Web App in One Step with Docker-Compose](#buildrun-max-model--web-app-in-one-step-with-docker-compose)
 
-## Step 1: Start the MAX Image Segmenter Model
+### Step 1: Start the MAX Model API
 
 > NOTE: The set of instructions in this section are a modified version of the ones found in the [MAX Image Segmenter Model GitHub repo](https://github.com/IBM/MAX-Image-Segmenter)
 
@@ -65,7 +65,7 @@ This app leverages the API server included with the MAX Image Segmenter model.
 The MAX model server uses [Docker](https://docs.docker.com/) to run on your machine, which is also the recommended method to build and run this app.
 See the [Docker install docs](https://docs.docker.com/install/) for more information.
 
-### 1. Start the Model Server
+#### 1. Start the Model Server
 
 Use the following command to start the MAX model server:
 ```bash
@@ -74,21 +74,22 @@ $ docker run -it -p 5000:5000 -e CORS_ENABLE=true codait/max-image-segmenter
 
 Leave this window open and perform the following steps in a new terminal window.
 
-### 2. Experiment with the API (Optional)
+#### 2. Experiment with the API (Optional)
 
 The API server automatically generates an interactive Swagger documentation page.
 Go to `http://localhost:5000` to load it. From there you can explore the API and also create test requests.
 
-## Step 2: Start the Web App
+### Step 2: Start the Web App
 
-### Option 1: Run the App with `npm`
+#### Option 1: Run the App with `npm`
 
 First, clone this repo with the command:
 ```bash
 $ git clone https://github.com/IBM/MAX-Image-Segmenter-Web-App.git
+$ cd MAX-Image-Segmenter-Web-App
 ```
 
-Enter the directory with `cd`, then install dependencies with the command:
+Install dependencies with the command:
 ```bash
 $ npm install
 ```
@@ -100,7 +101,7 @@ $ npm start
 
 Open your browser and navigate to `http://localhost:3000` to view the app.
 
-### Option 2: Run the App with Docker
+#### Option 2: Run the App with Docker
 
 Start the app with the command:
 ```bash
@@ -109,7 +110,7 @@ $ docker run -it -p 3000:3000 codait/max-image-segmenter-web-app
 
 Open your browser and navigate to `http://localhost:3000` to view the app.
 
-#### To Stop
+**To Stop**
 
 This command will stop all running containers:
 ```bash
@@ -118,9 +119,9 @@ $ docker kill $(docker ps -aq)
 
 See the [Docker docs](https://docs.docker.com/) for more information about removing images and containers that you've accumulated.
 
-# Alternate Install Methods
+### Alternate Install Methods
 
-### Build/Run MAX Model + Web App in One Step with Docker-Compose
+#### Build/Run MAX Model + Web App in One Step with Docker-Compose
 
 First, download the configuration file with the following command:
 ```bash
@@ -135,7 +136,7 @@ $ docker-compose up -d
 Open your browser and navigate to `http://localhost:3000` to view the app,
 or `http://localhost:5000` to view the MAX Model API documentation.
 
-#### To Stop
+**To Stop**
 
 Stop the Web App and MAX Model server with the following command:
 ```bash
@@ -152,41 +153,41 @@ $ docker-compose stop
 
 #### Starting the App
 
-![Starting the App](doc/source/images/intro.png)
-
 This is the screen you will see upon first starting the app. Click "Add an Image" in the lower part of the screen to begin.
+
+![Starting the App](doc/source/images/intro.png)
 
 #### Uploading Images
 
-![Uploading Images](doc/source/images/upload.png)
-
 From this view, click the "Select Image" button to process an image from your device.
+
+![Uploading Images](doc/source/images/upload.png)
 
 #### MAX Image Segmenter Response
 
-![MAX Response](doc/source/images/max-one.png)
-
 The first image to be added will be displayed on the left side of the screen, with a short description in the center.
 
-![MAX Response (Second Image)](doc/source/images/max-two.png)
+![MAX Response](doc/source/images/max-one.png)
 
 As subsequent images are added, they will appear on the right side of the screen.
 
-#### Loading Images into the Studio
+![MAX Response (Second Image)](doc/source/images/max-two.png)
 
-![Loading Images into the Studio](doc/source/images/loading-into-studio.png)
+#### Loading Images into the Studio
 
 Once you have multiple images available in the carousel, you may load them into either position in the studio through the buttons pictured above. Click an image to display its control panel.
 
-#### Combining Objects to Create New Images
+![Loading Images into the Studio](doc/source/images/loading-into-studio.png)
 
-![Combining Objects](doc/source/images/combine-images.png)
+#### Combining Objects to Create New Images
 
 Once two images have been loaded into the Studio, click to select an Object Segment from the list below each image, then drag them around the canvas to create something new! You can download the current image or reset the studio at any time using the buttons below.
 
-![Combining Objects 2](doc/source/images/reverse.png)
+![Combining Objects](doc/source/images/combine-images.png)
 
 Use the provided sample images in the `/assets` folder or supply your own to see what kinds of creations you can come up with. Here's an example using a 'background' segment in the front layer with an outer-space background layer.
+
+![Combining Objects 2](doc/source/images/reverse.png)
 
 # Troubleshooting
 
