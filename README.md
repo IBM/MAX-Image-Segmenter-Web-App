@@ -11,7 +11,7 @@ In the Studio section of the app, two images may be loaded into an interface tha
 When the reader has completed this Code Pattern, they will understand how to:
 
 * Deploy a deep learning model with a REST endpoint
-* Recognize objects segments in an image using the MAX Model's REST API
+* Recognize object segments in an image using the MAX Model's REST API
 * Run a web application that uses the model's REST API
 * Interact with processed object segments to create new images
 
@@ -20,7 +20,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 # Flow
 
 1. User submits an image using the Web App UI
-2. MAX Model API processes the image and returns a JSON response
+2. MAX Model API identifies object segments in the image and returns a JSON response
 3. Web App Server uses JSON response to crop objects from image and display them to user
 4. User interacts with object segments from uploaded images using Web App UI
 
