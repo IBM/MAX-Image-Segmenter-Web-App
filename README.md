@@ -34,6 +34,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 ## Featured Technologies
 
 * [Node.js](https://nodejs.org/): An open-source JavaScript run-time environment for executing server-side JavaScript code.
+* [Python](https://www.python.org/): Python is a programming language that lets you work more quickly and integrate your systems more effectively.
 
 # Watch the Video
 
@@ -117,10 +118,6 @@ $ docker kill $(docker ps -aq)
 
 See the [Docker docs](https://docs.docker.com/) for more information about removing images and containers that you've accumulated.
 
-#### Troubleshooting
-
-If you receive errors about ports being in use, check to make sure nothing else is already using ports `5000` or `3000` which are needed by this app. To make sure the containers aren't already running, use the command `docker ps` to list all running containers.
-
 # Alternate Install Methods
 
 ### Build/Run MAX Model + Web App in One Step with Docker-Compose
@@ -143,13 +140,6 @@ or `http://localhost:5000` to view the MAX Model API documentation.
 Stop the Web App and MAX Model server with the following command:
 ```bash
 $ docker-compose stop
-```
-
-#### Troubleshooting
-
-If you receive an error about duplicate containers or container names already being in use, or you just want to get rid of all saved containers use the command:
-```bash
-$ docker rm $(docker ps -aq)
 ```
 
 # Sample Output
@@ -197,6 +187,24 @@ Once two images have been loaded into the Studio, click to select an Object Segm
 ![Combining Objects 2](doc/source/images/reverse.png)
 
 Use the provided sample images in the `/assets` folder or supply your own to see what kinds of creations you can come up with. Here's an example using a 'background' segment in the front layer with an outer-space background layer.
+
+# Troubleshooting
+
+If you receive errors about ports being in use, check to make sure nothing else is already using ports `5000` or `3000` which are needed by this app. To make sure the containers aren't already running, use the command `docker ps` to list all running containers.
+
+If you receive an error about duplicate containers or container names already being in use, or you just want to get rid of all saved containers use the command:
+```bash
+$ docker rm $(docker ps -aq)
+```
+
+If you see the following error on `npm install` then your default python version is 3.x.x but python 2.7 is required for the `gyp` library.
+```
+gyp ERR! stack Error: Command failed: python -c import sys; print "%s.%s.%s" % sys.version_info[:3];
+```
+To solve this make sure you also have python 2.7 installed and run the following command to point `gyp` to python2.7
+```
+$ npm config set python /path/to/executable/python2.7
+```
 
 # Links
 
