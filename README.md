@@ -20,7 +20,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 # Flow
 
 1. User submits an image using the Web App UI
-2. MAX Model API identifies object segments in the image and returns a JSON response
+2. MAX Deep Learning Microservice identifies object segments in the image and returns a JSON response
 3. Web App Server uses JSON response to crop objects from image and display them to user
 4. User interacts with object segments from uploaded images using Web App UI
 
@@ -44,8 +44,8 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 ## Run Locally
 
-**Step 1: Start the MAX Model API**
-* [Start the Model Server](#1-start-the-model-server)
+**Step 1: Start the MAX Microservice**
+* [Start the Microservice](#1-start-the-microservice)
 * [Experiment with the API (Optional)](#2-experiment-with-the-api-optional)
 
 **Step 2: Start the Web App**
@@ -57,17 +57,17 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 * [Build/Run MAX Model + Web App in One Step with Docker-Compose](#buildrun-max-model--web-app-in-one-step-with-docker-compose)
 
-### Step 1: Start the MAX Model API
+### Step 1: Start the MAX Microservice
 
 > NOTE: The set of instructions in this section are a modified version of the ones found in the [MAX Image Segmenter Model GitHub repo](https://github.com/IBM/MAX-Image-Segmenter)
 
 This app leverages the API server included with the MAX Image Segmenter model.
-The MAX model server uses [Docker](https://docs.docker.com/) to run on your machine, which is also the recommended method to build and run this app.
+The MAX microservice uses [Docker](https://docs.docker.com/) to run on your machine, which is also the recommended method to build and run this app.
 See the [Docker install docs](https://docs.docker.com/install/) for more information.
 
-#### 1. Start the Model Server
+#### 1. Start the Microservice
 
-Use the following command to start the MAX model server:
+Use the following command to start the MAX microservice:
 ```bash
 $ docker run -it -p 5000:5000 -e CORS_ENABLE=true codait/max-image-segmenter
 ```
@@ -76,7 +76,7 @@ Leave this window open and perform the following steps in a new terminal window.
 
 #### 2. Experiment with the API (Optional)
 
-The API server automatically generates an interactive Swagger documentation page.
+The microservice automatically generates an interactive Swagger API documentation page.
 Go to `http://localhost:5000` to load it. From there you can explore the API and also create test requests.
 
 ### Step 2: Start the Web App
@@ -138,7 +138,7 @@ or `http://localhost:5000` to view the MAX Model API documentation.
 
 **To Stop**
 
-Stop the Web App and MAX Model server with the following command:
+Stop the Web App and MAX Microservice with the following command:
 ```bash
 $ docker-compose stop
 ```
