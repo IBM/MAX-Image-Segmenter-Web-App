@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import { Grid, Row, Col } from 'react-bootstrap'
 import AppHeader from './components/AppHeader'
 import UploadForm from './components/UploadForm'
