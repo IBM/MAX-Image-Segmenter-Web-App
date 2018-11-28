@@ -1,7 +1,7 @@
 import {} from 'dotenv/config'
 import axios from 'axios'
 import PouchDB from 'pouchdb'
-import { saveAs } from 'file-saver/FileSaver'
+import { saveAs } from 'file-saver'
 import B64toBlob  from 'b64-to-blob'
 
 const KUBE_MODEL_IP = process.env.REACT_APP_KUBE_IP || ''
