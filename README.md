@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/IBM/MAX-Image-Segmenter-Web-App.svg?branch=master)](https://travis-ci.org/IBM/MAX-Image-Segmenter-Web-App)
+[![Build Status](https://api.travis-ci.org/IBM/MAX-Image-Segmenter-Web-App.svg?branch=master)](https://travis-ci.org/IBM/MAX-Image-Segmenter-Web-App)
 
 # MAX Image Segmenter Web App: Magic Cropping Tool
 
-Most images that are shared online depict one or many objects, usually in some setting or against some kind of backdrop. When editing images, it can take considerable time and effort to crop these individual objects out, whether they are to be processed further elsewhere or used in some new composition. This application uses a Deep Learning model from the [Model Asset eXchange (MAX)](https://developer.ibm.com/code/exchanges/models/) to automate this process and spark creativity.
+Most images that are shared online depict one or many objects, usually in some setting or against some kind of backdrop. When editing images, it can take considerable time and effort to crop these individual objects out, whether they are to be processed further elsewhere or used in some new composition. This application uses a Deep Learning model from the [Model Asset eXchange (MAX)](https://developer.ibm.com/exchanges/models/) to automate this process and spark creativity.
 
 In this application, the [MAX Image Segmenter](https://github.com/IBM/MAX-Image-Segmenter) model is used to identify the objects in a user-submitted image on a pixel-by-pixel level. These categorized pixels are then used to generate a version of the image with each unique type of object highlighted in a separate color, called a colormap. Each segment is then split into its own image file which can be downloaded for use elsewhere. As subsequent images are uploaded, they will be added to the carousel in the lower portion of the screen and saved in the browser, using PouchDB. From this carousel, images can be reviewed, deleted, or loaded into the "Studio".
 
@@ -26,7 +26,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 ## Included Components
 
-* [IBM Model Asset Exchange](https://developer.ibm.com/code/exchanges/models/): A place for developers to find and use free and open source deep learning models.
+* [IBM Model Asset Exchange](https://developer.ibm.com/exchanges/models/): A place for developers to find and use free and open source deep learning models.
 * [Docker](https://www.docker.com): Docker is a tool designed to make it easier to create, deploy, and run applications by using containers.
 * [React](https://reactjs.org/): An open source JavaScript library for building user interfaces.
 * [PouchDB](https://pouchdb.com/): An open-source JavaScript database inspired by Apache CouchDB that is designed to run well within the browser.
@@ -209,20 +209,20 @@ Use the provided sample images in the `/assets` folder or supply your own to see
 
 # Links
 
-* [Model Asset eXchange (MAX)](https://developer.ibm.com/code/exchanges/models/)
+* [Model Asset eXchange (MAX)](https://developer.ibm.com/exchanges/models/)
 * [Center for Open-Source Data & AI Technologies (CODAIT)](https://developer.ibm.com/code/open/centers/codait/)
 
 # Learn More
 
 * **Artificial Intelligence Code Patterns**: Enjoyed this Code Pattern? Check out our other
-[Artificial Intelligence Code Patterns](https://developer.ibm.com/code/technologies/artificial-intelligence/)
+[Artificial Intelligence Code Patterns](https://developer.ibm.com/technologies/artificial-intelligence/)
 * **AI and Data Code Pattern Playlist**: Bookmark our
 [playlist](https://www.youtube.com/playlist?list=PLzUbsvIyrNfknNewObx5N7uGZ5FKH0Fde) with all of our Code Pattern videos
-* **Watson Studio**: Master the art of data science with IBM's [Watson Studio](https://dataplatform.ibm.com/)
+* **Watson Studio**: Master the art of data science with IBM's [Watson Studio](https://dataplatform.cloud.ibm.com/)
 * **Deep Learning with Watson Studio**: Design and deploy deep learning models using neural networks, easily scale to
 hundreds of training runs. Learn more at [Deep Learning with Watson Studio](https://www.ibm.com/cloud/deep-learning).
 
 # License
-This code pattern is licensed under the Apache Software License, Version 2.  Separate third party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1 (DCO)](https://developercertificate.org/) and the [Apache Software License, Version 2](http://www.apache.org/licenses/LICENSE-2.0.txt).
+This code pattern is licensed under the Apache Software License, Version 2.  Separate third party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1 (DCO)](https://developercertificate.org/) and the [Apache Software License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
-[Apache Software License (ASL) FAQ](http://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN)
+[Apache Software License (ASL) FAQ](https://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN)
