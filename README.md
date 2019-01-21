@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.org/IBM/MAX-Image-Segmenter-Web-App.svg?branch=master)](https://travis-ci.org/IBM/MAX-Image-Segmenter-Web-App)
+[![Build Status](https://travis-ci.org/IBM/MAX-Image-Segmenter-Web-App.svg?branch=master)](https://travis-ci.org/IBM/MAX-Image-Segmenter-Web-App)
 
 # MAX Image Segmenter Web App: Magic Cropping Tool
 
@@ -85,7 +85,7 @@ Go to `http://localhost:5000` to load it. From there you can explore the API and
 
 First, clone this repo with the command:
 ```bash
-$ git clone https://github.com/IBM/MAX-Image-Segmenter-Web-App.git
+$ git clone https://github.com/IBM/MAX-Image-Segmenter-Web-App
 $ cd MAX-Image-Segmenter-Web-App
 ```
 
