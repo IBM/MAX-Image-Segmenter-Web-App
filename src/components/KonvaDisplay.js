@@ -49,7 +49,7 @@ export default class KonvaDisplay extends Component {
 }
 
   downloadStage = () => {  
-    const dataURL = this.stageRef._stage.toDataURL()
+    const dataURL = this.stageRef.toDataURL()
     this.downloadURI(dataURL, 'MAX-Studio.png')
   }
 

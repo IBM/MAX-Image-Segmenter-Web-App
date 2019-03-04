@@ -99,15 +99,15 @@ const displaySelectControls = (props, image) => {
   if (props.selectedImage === image.id) {
     return (
       <div className="controlPanel">
-        <a className="cpbtn delete" onClick={ () => props.deleteImage(image) }>
+        <span className="cpbtn delete" onClick={ () => props.deleteImage(image) }>
         <Glyphicon glyph="trash" /> 
-        </a>
-        <a className="cpbtn studio" onClick={ () => props.loadIntoStudio(image, 'one') }>
+        </span>
+        <span className="cpbtn studio" onClick={ () => props.loadIntoStudio(image, 'one') }>
         <Glyphicon glyph="arrow-left" /> Studio 
-        </a>
-        <a className="cpbtn studio" onClick={ () => props.loadIntoStudio(image, 'two') }>
+        </span>
+        <span className="cpbtn studio" onClick={ () => props.loadIntoStudio(image, 'two') }>
         Studio <Glyphicon glyph="arrow-right" /> 
-        </a>
+        </span>
       </div>
     )
   }
