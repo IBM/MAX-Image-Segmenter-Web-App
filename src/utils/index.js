@@ -1,4 +1,5 @@
 import {} from 'dotenv/config'
+import * as tf from '@tensorflow/tfjs'
 import axios from 'axios'
 import PouchDB from 'pouchdb'
 import { saveAs } from 'file-saver'
@@ -8,6 +9,10 @@ const KUBE_MODEL_IP = process.env.REACT_APP_KUBE_IP || ''
 const KUBE_MODEL_PORT = process.env.REACT_APP_KUBE_MODEL_PORT || ''
 const LOCAL_MODEL_PORT = process.env.REACT_APP_LOCAL_MODEL_PORT || 5000
 const DEPLOY_TYPE = process.env.REACT_APP_DEPLOY_TYPE || ''
+const MODEL_PATH = 'https://raw.githubusercontent.com/kastentx/tfjs-conversion/master/second-try/tensorflowjs_model.pb'
+const WEIGHTS_PATH = 'https://raw.githubusercontent.com/kastentx/tfjs-conversion/master/second-try/weights_manifest.json'
+
+export const loadTFJSModel = () => tf.loadFrozenModel(MODEL_PATH, WEIGHTS_PATH)
 
 export const MAX_SIZE = process.env.REACT_APP_DEPLOY_TYPE || 513
 
@@ -175,6 +180,27 @@ export const cleanMAXResponse = (imgName, response) => {
       segMap: response.data.seg_map,
       flatSegMap: flatSegMap,
       imageName: imgName
+    }
+  }
+}
+
+export const cleanTFJSResponse = (image, modelOutput) => {
+  const objIDs = [...new Set(modelOutput)] // eslint-disable-next-line
+  const objPixels = modelOutput.reduce((a, b) => (a[OBJ_LIST[b]] = ++a[OBJ_LIST[b]] || 1, a), {})
+  const objTypes = objIDs.map(x => OBJ_LIST[x])
+  return {
+    foundSegments: objTypes.concat('colormap'),
+    response: {
+      size: {
+        width: image.width,
+        height: image.height,
+        pixels: image.height * image.width
+      },
+      objectTypes: objTypes,
+      objectIDs: objIDs,
+      objectPixels: objPixels,
+      flatSegMap: modelOutput,
+      imageName: image.name
     }
   }
 }
