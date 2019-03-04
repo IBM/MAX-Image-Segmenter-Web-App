@@ -14,7 +14,7 @@ const WEIGHTS_PATH = 'https://raw.githubusercontent.com/kastentx/tfjs-conversion
 
 export const loadTFJSModel = () => tf.loadFrozenModel(MODEL_PATH, WEIGHTS_PATH)
 
-export const MAX_SIZE = process.env.REACT_APP_DEPLOY_TYPE || 513
+export const MAX_SIZE = process.env.REACT_APP_MAX_SIZE || 513
 
 export const OBJ_LIST = ['background', 'airplane', 'bicycle', 'bird', 'boat', 
 'bottle', 'bus', 'car', 'cat', 'chair', 'cow', 'dining table', 
