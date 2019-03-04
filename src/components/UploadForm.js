@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import * as tf from '@tensorflow/tfjs'
-import { cleanTFJSResponse, OBJ_MAP, getColor, getScaledSize, isNonEmpty, loadTFJSModel } from '../utils'
+import { getPrediction, cleanMAXResponse, OBJ_MAP, getColor, getScaledSize, isNonEmpty } from '../utils'
 import '../styles/UploadForm.css'
 
 export default class UploadForm extends Component {
@@ -9,8 +8,7 @@ export default class UploadForm extends Component {
     this.uploadRef = React.createRef()
   }
 
-  receiveUpload = async () => {
-    const model = await loadTFJSModel()
+  receiveUpload = () => {
     const fileObj = this.uploadRef.current.files[0]
     if (fileObj) {
       const imageURL = window.URL.createObjectURL(fileObj)
@@ -34,15 +32,11 @@ export default class UploadForm extends Component {
           width: scaledWidth,
           urls: { 
             source: canvas.toDataURL() 
-          },
-          tensor: tf.fromPixels(canvas).expandDims()
+          }
         }
         this.props.setAppPreviewImg(newImage)
         try {
-          const modelOutput = model.predict(newImage.tensor)
-          const MAXData = cleanTFJSResponse(newImage, 
-            Array.from(modelOutput.dataSync())
-          )
+          const MAXData = cleanMAXResponse(newImage.name, await getPrediction(fileObj))
           const MAXImage = { 
             ...newImage, 
             foundSegments: MAXData.foundSegments 
@@ -50,7 +44,6 @@ export default class UploadForm extends Component {
           this.mapNeededURLs({ ...newImage, ...MAXData })
           this.props.setAppImageData(MAXImage)
         } catch (e) {
-          console.log(e)
           console.error('error saving MAX Image data in parent state')
           this.props.handleCrash()
         }       

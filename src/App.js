@@ -9,7 +9,7 @@ import TextOutput from './components/TextOutput'
 import LoadedStudioImage from './components/LoadedStudioImage'
 import ImageCarousel from './components/ImageCarousel'
 import Footer from './components/Footer'
-import { cleanDocs, getAllDocs, saveToPouch, deleteAllImages, isEmpty, isNonEmpty, getSingleImage, deleteSingleImage, loadTFJSModel } from './utils'
+import { cleanDocs, getAllDocs, saveToPouch, deleteAllImages, isEmpty, isNonEmpty, getSingleImage, deleteSingleImage } from './utils'
 import './styles/App.css'
 
 export default class App extends Component {
@@ -31,8 +31,7 @@ export default class App extends Component {
 
   componentDidMount = async () => {
     this.setState({
-      savedImages: cleanDocs(await getAllDocs()),
-      TFModel: await loadTFJSModel()
+      savedImages: cleanDocs(await getAllDocs())
     })
   }
 
@@ -227,7 +226,6 @@ export default class App extends Component {
               previewImg={ this.state.previewImg } />
           :
             <UploadForm 
-              model={ this.state.TFmodel }
               studio={ this.state.studio }
               canvas={ this.canvasRef.current }
               addSegURL={ this.addSegURL }
