@@ -3,13 +3,13 @@ version: '3.5'
 services:
   max-cropping-tool:
     container_name: max-image-segmenter-web-app
-    image: codait/max-image-segmenter-web-app
+    image: quay.io/codait/max-image-segmenter-web-app
     ports:
       - '3000:3000'
 
   max-model:
     container_name: max-image-segmenter
-    image: codait/max-image-segmenter
+    image: quay.io/codait/max-image-segmenter
     ports:
       - '5000:5000'
     environment:
