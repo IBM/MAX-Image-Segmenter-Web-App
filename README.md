@@ -69,7 +69,7 @@ See the [Docker install docs](https://docs.docker.com/install/) for more informa
 
 Use the following command to start the MAX microservice:
 ```bash
-$ docker run -it -p 5000:5000 -e CORS_ENABLE=true codait/max-image-segmenter
+$ docker run -it -p 5000:5000 -e CORS_ENABLE=true quay.io/codait/max-image-segmenter
 ```
 
 Leave this window open and perform the following steps in a new terminal window.
@@ -105,7 +105,7 @@ Open your browser and navigate to `http://localhost:3000` to view the app.
 
 Start the app with the command:
 ```bash
-$ docker run -it -p 3000:3000 codait/max-image-segmenter-web-app
+$ docker run -it -p 3000:3000 quay.io/codait/max-image-segmenter-web-app
 ```
 
 Open your browser and navigate to `http://localhost:3000` to view the app.
